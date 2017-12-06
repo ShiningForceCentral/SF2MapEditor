@@ -8,6 +8,8 @@ package com.sfc.sf2.map.gui;
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.MapArea;
+import com.sfc.sf2.map.MapFlagCopy;
+import com.sfc.sf2.map.MapStepCopy;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
@@ -75,10 +77,14 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private boolean drawInteractionFlags = false;
     private boolean drawGrid = false;
     private boolean drawAreas = false;
+    private boolean drawFlagCopies = false;
+    private boolean drawStepCopies = false;
     private boolean drawActionFlags = false;
     
     private BufferedImage gridImage;
     private BufferedImage areasImage;
+    private BufferedImage flagCopiesImage;
+    private BufferedImage stepCopiesImage;
     private BufferedImage obstructedImage;
     private BufferedImage leftUpstairsImage;
     private BufferedImage rightUpstairsImage;
@@ -208,11 +214,53 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             if(drawAreas){
                 graphics.drawImage(getAreasImage(),0,0,null);
             }
+            if(drawFlagCopies){
+                graphics.drawImage(getFlagCopiesImage(),0,0,null);
+            }
+            if(drawStepCopies){
+                graphics.drawImage(getStepCopiesImage(),0,0,null);
+            }
             redraw = false;
             currentImage = resize(currentImage);
         }
                   
         return currentImage;
+    }
+    
+    private BufferedImage getFlagCopiesImage(){
+        if(flagCopiesImage==null){
+            flagCopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) flagCopiesImage.getGraphics();
+            g2.setStroke(new BasicStroke(3));
+            for(MapFlagCopy flagCopy : map.getFlagCopies()){ 
+                g2.setColor(Color.CYAN);
+                int width = flagCopy.getWidth();
+                int heigth = flagCopy.getHeight();
+                g2.drawRect(flagCopy.getSourceX()*24 + 3,flagCopy.getSourceY()*24+3, width*24-6, heigth*24-6);
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.drawRect(flagCopy.getDestX()*24 + 3, flagCopy.getDestY()*24+3, width*24-6, heigth*24-6);
+            }
+        }
+        return flagCopiesImage;
+    }
+    
+    private BufferedImage getStepCopiesImage(){
+        if(stepCopiesImage==null){
+            stepCopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) stepCopiesImage.getGraphics();
+            g2.setStroke(new BasicStroke(3));
+            for(MapStepCopy stepCopy : map.getStepCopies()){ 
+                g2.setColor(Color.WHITE);
+                g2.drawRect(stepCopy.getTriggerX()*24,stepCopy.getTriggerY()*24, 24, 24);
+                g2.setColor(Color.CYAN);
+                int width = stepCopy.getWidth();
+                int heigth = stepCopy.getHeight();
+                g2.drawRect(stepCopy.getSourceX()*24 + 3,stepCopy.getSourceY()*24+3, width*24-6, heigth*24-6);
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.drawRect(stepCopy.getDestX()*24 + 3, stepCopy.getDestY()*24+3, width*24-6, heigth*24-6);
+            }
+        }
+        return stepCopiesImage;
     }
     
     private BufferedImage getAreasImage(){
@@ -853,6 +901,33 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     public void setMap(Map map) {
         this.map = map;
     }
+
+    public boolean isDrawFlagCopies() {
+        return drawFlagCopies;
+    }
+
+    public void setDrawFlagCopies(boolean drawFlagCopies) {
+        this.drawFlagCopies = drawFlagCopies;
+        this.redraw = true;
+    }
     
+    public void updateFlagCopyDisplay(){
+        flagCopiesImage = null;
+        this.redraw = true;
+    }
+
+    public boolean isDrawStepCopies() {
+        return drawStepCopies;
+    }
+
+    public void setDrawStepCopies(boolean drawStepCopies) {
+        this.drawStepCopies = drawStepCopies;
+        this.redraw = true;
+    }
+    
+    public void updateStepCopyDisplay(){
+        stepCopiesImage = null;
+        this.redraw = true;
+    }
     
 }

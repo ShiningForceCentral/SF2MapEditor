@@ -6,6 +6,8 @@
 package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.map.MapArea;
+import com.sfc.sf2.map.MapFlagCopy;
+import com.sfc.sf2.map.MapStepCopy;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -146,4 +148,141 @@ public class DisassemblyManager {
         return areaBytes;
     }
     
+    
+    public static MapFlagCopy[] importFlagCopies(String flagCopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importFlagCopies() - Importing disassembly ...");
+        MapFlagCopy[] flagCopies = null;
+        try {
+            int cursor = 0;
+            Path flagcopiespath = Paths.get(flagCopiesPath);
+            byte[] data = Files.readAllBytes(flagcopiespath);
+            List<MapFlagCopy> flagCopyList = new ArrayList();
+            while(true){
+                int destX = getNextWord(data, cursor);
+                if(destX == -1 || (cursor+8) > data.length){
+                    break;
+                }
+                MapFlagCopy flagCopy = new MapFlagCopy();
+                flagCopy.setFlag(getNextWord(data,cursor+0));
+                flagCopy.setSourceX(data[cursor+2]);
+                flagCopy.setSourceY(data[cursor+3]);
+                flagCopy.setWidth(data[cursor+4]);
+                flagCopy.setHeight(data[cursor+5]);
+                flagCopy.setDestX(data[cursor+6]);
+                flagCopy.setDestY(data[cursor+7]);
+                flagCopyList.add(flagCopy);
+                cursor += 8;
+            }
+            
+            flagCopies = new MapFlagCopy[flagCopyList.size()];
+            flagCopies = flagCopyList.toArray(flagCopies);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importFlagCopies() - Disassembly imported.");  
+        return flagCopies;
+    }
+    
+    public static void exportFlagCopies(MapFlagCopy[] flagCopies, String flagCopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportFlagCopies() - Exporting disassembly ...");
+        try { 
+            byte[] flagCopyBytes = produceFlagCopyBytes(flagCopies);
+            Path flagCopyFilepath = Paths.get(flagCopiesPath);
+            Files.write(flagCopyFilepath,flagCopyBytes);
+            System.out.println(flagCopyBytes.length + " bytes into " + flagCopyFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportFlagCopies() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceFlagCopyBytes(MapFlagCopy[] flagCopies){
+        byte[] flagCopyBytes = new byte[flagCopies.length*8+2];
+        for(int i=0;i<flagCopies.length;i++){
+            MapFlagCopy flagCopy = flagCopies[i];
+            flagCopyBytes[i*8] = (byte)((flagCopy.getFlag()&0xFF00)>>8);
+            flagCopyBytes[i*8+1] = (byte)(flagCopy.getFlag()&0xFF);
+            flagCopyBytes[i*8+2] = (byte)flagCopy.getSourceX();
+            flagCopyBytes[i*8+3] = (byte)flagCopy.getSourceY();
+            flagCopyBytes[i*8+4] = (byte)flagCopy.getWidth();
+            flagCopyBytes[i*8+5] = (byte)flagCopy.getHeight();
+            flagCopyBytes[i*8+6] = (byte)flagCopy.getDestX();
+            flagCopyBytes[i*8+7] = (byte)flagCopy.getDestY();
+        }
+        flagCopyBytes[flagCopyBytes.length-2] = -1;
+        flagCopyBytes[flagCopyBytes.length-1] = -1;
+        return flagCopyBytes;
+    }      
+    
+    public static MapStepCopy[] importStepCopies(String stepCopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importStepCopies() - Importing disassembly ...");
+        MapStepCopy[] stepCopies = null;
+        try {
+            int cursor = 0;
+            Path stepcopiespath = Paths.get(stepCopiesPath);
+            byte[] data = Files.readAllBytes(stepcopiespath);
+            List<MapStepCopy> stepCopyList = new ArrayList();
+            while(true){
+                int triggerX = data[cursor];
+                if(triggerX == -1 || (cursor+8) > data.length){
+                    break;
+                }
+                MapStepCopy stepCopy = new MapStepCopy();
+                stepCopy.setTriggerX(data[cursor]);
+                stepCopy.setTriggerY(data[cursor+1]);
+                stepCopy.setSourceX(data[cursor+2]);
+                stepCopy.setSourceY(data[cursor+3]);
+                stepCopy.setWidth(data[cursor+4]);
+                stepCopy.setHeight(data[cursor+5]);
+                stepCopy.setDestX(data[cursor+6]);
+                stepCopy.setDestY(data[cursor+7]);
+                stepCopyList.add(stepCopy);
+                cursor += 8;
+            }
+            
+            stepCopies = new MapStepCopy[stepCopyList.size()];
+            stepCopies = stepCopyList.toArray(stepCopies);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importStepCopies() - Disassembly imported.");  
+        return stepCopies;
+    }
+    
+    public static void exportStepCopies(MapStepCopy[] stepCopies, String stepCopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportStepCopies() - Exporting disassembly ...");
+        try { 
+            byte[] stepCopyBytes = produceStepCopyBytes(stepCopies);
+            Path stepCopyFilepath = Paths.get(stepCopiesPath);
+            Files.write(stepCopyFilepath,stepCopyBytes);
+            System.out.println(stepCopyBytes.length + " bytes into " + stepCopyFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportStepCopies() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceStepCopyBytes(MapStepCopy[] stepCopies){
+        byte[] stepCopyBytes = new byte[stepCopies.length*8+2];
+        for(int i=0;i<stepCopies.length;i++){
+            MapStepCopy stepCopy = stepCopies[i];
+            stepCopyBytes[i*8] = (byte)stepCopy.getTriggerX();
+            stepCopyBytes[i*8+1] = (byte)stepCopy.getTriggerY();
+            stepCopyBytes[i*8+2] = (byte)stepCopy.getSourceX();
+            stepCopyBytes[i*8+3] = (byte)stepCopy.getSourceY();
+            stepCopyBytes[i*8+4] = (byte)stepCopy.getWidth();
+            stepCopyBytes[i*8+5] = (byte)stepCopy.getHeight();
+            stepCopyBytes[i*8+6] = (byte)stepCopy.getDestX();
+            stepCopyBytes[i*8+7] = (byte)stepCopy.getDestY();
+        }
+        stepCopyBytes[stepCopyBytes.length-2] = -1;
+        stepCopyBytes[stepCopyBytes.length-1] = -1;
+        return stepCopyBytes;
+    }      
 }

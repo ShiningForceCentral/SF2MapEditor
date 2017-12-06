@@ -16,6 +16,8 @@ public class Map {
     private MapBlock[] blocks;
     private MapLayout layout;
     private MapArea[] areas;
+    private MapFlagCopy[] flagCopies;
+    private MapStepCopy[] stepCopies;
     
     public MapBlock[] getBlocks() {
         return blocks;
@@ -41,6 +43,27 @@ public class Map {
         this.areas = areas;
     }
 
+    public MapFlagCopy[] getFlagCopies() {
+        return flagCopies;
+    }
 
+    public void setFlagCopies(MapFlagCopy[] flagCopies) {
+        this.flagCopies = flagCopies;
+    }
+
+    public MapStepCopy[] getStepCopies() {
+        return stepCopies;
+    }
+
+    public void setStepCopies(MapStepCopy[] stepCopies) {
+        this.stepCopies = stepCopies;
+    }
+
+    public void setActionFlag(int x, int y, int value){
+        MapBlock block = this.layout.getBlocks()[y*64+x];
+        int origFlags = block.getFlags();
+        int newFlags = (origFlags & 0xC000) + (value & 0x3FFF);
+        block.setFlags(newFlags);
+    }
     
 }
