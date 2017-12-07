@@ -9,7 +9,9 @@ import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.MapArea;
 import com.sfc.sf2.map.MapFlagCopy;
+import com.sfc.sf2.map.MapLayer2Copy;
 import com.sfc.sf2.map.MapStepCopy;
+import com.sfc.sf2.map.MapWarp;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
@@ -79,12 +81,16 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private boolean drawAreas = false;
     private boolean drawFlagCopies = false;
     private boolean drawStepCopies = false;
+    private boolean drawLayer2Copies = false;
+    private boolean drawWarps = false;
     private boolean drawActionFlags = false;
     
     private BufferedImage gridImage;
     private BufferedImage areasImage;
     private BufferedImage flagCopiesImage;
     private BufferedImage stepCopiesImage;
+    private BufferedImage layer2CopiesImage;
+    private BufferedImage warpsImage;
     private BufferedImage obstructedImage;
     private BufferedImage leftUpstairsImage;
     private BufferedImage rightUpstairsImage;
@@ -220,6 +226,12 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             if(drawStepCopies){
                 graphics.drawImage(getStepCopiesImage(),0,0,null);
             }
+            if(drawLayer2Copies){
+                graphics.drawImage(getLayer2CopiesImage(),0,0,null);
+            }
+            if(drawWarps){
+                graphics.drawImage(getWarpsImage(),0,0,null);
+            }
             redraw = false;
             currentImage = resize(currentImage);
         }
@@ -261,6 +273,68 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             }
         }
         return stepCopiesImage;
+    }
+    
+    private BufferedImage getLayer2CopiesImage(){
+        if(layer2CopiesImage==null){
+            layer2CopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) layer2CopiesImage.getGraphics();
+            g2.setStroke(new BasicStroke(3));
+            for(MapLayer2Copy layer2Copy : map.getLayer2Copies()){ 
+                g2.setColor(Color.WHITE);
+                g2.drawRect(layer2Copy.getTriggerX()*24,layer2Copy.getTriggerY()*24, 24, 24);
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.drawRect(layer2Copy.getTriggerX()*24,(layer2Copy.getTriggerY()+1)*24, 24, 24);
+                g2.setColor(Color.CYAN);
+                int width = layer2Copy.getWidth();
+                int heigth = layer2Copy.getHeight();
+                if(layer2Copy.getSourceX()>=0 && layer2Copy.getSourceX()<64 && layer2Copy.getSourceY()>=0 && layer2Copy.getSourceY()<64){
+                    g2.drawRect(layer2Copy.getSourceX()*24 + 3,layer2Copy.getSourceY()*24+3, width*24-6, heigth*24-6);
+                }
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.drawRect(layer2Copy.getDestX()*24 + 3, layer2Copy.getDestY()*24+3, width*24-6, heigth*24-6);
+            }
+        }
+        return layer2CopiesImage;
+    }
+    
+    private BufferedImage getWarpsImage(){
+        if(warpsImage==null){
+            warpsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) warpsImage.getGraphics();
+            g2.setStroke(new BasicStroke(3));
+            for(MapWarp warp : map.getWarps()){ 
+                g2.setColor(Color.CYAN);
+                if(warp.getTriggerX()==-1){
+                    MapArea mainArea = map.getAreas()[0];
+                    int startX = mainArea.getLayer1StartX();
+                    int endX = mainArea.getLayer1EndX();
+                    MapBlock[] layout = map.getLayout().getBlocks();
+                    int y = warp.getTriggerY();
+                    for(int x=startX;x<=endX;x++){
+                        int flags = layout[y*64+x].getFlags();
+                        if((flags&0xC000)!=0xC000){
+                            g2.drawRect(x*24,y*24, 24, 24);
+                        }
+                    }
+                }else if(warp.getTriggerY()==-1){
+                    MapArea mainArea = map.getAreas()[0];
+                    int startY = mainArea.getLayer1StartY();
+                    int endY = mainArea.getLayer1EndY();
+                    MapBlock[] layout = map.getLayout().getBlocks();
+                    int x = warp.getTriggerX();
+                    for(int y=startY;y<=endY;y++){
+                        int flags = layout[y*64+x].getFlags();
+                        if((flags&0xC000)!=0xC000){
+                            g2.drawRect(x*24,y*24, 24, 24);
+                        }
+                    }
+                }else{
+                    g2.drawRect(warp.getTriggerX()*24,warp.getTriggerY()*24, 24, 24);
+                }
+            }
+        }
+        return warpsImage;
     }
     
     private BufferedImage getAreasImage(){
@@ -929,5 +1003,38 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         stepCopiesImage = null;
         this.redraw = true;
     }
+
+    public boolean isDrawLayer2Copies() {
+        return drawLayer2Copies;
+    }
+
+    public void setDrawLayer2Copies(boolean drawLayer2Copies) {
+        this.drawLayer2Copies = drawLayer2Copies;
+        this.redraw = true;
+    }
+    
+    public void updateLayer2CopyDisplay(){
+        layer2CopiesImage = null;
+        this.redraw = true;
+    }
+
+    public boolean isDrawWarps() {
+        return drawWarps;
+    }
+
+    public void setDrawWarps(boolean drawWarps) {
+        this.drawWarps = drawWarps;
+        this.redraw=true;
+    }
+
+    public void setWarpsImage(BufferedImage warpsImage) {
+        this.warpsImage = warpsImage;
+    }
+    
+    public void updateWarpDisplay(){
+        warpsImage = null;
+        this.redraw = true;
+    }
+    
     
 }

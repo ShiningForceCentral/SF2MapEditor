@@ -7,7 +7,9 @@ package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.map.MapArea;
 import com.sfc.sf2.map.MapFlagCopy;
+import com.sfc.sf2.map.MapLayer2Copy;
 import com.sfc.sf2.map.MapStepCopy;
+import com.sfc.sf2.map.MapWarp;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -284,5 +286,140 @@ public class DisassemblyManager {
         stepCopyBytes[stepCopyBytes.length-2] = -1;
         stepCopyBytes[stepCopyBytes.length-1] = -1;
         return stepCopyBytes;
+    }         
+    
+    public static MapLayer2Copy[] importLayer2Copies(String layer2CopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importLayer2Copies() - Importing disassembly ...");
+        MapLayer2Copy[] layer2Copies = null;
+        try {
+            int cursor = 0;
+            Path layer2copiespath = Paths.get(layer2CopiesPath);
+            byte[] data = Files.readAllBytes(layer2copiespath);
+            List<MapLayer2Copy> layer2CopyList = new ArrayList();
+            while(true){
+                int triggerX = data[cursor];
+                if(triggerX == -1 || (cursor+8) > data.length){
+                    break;
+                }
+                MapLayer2Copy layer2Copy = new MapLayer2Copy();
+                layer2Copy.setTriggerX(data[cursor]);
+                layer2Copy.setTriggerY(data[cursor+1]);
+                layer2Copy.setSourceX(data[cursor+2]);
+                layer2Copy.setSourceY(data[cursor+3]);
+                layer2Copy.setWidth(data[cursor+4]);
+                layer2Copy.setHeight(data[cursor+5]);
+                layer2Copy.setDestX(data[cursor+6]);
+                layer2Copy.setDestY(data[cursor+7]);
+                layer2CopyList.add(layer2Copy);
+                cursor += 8;
+            }
+            
+            layer2Copies = new MapLayer2Copy[layer2CopyList.size()];
+            layer2Copies = layer2CopyList.toArray(layer2Copies);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importLayer2Copies() - Disassembly imported.");  
+        return layer2Copies;
+    }
+    
+    public static void exportLayer2Copies(MapLayer2Copy[] layer2Copies, String layer2CopiesPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportLayer2Copies() - Exporting disassembly ...");
+        try { 
+            byte[] layer2CopyBytes = produceLayer2CopyBytes(layer2Copies);
+            Path layer2CopyFilepath = Paths.get(layer2CopiesPath);
+            Files.write(layer2CopyFilepath,layer2CopyBytes);
+            System.out.println(layer2CopyBytes.length + " bytes into " + layer2CopyFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportLayer2Copies() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceLayer2CopyBytes(MapLayer2Copy[] layer2Copies){
+        byte[] layer2CopyBytes = new byte[layer2Copies.length*8+2];
+        for(int i=0;i<layer2Copies.length;i++){
+            MapLayer2Copy layer2Copy = layer2Copies[i];
+            layer2CopyBytes[i*8] = (byte)layer2Copy.getTriggerX();
+            layer2CopyBytes[i*8+1] = (byte)layer2Copy.getTriggerY();
+            layer2CopyBytes[i*8+2] = (byte)layer2Copy.getSourceX();
+            layer2CopyBytes[i*8+3] = (byte)layer2Copy.getSourceY();
+            layer2CopyBytes[i*8+4] = (byte)layer2Copy.getWidth();
+            layer2CopyBytes[i*8+5] = (byte)layer2Copy.getHeight();
+            layer2CopyBytes[i*8+6] = (byte)layer2Copy.getDestX();
+            layer2CopyBytes[i*8+7] = (byte)layer2Copy.getDestY();
+        }
+        layer2CopyBytes[layer2CopyBytes.length-2] = -1;
+        layer2CopyBytes[layer2CopyBytes.length-1] = -1;
+        return layer2CopyBytes;
+    }        
+    
+    public static MapWarp[] importWarps(String warpsPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importWarps() - Importing disassembly ...");
+        MapWarp[] warps = null;
+        try {
+            int cursor = 0;
+            Path layer2copiespath = Paths.get(warpsPath);
+            byte[] data = Files.readAllBytes(layer2copiespath);
+            List<MapWarp> warpList = new ArrayList();
+            while(true){
+                int triggerX = data[cursor];
+                int triggerY = data[cursor+1];
+                if((triggerX == -1 && triggerY==-1) || (cursor+8) > data.length){
+                    break;
+                }
+                MapWarp warp = new MapWarp();
+                warp.setTriggerX(data[cursor]);
+                warp.setTriggerY(data[cursor+1]);
+                warp.setDestMap(data[cursor+3]);
+                warp.setDestX(data[cursor+4]);
+                warp.setDestY(data[cursor+5]);
+                warp.setFacing(data[cursor+6]);
+                warpList.add(warp);
+                cursor += 8;
+            }
+            
+            warps = new MapWarp[warpList.size()];
+            warps = warpList.toArray(warps);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importWarps() - Disassembly imported.");  
+        return warps;
+    }
+    
+    public static void exportWarps(MapWarp[] warps, String warpsPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportWarps() - Exporting disassembly ...");
+        try { 
+            byte[] warpBytes = produceWarpBytes(warps);
+            Path warpFilepath = Paths.get(warpsPath);
+            Files.write(warpFilepath,warpBytes);
+            System.out.println(warpBytes.length + " bytes into " + warpFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportWarps() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceWarpBytes(MapWarp[] warps){
+        byte[] warpBytes = new byte[warps.length*8+2];
+        for(int i=0;i<warps.length;i++){
+            MapWarp warp = warps[i];
+            warpBytes[i*8] = (byte)warp.getTriggerX();
+            warpBytes[i*8+1] = (byte)warp.getTriggerY();
+            warpBytes[i*8+3] = (byte)warp.getDestMap();
+            warpBytes[i*8+4] = (byte)warp.getDestX();
+            warpBytes[i*8+5] = (byte)warp.getDestY();
+            warpBytes[i*8+6] = (byte)warp.getFacing();
+        }
+        warpBytes[warpBytes.length-2] = -1;
+        warpBytes[warpBytes.length-1] = -1;
+        return warpBytes;
     }      
 }
