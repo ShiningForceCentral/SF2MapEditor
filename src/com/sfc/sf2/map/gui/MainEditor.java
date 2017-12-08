@@ -1892,6 +1892,7 @@ public class MainEditor extends javax.swing.JFrame {
         flagCopyTableModel.updateProperties();
         stepCopyTableModel.updateProperties();
         layer2CopyTableModel.updateProperties();
+        //warpTableModel.updateProperties();
         mapManager.exportDisassembly(blocksetPath.toString(),layoutPath.toString(),areasPath.toString(),flagCopiesPath.toString(),
                 stepCopiesPath.toString(),layer2CopiesPath.toString(),warpsPath.toString());
     }//GEN-LAST:event_jButton2ActionPerformed

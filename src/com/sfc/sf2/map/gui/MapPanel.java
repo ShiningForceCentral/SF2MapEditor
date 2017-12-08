@@ -313,7 +313,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     int y = warp.getTriggerY();
                     for(int x=startX;x<=endX;x++){
                         int flags = layout[y*64+x].getFlags();
-                        if((flags&0xC000)!=0xC000){
+                        if((flags&0xC000)!=0xC000 && (flags&0x1000)==0x1000){
                             g2.drawRect(x*24,y*24, 24, 24);
                         }
                     }
@@ -325,7 +325,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     int x = warp.getTriggerX();
                     for(int y=startY;y<=endY;y++){
                         int flags = layout[y*64+x].getFlags();
-                        if((flags&0xC000)!=0xC000){
+                        if((flags&0xC000)!=0xC000 && (flags&0x1000)==0x1000){
                             g2.drawRect(x*24,y*24, 24, 24);
                         }
                     }
@@ -676,10 +676,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         setFlagValue(x, y, 0xC000);
                         break;
                     case MouseEvent.BUTTON2:
-                        setFlagValue(x, y, 0x0000);;
+                        clearFlagValue(x, y);
                         break;
                     case MouseEvent.BUTTON3:
-                        setFlagValue(x, y, 0x0000);;
+                        setFlagValue(x, y, 0x0000);
                         break;
                     default:
                         break;
@@ -691,7 +691,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         setFlagValue(x, y, 0x4000);
                         break;
                     case MouseEvent.BUTTON2:
-                        setFlagValue(x, y, 0x0000);;
+                        setFlagValue(x, y, 0x0000);
                         break;
                     case MouseEvent.BUTTON3:
                         setFlagValue(x, y, 0x8000);
@@ -819,6 +819,31 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             actions.add(action);
             redraw = true;
         }
+    }
+    
+    public void clearFlagValue(int x, int y){
+        MapBlock[] blocks = layout.getBlocks();
+        MapBlock block = blocks[y*64+x];
+        if(block.getFlags()!=0){
+            int[] action = new int[3];
+            action[0] = ACTION_CHANGE_BLOCK_FLAGS;
+            action[1] = y*64+x;
+            int origFlags = block.getFlags();
+            action[2] = origFlags;
+            int newFlags = 0;
+            block.setFlags(newFlags);
+            block.setExplorationFlagImage(null);
+            actions.add(action);
+            clearFlagImages();
+            redraw = true;
+        }
+    }
+    
+    public void clearFlagImages(){
+        flagCopiesImage = null;
+        stepCopiesImage = null;
+        layer2CopiesImage = null;
+        warpsImage = null;
     }
     
     public void revertLastAction(){

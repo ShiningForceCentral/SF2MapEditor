@@ -28,7 +28,7 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
         super();
         this.map = map;
         this.mapPanel = mapPanel;
-        tableData = new Integer[16][];
+        tableData = new Integer[64][];
         int i = 0;
         MapWarp[] warps = map.getWarps();
         if(warps!=null){
@@ -61,7 +61,7 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
                 warp.setDestMap(entry[2]);
                 warp.setDestX(entry[3]);
                 warp.setDestY(entry[4]); 
-                warp.setFacing(entry[4]);           
+                warp.setFacing(entry[5]);           
                 entries.add(warp);
                 if(warp.getTriggerX()==-1){
                     MapArea mainArea = map.getAreas()[0];
