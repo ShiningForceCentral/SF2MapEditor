@@ -20,6 +20,8 @@ public class Map {
     private MapStepCopy[] stepCopies;
     private MapLayer2Copy[] layer2Copies;
     private MapWarp[] warps;
+    private MapItem[] chestItems;
+    private MapItem[] otherItems;
     
     public MapBlock[] getBlocks() {
         return blocks;
@@ -86,6 +88,22 @@ public class Map {
 
     public void setWarps(MapWarp[] warps) {
         this.warps = warps;
+    }
+
+    public MapItem[] getChestItems() {
+        return chestItems;
+    }
+
+    public void setChestItems(MapItem[] chestItems) {
+        this.chestItems = chestItems;
+    }
+
+    public MapItem[] getOtherItems() {
+        return otherItems;
+    }
+
+    public void setOtherItems(MapItem[] otherItems) {
+        this.otherItems = otherItems;
     }
     
     

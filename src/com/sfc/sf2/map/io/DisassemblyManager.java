@@ -7,6 +7,7 @@ package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.map.MapArea;
 import com.sfc.sf2.map.MapFlagCopy;
+import com.sfc.sf2.map.MapItem;
 import com.sfc.sf2.map.MapLayer2Copy;
 import com.sfc.sf2.map.MapStepCopy;
 import com.sfc.sf2.map.MapWarp;
@@ -362,8 +363,8 @@ public class DisassemblyManager {
         MapWarp[] warps = null;
         try {
             int cursor = 0;
-            Path layer2copiespath = Paths.get(warpsPath);
-            byte[] data = Files.readAllBytes(layer2copiespath);
+            Path warpspath = Paths.get(warpsPath);
+            byte[] data = Files.readAllBytes(warpspath);
             List<MapWarp> warpList = new ArrayList();
             while(true){
                 int triggerX = data[cursor];
@@ -422,4 +423,67 @@ public class DisassemblyManager {
         warpBytes[warpBytes.length-1] = -1;
         return warpBytes;
     }      
+    
+    public static MapItem[] importItems(String itemsPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importItems() - Importing disassembly ...");
+        MapItem[] items = null;
+        try {
+            int cursor = 0;
+            Path itemspath = Paths.get(itemsPath);
+            byte[] data = Files.readAllBytes(itemspath);
+            List<MapItem> itemList = new ArrayList();
+            while(true){
+                int triggerX = data[cursor];
+                int triggerY = data[cursor+1];
+                if((triggerX == -1 && triggerY==-1) || (cursor+4) > data.length){
+                    break;
+                }
+                MapItem item = new MapItem();
+                item.setX(data[cursor]);
+                item.setY(data[cursor+1]);
+                item.setFlag(data[cursor+2]&0xFF);
+                item.setItem(data[cursor+3]&0xFF);
+                itemList.add(item);
+                cursor += 4;
+            }
+            
+            items = new MapItem[itemList.size()];
+            items = itemList.toArray(items);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importItems() - Disassembly imported.");  
+        return items;
+    }
+    
+    public static void exportItems(MapItem[] items, String itemsPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportItems() - Exporting disassembly ...");
+        try { 
+            byte[] itemBytes = produceItemBytes(items);
+            Path itemFilepath = Paths.get(itemsPath);
+            Files.write(itemFilepath,itemBytes);
+            System.out.println(itemBytes.length + " bytes into " + itemFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportItems() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceItemBytes(MapItem[] items){
+        byte[] itemBytes = new byte[items.length*8+2];
+        for(int i=0;i<items.length;i++){
+            MapItem item = items[i];
+            itemBytes[i*4] = (byte)item.getX();
+            itemBytes[i*4+1] = (byte)item.getY();
+            itemBytes[i*4+2] = (byte)item.getFlag();
+            itemBytes[i*4+3] = (byte)item.getItem();
+        }
+        itemBytes[itemBytes.length-2] = -1;
+        itemBytes[itemBytes.length-1] = -1;
+        return itemBytes;
+    }   
+    
 }

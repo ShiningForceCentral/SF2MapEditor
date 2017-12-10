@@ -25,7 +25,7 @@ public class MapManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
-    public void importDisassembly(String palettesPath, String tilesetsPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath){
+    public void importDisassembly(String palettesPath, String tilesetsPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
         mapLayoutManager.importDisassembly(palettesPath, tilesetsPath, tilesetsFilePath, blocksPath, layoutPath);
         MapLayout layout = mapLayoutManager.getLayout();
@@ -43,10 +43,14 @@ public class MapManager {
         map.setLayer2Copies(layer2Copies);
         MapWarp[] warps = DisassemblyManager.importWarps(warpsPath);
         map.setWarps(warps);
+        MapItem[] chestItems = DisassemblyManager.importItems(chestItemsPath);
+        map.setChestItems(chestItems);
+        MapItem[] otherItems = DisassemblyManager.importItems(otherItemsPath);
+        map.setOtherItems(otherItems);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void exportDisassembly(String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath){
+    public void exportDisassembly(String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Exporting disassembly ...");
         mapLayoutManager.exportDisassembly(blocksPath, layoutPath);
         DisassemblyManager.exportAreas(map.getAreas(), areasPath);
@@ -54,6 +58,8 @@ public class MapManager {
         DisassemblyManager.exportStepCopies(map.getStepCopies(), stepCopiesPath);
         DisassemblyManager.exportLayer2Copies(map.getLayer2Copies(), layer2CopiesPath);
         DisassemblyManager.exportWarps(map.getWarps(), warpsPath);
+        DisassemblyManager.exportItems(map.getChestItems(), chestItemsPath);
+        DisassemblyManager.exportItems(map.getOtherItems(), otherItemsPath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }      
     
