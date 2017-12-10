@@ -449,40 +449,23 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             Graphics2D g2 = (Graphics2D) barrelImage.getGraphics();  
             g2.setColor(Color.ORANGE);
             g2.setStroke(new BasicStroke(3));
-            g2.drawRoundRect(6, 4, 12, 16, 8, 8);
+            //g2.drawRoundRect(6, 4, 12, 16, 8, 8);
+            g2.drawOval(6, 4, 12, 16);
         }
         return barrelImage;
     } 
     
     private BufferedImage getVaseImage(){
-        if(rightUpstairsImage==null){
-            rightUpstairsImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) rightUpstairsImage.getGraphics();  
-            g2.setColor(Color.BLUE);
-            Line2D line0 = new Line2D.Double(3-1, 21, 21-1, 3);
-            Line2D line1 = new Line2D.Double(3, 21, 21, 3);
-            Line2D line2 = new Line2D.Double(3+1, 21, 21+1, 3);
-            g2.draw(line0);
-            g2.draw(line1);
-            g2.draw(line2);
+        if(vaseImage==null){
+            vaseImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) vaseImage.getGraphics(); 
+            g2.setColor(Color.WHITE);
+            g2.setStroke(new BasicStroke(3));
+            //g2.drawRoundRect(6, 4, 12, 16, 8, 8);
+            g2.drawOval(6, 4, 12, 16);
         }
-        return rightUpstairsImage;
-    } 
-    
-    private BufferedImage getSearchImage(){
-        if(rightUpstairsImage==null){
-            rightUpstairsImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) rightUpstairsImage.getGraphics();  
-            g2.setColor(Color.BLUE);
-            Line2D line0 = new Line2D.Double(3-1, 21, 21-1, 3);
-            Line2D line1 = new Line2D.Double(3, 21, 21, 3);
-            Line2D line2 = new Line2D.Double(3+1, 21, 21+1, 3);
-            g2.draw(line0);
-            g2.draw(line1);
-            g2.draw(line2);
-        }
-        return rightUpstairsImage;
-    } 
+        return vaseImage;
+    }
     
     private IndexColorModel buildIndexColorModel(Color[] colors){
         byte[] reds = new byte[16];

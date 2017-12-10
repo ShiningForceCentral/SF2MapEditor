@@ -5,6 +5,8 @@
  */
 package com.sfc.sf2.map.io;
 
+import com.sfc.sf2.map.MapAnimation;
+import com.sfc.sf2.map.MapAnimationFrame;
 import com.sfc.sf2.map.MapArea;
 import com.sfc.sf2.map.MapFlagCopy;
 import com.sfc.sf2.map.MapItem;
@@ -484,6 +486,81 @@ public class DisassemblyManager {
         itemBytes[itemBytes.length-2] = -1;
         itemBytes[itemBytes.length-1] = -1;
         return itemBytes;
+    }       
+    
+    public static MapAnimation importAnimation(String animationPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importAnimation() - Importing disassembly ...");
+        MapAnimation anim = new MapAnimation();
+        try {
+            MapAnimationFrame[] frames = null;
+            int cursor = 0;
+            Path animpath = Paths.get(animationPath);
+            byte[] data = Files.readAllBytes(animpath);
+            anim.setTileset(getNextWord(data,cursor+0));
+            anim.setLength(getNextWord(data,cursor+2));
+            cursor = 4;
+            List<MapAnimationFrame> frameList = new ArrayList();
+            while(true){
+                int start = getNextWord(data,cursor+0);
+                if(start == -1 || (cursor+8) > data.length){
+                    break;
+                }
+                MapAnimationFrame frame = new MapAnimationFrame();
+                frame.setStart(getNextWord(data,cursor+0));
+                frame.setLength(getNextWord(data,cursor+2));
+                frame.setDest(getNextWord(data,cursor+4));
+                frame.setDelay(getNextWord(data,cursor+6));
+                frameList.add(frame);
+                cursor += 8;
+            }
+            
+            frames = new MapAnimationFrame[frameList.size()];
+            frames = frameList.toArray(frames);
+            
+            anim.setFrames(frames);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importAnimation() - Disassembly imported.");  
+        return anim;
+    }
+    
+    public static void exportAnimation(MapAnimation animation, String animationPath){
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportAnimation() - Exporting disassembly ...");
+        try { 
+            byte[] animBytes = produceAnimBytes(animation);
+            Path animFilepath = Paths.get(animationPath);
+            Files.write(animFilepath,animBytes);
+            System.out.println(animBytes.length + " bytes into " + animFilepath);
+        } catch (Exception ex) {
+            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportAnimation() - Disassembly exported.");     
+    }
+    
+    private static byte[] produceAnimBytes(MapAnimation anim){
+        byte[] animBytes = new byte[anim.getFrames().length*8+6];
+        animBytes[0] = (byte)((anim.getTileset()&0xFF00)>>8);
+        animBytes[1] = (byte)(anim.getTileset()&0xFF);
+        animBytes[2] = (byte)((anim.getLength()&0xFF00)>>8);
+        animBytes[3] = (byte)(anim.getLength()&0xFF);
+        for(int i=0;i<anim.getFrames().length;i++){
+            MapAnimationFrame frame = anim.getFrames()[i];
+            animBytes[i*8] = (byte)((frame.getStart()&0xFF00)>>8);
+            animBytes[i*8+1] = (byte)((frame.getStart()&0xFF));
+            animBytes[i*8+2] = (byte)((frame.getLength()&0xFF00)>>8);
+            animBytes[i*8+3] = (byte)((frame.getLength()&0xFF));
+            animBytes[i*8+4] = (byte)((frame.getDest()&0xFF00)>>8);
+            animBytes[i*8+5] = (byte)((frame.getDest()&0xFF));
+            animBytes[i*8+6] = (byte)((frame.getDelay()&0xFF00)>>8);
+            animBytes[i*8+7] = (byte)((frame.getDelay()&0xFF));
+        }
+        animBytes[animBytes.length-2] = -1;
+        animBytes[animBytes.length-1] = -1;
+        return animBytes;
     }   
     
 }

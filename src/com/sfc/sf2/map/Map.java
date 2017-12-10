@@ -22,6 +22,7 @@ public class Map {
     private MapWarp[] warps;
     private MapItem[] chestItems;
     private MapItem[] otherItems;
+    private MapAnimation animation;
     
     public MapBlock[] getBlocks() {
         return blocks;
@@ -104,6 +105,14 @@ public class Map {
 
     public void setOtherItems(MapItem[] otherItems) {
         this.otherItems = otherItems;
+    }
+
+    public MapAnimation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(MapAnimation animation) {
+        this.animation = animation;
     }
     
     

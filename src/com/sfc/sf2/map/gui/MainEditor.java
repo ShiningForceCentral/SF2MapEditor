@@ -30,6 +30,7 @@ import javax.swing.JTextArea;
 public class MainEditor extends javax.swing.JFrame {
     
     MapManager mapManager = new MapManager();
+    Map map = null;
     MapPanel mapPanel = null;
     MapBlockLayout mapblockLayout = null;
     MapFlagCopyPropertiesTableModel flagCopyTableModel;
@@ -38,6 +39,7 @@ public class MainEditor extends javax.swing.JFrame {
     MapWarpPropertiesTableModel warpTableModel;
     MapChestItemPropertiesTableModel chestItemTableModel;
     MapOtherItemPropertiesTableModel otherItemTableModel;
+    MapAnimationFramePropertiesTableModel animFrameTableModel;
     
     /**
      * Creates new form NewApplication
@@ -140,6 +142,10 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel23 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jSpinner2 = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        jSpinner3 = new javax.swing.JSpinner();
         jPanel12 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -869,11 +875,11 @@ public class MainEditor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Trigger X", "Trigger Y", "Source X", "Source Y", "Width", "Height", "Dest X", "Dest Y"
+                "Start", "Length", "Dest", "Delay"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -882,15 +888,51 @@ public class MainEditor extends javax.swing.JFrame {
         });
         jScrollPane13.setViewportView(jTable8);
 
+        jLabel8.setText("Tileset :");
+
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 256, 1));
+        jSpinner2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner2StateChanged(evt);
+            }
+        });
+
+        jLabel9.setText("Tileset length :");
+
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 128, 1));
+        jSpinner3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner3StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Anims", jPanel23);
@@ -1045,7 +1087,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\entries\\map03\\");
+        jTextField24.setText(".\\entries\\map03\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1977,12 +2019,20 @@ public class MainEditor extends javax.swing.JFrame {
             otherItemsPath = oiPath;
         }        
         System.out.println(otherItemsPath.toString());
+        Path aPath = Paths.get(jTextField39.getText());
+        Path animPath;
+        if(!aPath.isAbsolute()){
+           animPath = basePath.resolve(aPath).normalize();
+        }else{
+            animPath = aPath;
+        }        
+        System.out.println(animPath.toString());
         flagCopyTableModel.updateProperties();
         stepCopyTableModel.updateProperties();
         layer2CopyTableModel.updateProperties();
         //warpTableModel.updateProperties();
         mapManager.exportDisassembly(blocksetPath.toString(),layoutPath.toString(),areasPath.toString(),flagCopiesPath.toString(),
-                stepCopiesPath.toString(),layer2CopiesPath.toString(),warpsPath.toString(), chestItemsPath.toString(), otherItemsPath.toString());
+                stepCopiesPath.toString(),layer2CopiesPath.toString(),warpsPath.toString(), chestItemsPath.toString(), otherItemsPath.toString(), animPath.toString());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -2078,12 +2128,20 @@ public class MainEditor extends javax.swing.JFrame {
             otherItemsPath = oiPath;
         }        
         System.out.println(otherItemsPath.toString());
+        Path aPath = Paths.get(jTextField31.getText());
+        Path animPath;
+        if(!aPath.isAbsolute()){
+           animPath = basePath.resolve(aPath).normalize();
+        }else{
+            animPath = aPath;
+        }        
+        System.out.println(animPath.toString());
         
         mapManager.importDisassembly(jTextField21.getText(),jTextField22.getText(),tilesetsPath.toString(),blocksetPath.toString(),layoutPath.toString(),
                 areasPath.toString(), flagCopiesPath.toString(), stepCopiesPath.toString(), layer2CopiesPath.toString(), warpsPath.toString(),
-                chestItemsPath.toString(),otherItemsPath.toString());
+                chestItemsPath.toString(),otherItemsPath.toString(), animPath.toString());
         
-        Map map = mapManager.getMap();
+        map = mapManager.getMap();
         
         jPanel6.removeAll();       
         jPanel6.setLayout(new GridLayout(1,1));
@@ -2152,6 +2210,12 @@ public class MainEditor extends javax.swing.JFrame {
         jTable7.setModel(otherItemTableModel);
         jPanel30.validate();
         jPanel30.repaint();
+        animFrameTableModel = new MapAnimationFramePropertiesTableModel(map, mapPanel);
+        jTable8.setModel(animFrameTableModel);
+        jPanel23.validate();
+        jPanel23.repaint();
+        jSpinner2.getModel().setValue(map.getAnimation().getTileset());
+        jSpinner3.getModel().setValue(map.getAnimation().getLength());
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
@@ -2547,6 +2611,18 @@ public class MainEditor extends javax.swing.JFrame {
         mapPanel.setCurrentMode(MapPanel.MODE_TABLE);
     }//GEN-LAST:event_jRadioButton7ActionPerformed
 
+    private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
+        if(map != null){
+            map.getAnimation().setTileset((int)jSpinner2.getModel().getValue());
+        }
+    }//GEN-LAST:event_jSpinner2StateChanged
+
+    private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner3StateChanged
+        if(map != null){
+            map.getAnimation().setLength((int)jSpinner3.getModel().getValue());
+        }
+    }//GEN-LAST:event_jSpinner3StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2662,6 +2738,8 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2713,6 +2791,8 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
