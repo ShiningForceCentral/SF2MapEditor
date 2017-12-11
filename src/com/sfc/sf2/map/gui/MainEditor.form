@@ -141,7 +141,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="721" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="711" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -223,10 +223,10 @@
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTabbedPane2" min="-2" pref="600" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jPanel12" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1236,15 +1236,14 @@
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jCheckBox10" min="-2" max="-2" attributes="0"/>
                                                       </Group>
+                                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" attributes="0">
                                                       <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -1269,10 +1268,7 @@
                                                   <Component id="jCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jCheckBox6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jCheckBox10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -1366,14 +1362,6 @@
                                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox8ActionPerformed"/>
                                       </Events>
                                     </Component>
-                                    <Component class="javax.swing.JCheckBox" name="jCheckBox10">
-                                      <Properties>
-                                        <Property name="text" type="java.lang.String" value="Animations"/>
-                                      </Properties>
-                                      <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox10ActionPerformed"/>
-                                      </Events>
-                                    </Component>
                                   </SubComponents>
                                 </Container>
                               </SubComponents>
@@ -1410,7 +1398,7 @@
                                               <Component id="jButton31" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTabbedPane1" pref="702" max="32767" attributes="0"/>
+                                          <Component id="jTabbedPane1" pref="692" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1652,7 +1640,7 @@
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="214" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="204" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -2119,7 +2107,7 @@
                                                   <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="292" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="282" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -2402,7 +2390,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="23" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="32" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -2447,7 +2435,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane4" alignment="0" pref="23" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" pref="32" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -2473,7 +2461,7 @@
                             </Property>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="Base directory works for both import and export features.&#xa;&#xa;- Blockset panel : &#xa;        Left-Click or Right-Click to copy block graphics from blockset.&#xa;- Map panel :&#xa;        - Block mode :&#xa;                - Left-Click or Right-Click to apply copied block.&#xa;                - Middle-Click to copy map block graphics AND exploration flags.&#xa;                  Then apply with left click.&#xa;                - Middle-Click drag and release to copy rectangular zone.&#xa;                  Then use left click to apply.&#xa;        - Exploration flags mode :&#xa;                - Obstructed block flag : &#xa;                                Left click to make block obstructed.&#xa;                                Middle and right clicks to remove flag.&#xa;                - Stairs flags :&#xa;                                Left click for upstairs going left.&#xa;                                Right click for upstairs going right.&#xa;                                Middle click to remove flag.&#xa;&#xa;This tool only takes care of exploration flags. &#xa;Action flags are ignored and left as is for other specific tools to handle them.&#xa;&#xa;Random notes :&#xa;- Edit disasm\u005cdata\u005cmaps\u005centries\u005cmapentries.asm to update bin file include directives if needed.&#xa;- Some maps use another map&apos;s assets, like map 24 using map 23&apos;s blockset and layout.&#xa;Use relative paths : &quot;..\u005cmap23\u005c0-blocks.bin&quot;, &quot;..\u005cmap23\u005c1-layout.bin&quot;, etc.&#xa;" containsInvalidXMLChars="true"/>
+                            <Property name="text" type="java.lang.String" value="Base directory works for both import and export features.&#xa;&#xa;- Blockset panel : &#xa;        Left-Click or Right-Click to copy block graphics from blockset.&#xa;- Map panel :&#xa;        - Block mode :&#xa;                - Left-Click or Right-Click to apply copied block.&#xa;                - Middle-Click to copy map block graphics AND exploration flags.&#xa;                  Then apply with left click.&#xa;                - Middle-Click drag and release to copy rectangular zone.&#xa;                  Then use left click to apply from upper-left corner.&#xa;        - Exploration flags mode :&#xa;                - Obstructed block flag : &#xa;                                Left click to make block obstructed.&#xa;                                Right click to remove flag.&#xa;                                Middle click to clear all flags from block.&#xa;                - Stairs flags :&#xa;                                Left click for upstairs going left.&#xa;                                Right click to remove flag.&#xa;                                Middle click to clear all flags from block.&#xa;&#x9;- Action flags mode : &#xa;&#x9;&#x9;- Warp flag :&#xa;                                Left click to make block trigger a warp.&#xa;                                Right click to remove flag.&#xa;                                Middle click to clear all flags from block.&#xa;&#x9;&#x9;- Barrel/Vase/Table flag :&#xa;                                Left click to apply flag on block.&#xa;                                Right click to remove flag.&#xa;                                Middle click to clear all flags from block.&#xa;                                &#xa;&#xa;Random notes :&#xa;- Edit disasm\u005cdata\u005cmaps\u005centries\u005cmapentries.asm to update bin file include directives if needed.&#xa;- Some maps use another map&apos;s assets, like map 24 using map 23&apos;s blockset and layout.&#xa;Use relative paths : &quot;..\u005cmap23\u005c0-blocks.bin&quot;, &quot;..\u005cmap23\u005c1-layout.bin&quot;, etc." containsInvalidXMLChars="true"/>
                             <Property name="autoscrolls" type="boolean" value="false"/>
                           </Properties>
                         </Component>

@@ -549,14 +549,14 @@ public class DisassemblyManager {
         animBytes[3] = (byte)(anim.getLength()&0xFF);
         for(int i=0;i<anim.getFrames().length;i++){
             MapAnimationFrame frame = anim.getFrames()[i];
-            animBytes[i*8] = (byte)((frame.getStart()&0xFF00)>>8);
-            animBytes[i*8+1] = (byte)((frame.getStart()&0xFF));
-            animBytes[i*8+2] = (byte)((frame.getLength()&0xFF00)>>8);
-            animBytes[i*8+3] = (byte)((frame.getLength()&0xFF));
-            animBytes[i*8+4] = (byte)((frame.getDest()&0xFF00)>>8);
-            animBytes[i*8+5] = (byte)((frame.getDest()&0xFF));
-            animBytes[i*8+6] = (byte)((frame.getDelay()&0xFF00)>>8);
-            animBytes[i*8+7] = (byte)((frame.getDelay()&0xFF));
+            animBytes[4+i*8] = (byte)((frame.getStart()&0xFF00)>>8);
+            animBytes[4+i*8+1] = (byte)((frame.getStart()&0xFF));
+            animBytes[4+i*8+2] = (byte)((frame.getLength()&0xFF00)>>8);
+            animBytes[4+i*8+3] = (byte)((frame.getLength()&0xFF));
+            animBytes[4+i*8+4] = (byte)((frame.getDest()&0xFF00)>>8);
+            animBytes[4+i*8+5] = (byte)((frame.getDest()&0xFF));
+            animBytes[4+i*8+6] = (byte)((frame.getDelay()&0xFF00)>>8);
+            animBytes[4+i*8+7] = (byte)((frame.getDelay()&0xFF));
         }
         animBytes[animBytes.length-2] = -1;
         animBytes[animBytes.length-1] = -1;

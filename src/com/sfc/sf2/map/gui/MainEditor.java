@@ -157,7 +157,6 @@ public class MainEditor extends javax.swing.JFrame {
         jCheckBox6 = new javax.swing.JCheckBox();
         jCheckBox7 = new javax.swing.JCheckBox();
         jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jTextField24 = new javax.swing.JTextField();
@@ -284,7 +283,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1005,13 +1004,6 @@ public class MainEditor extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox10.setText("Animations");
-        jCheckBox10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox10ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -1035,12 +1027,11 @@ public class MainEditor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox8)
-                            .addComponent(jCheckBox7)
-                            .addComponent(jCheckBox10)))
+                            .addComponent(jCheckBox7))
+                        .addGap(26, 26, 26))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1060,9 +1051,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jCheckBox8)
                     .addComponent(jCheckBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox10)))
+                .addComponent(jCheckBox6))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1077,10 +1066,10 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jSplitPane4.setRightComponent(jPanel11);
@@ -1481,7 +1470,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(214, Short.MAX_VALUE))
+                    .addContainerGap(204, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1787,7 +1776,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton2)
-                    .addContainerGap(292, Short.MAX_VALUE))
+                    .addContainerGap(282, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Export", jPanel5);
@@ -1815,7 +1804,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jLabel26)
                         .addComponent(jButton31))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
             );
 
             jSplitPane4.setLeftComponent(jPanel9);
@@ -1868,7 +1857,7 @@ public class MainEditor extends javax.swing.JFrame {
             );
             jPanel7Layout.setVerticalGroup(
                 jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
             );
 
             jSplitPane3.setBottomComponent(jPanel7);
@@ -1882,7 +1871,7 @@ public class MainEditor extends javax.swing.JFrame {
             jTextArea2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 13)); // NOI18N
             jTextArea2.setLineWrap(true);
             jTextArea2.setRows(5);
-            jTextArea2.setText("Base directory works for both import and export features.\n\n- Blockset panel : \n        Left-Click or Right-Click to copy block graphics from blockset.\n- Map panel :\n        - Block mode :\n                - Left-Click or Right-Click to apply copied block.\n                - Middle-Click to copy map block graphics AND exploration flags.\n                  Then apply with left click.\n                - Middle-Click drag and release to copy rectangular zone.\n                  Then use left click to apply.\n        - Exploration flags mode :\n                - Obstructed block flag : \n                                Left click to make block obstructed.\n                                Middle and right clicks to remove flag.\n                - Stairs flags :\n                                Left click for upstairs going left.\n                                Right click for upstairs going right.\n                                Middle click to remove flag.\n\nThis tool only takes care of exploration flags. \nAction flags are ignored and left as is for other specific tools to handle them.\n\nRandom notes :\n- Edit disasm\\data\\maps\\entries\\mapentries.asm to update bin file include directives if needed.\n- Some maps use another map's assets, like map 24 using map 23's blockset and layout.\nUse relative paths : \"..\\map23\\0-blocks.bin\", \"..\\map23\\1-layout.bin\", etc.\n");
+            jTextArea2.setText("Base directory works for both import and export features.\n\n- Blockset panel : \n        Left-Click or Right-Click to copy block graphics from blockset.\n- Map panel :\n        - Block mode :\n                - Left-Click or Right-Click to apply copied block.\n                - Middle-Click to copy map block graphics AND exploration flags.\n                  Then apply with left click.\n                - Middle-Click drag and release to copy rectangular zone.\n                  Then use left click to apply from upper-left corner.\n        - Exploration flags mode :\n                - Obstructed block flag : \n                                Left click to make block obstructed.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                - Stairs flags :\n                                Left click for upstairs going left.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t- Action flags mode : \n\t\t- Warp flag :\n                                Left click to make block trigger a warp.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t\t- Barrel/Vase/Table flag :\n                                Left click to apply flag on block.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                                \n\nRandom notes :\n- Edit disasm\\data\\maps\\entries\\mapentries.asm to update bin file include directives if needed.\n- Some maps use another map's assets, like map 24 using map 23's blockset and layout.\nUse relative paths : \"..\\map23\\0-blocks.bin\", \"..\\map23\\1-layout.bin\", etc.");
             jTextArea2.setAutoscrolls(false);
             jScrollPane4.setViewportView(jTextArea2);
 
@@ -1894,7 +1883,7 @@ public class MainEditor extends javax.swing.JFrame {
             );
             jPanel20Layout.setVerticalGroup(
                 jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
             );
 
             jSplitPane3.setLeftComponent(jPanel20);
@@ -2591,10 +2580,6 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
-    private void jCheckBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox10ActionPerformed
-
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         mapPanel.setCurrentMode(MapPanel.MODE_WARP);
     }//GEN-LAST:event_jRadioButton4ActionPerformed
@@ -2695,7 +2680,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton46;
     private javax.swing.JButton jButton47;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
