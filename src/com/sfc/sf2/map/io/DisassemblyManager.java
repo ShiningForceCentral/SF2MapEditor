@@ -475,7 +475,7 @@ public class DisassemblyManager {
     }
     
     private static byte[] produceItemBytes(MapItem[] items){
-        byte[] itemBytes = new byte[items.length*8+2];
+        byte[] itemBytes = new byte[items.length*4+2];
         for(int i=0;i<items.length;i++){
             MapItem item = items[i];
             itemBytes[i*4] = (byte)item.getX();

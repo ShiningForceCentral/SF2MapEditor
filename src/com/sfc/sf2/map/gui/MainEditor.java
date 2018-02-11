@@ -565,7 +565,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, 121, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -1138,7 +1138,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palettes path :");
 
-            jTextField21.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\mappalettes\\mappalette");
+            jTextField21.setText("..\\graphics\\maps\\mappalettes\\mappalette");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1154,7 +1154,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tilesets path :");
 
-            jTextField22.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\maptilesets\\maptileset");
+            jTextField22.setText("..\\graphics\\maps\\maptilesets\\maptileset");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);
