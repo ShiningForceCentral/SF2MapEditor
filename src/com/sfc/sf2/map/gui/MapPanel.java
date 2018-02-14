@@ -53,6 +53,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     public static final int MODE_BARREL = 4;
     public static final int MODE_VASE = 5;
     public static final int MODE_TABLE = 6;
+    public static final int MODE_TRIGGER = 7;
     
     BlockSlotPanel leftSlot = null;
     
@@ -81,6 +82,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private boolean drawLayer2Copies = false;
     private boolean drawWarps = false;
     private boolean drawItems = false;
+    private boolean drawTriggers = false;
     private boolean drawActionFlags = false;
     
     private BufferedImage gridImage;
@@ -97,7 +99,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private BufferedImage chestImage;
     private BufferedImage barrelImage;
     private BufferedImage vaseImage;
-    private BufferedImage searchImage;
+    private BufferedImage triggersImage;
 
     public MapPanel() {
         addMouseListener(this);
@@ -130,7 +132,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             Color[] palette = blocks[0].getTiles()[0].getPalette();
             palette[0] = new Color(255, 255, 255, 0);
             IndexColorModel icm = buildIndexColorModel(palette);
-            currentImage = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_BYTE_INDEXED, icm);
+            currentImage = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_INT_ARGB);
             Graphics graphics = currentImage.getGraphics();            
             for(int y=0;y<64;y++){
                 for(int x=0;x<64;x++){
@@ -198,6 +200,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             }
             if(drawItems){
                 graphics.drawImage(getItemsImage(),0,0,null);
+            }
+            if(drawTriggers){
+                graphics.drawImage(getTriggersImage(),0,0,null);
             }
             redraw = false;
             currentImage = resize(currentImage);
@@ -346,7 +351,27 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 
         }
         return itemsImage;
-    }    
+    } 
+        
+    private BufferedImage getTriggersImage(){
+        if(triggersImage==null){
+            triggersImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) triggersImage.getGraphics();
+            g2.setStroke(new BasicStroke(3));
+            g2.setColor(Color.GREEN);
+            for(int y=0;y<64;y++){
+                for(int x=0;x<64;x++){
+                    MapBlock block = map.getLayout().getBlocks()[y*64+x];
+                    int itemFlag = block.getFlags()&0x3C00;
+                    if(itemFlag==0x1400){
+                        g2.drawRect(x*24,y*24, 24, 24);
+                    }
+                }
+            }           
+
+        }
+        return triggersImage;
+    }  
     
     private BufferedImage getAreasImage(){
         if(areasImage==null){
@@ -705,6 +730,27 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     case MouseEvent.BUTTON3:
                         map.setActionFlag(x, y, 0x0000);
                         this.itemsImage = null;
+                        this.redraw = true;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case MODE_TRIGGER :
+                switch (e.getButton()) {
+                    case MouseEvent.BUTTON1:
+                        map.setActionFlag(x, y, 0x1400);
+                        this.triggersImage = null;
+                        this.redraw = true;
+                        break;
+                    case MouseEvent.BUTTON2:
+                        clearFlagValue(x, y);
+                        this.triggersImage = null;
+                        this.redraw = true;
+                        break;
+                    case MouseEvent.BUTTON3:
+                        map.setActionFlag(x, y, 0x0000);
+                        this.triggersImage = null;
                         this.redraw = true;
                         break;
                     default:
@@ -1088,6 +1134,19 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 
     public void setItemsImage(BufferedImage itemsImage) {
         this.itemsImage = itemsImage;
+    }
+
+    public boolean isDrawTriggers() {
+        return drawTriggers;
+    }
+
+    public void setDrawTriggers(boolean drawTriggers) {
+        this.drawTriggers = drawTriggers;
+        this.redraw = true;
+    }
+
+    public void setTriggersImage(BufferedImage triggersImage) {
+        this.triggersImage = triggersImage;
     }
     
     
