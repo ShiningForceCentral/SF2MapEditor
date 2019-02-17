@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.ConsoleHandler;
@@ -45,16 +46,20 @@ public class MainEditor extends javax.swing.JFrame {
      * Creates new form NewApplication
      */
     public MainEditor() {
-        initComponents();
-        initConsole(jTextArea1);
-        System.setProperty("java.util.logging.SimpleFormatter.format", 
-            "%2$s - %5$s%6$s%n");        
-        initLogger("com.sfc.sf2.graphics", Level.WARNING);        
-        File workingDirectory = new File(MainEditor.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        System.setProperty("user.dir", workingDirectory.getParent());
-        jFileChooser1.setCurrentDirectory(workingDirectory);
-        jFileChooser2.setCurrentDirectory(workingDirectory); 
-        jTextArea2.setCaretPosition(0);
+        try {
+            initComponents();
+            initConsole(jTextArea1);
+            System.setProperty("java.util.logging.SimpleFormatter.format",
+                    "%2$s - %5$s%6$s%n");
+            initLogger("com.sfc.sf2.graphics", Level.WARNING);
+            File workingDirectory = new File(MainEditor.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            System.setProperty("user.dir", workingDirectory.toString());
+            jFileChooser1.setCurrentDirectory(workingDirectory);
+            jFileChooser2.setCurrentDirectory(workingDirectory);
+            jTextArea2.setCaretPosition(0);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void initLogger(String name, Level level){
@@ -533,9 +538,9 @@ public class MainEditor extends javax.swing.JFrame {
                 .addComponent(jRadioButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jRadioButton8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -961,7 +966,6 @@ public class MainEditor extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setSelected(true);
         jCheckBox1.setText("Exploration Flags");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1100,7 +1104,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\entries\\map03\\");
+        jTextField24.setText(".\\entries\\map03\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1162,7 +1166,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palettes path :");
 
-            jTextField21.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\mappalettes\\mappalette");
+            jTextField21.setText("..\\graphics\\maps\\mappalettes\\mappalette");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1178,7 +1182,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tilesets path :");
 
-            jTextField22.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\maptilesets\\maptileset");
+            jTextField22.setText("..\\graphics\\maps\\maptilesets\\maptileset");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);

@@ -412,7 +412,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         if(obstructedImage==null){
             obstructedImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) obstructedImage.getGraphics();  
-            g2.setColor(Color.WHITE);
+            g2.setColor(Color.RED);
             Line2D line1 = new Line2D.Double(6, 6, 18, 18);
             g2.draw(line1);
             Line2D line2 = new Line2D.Double(6, 18, 18, 6);
@@ -923,6 +923,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         MapBlock block = layout.getBlocks()[action[1]];
                         block.setFlags(action[2]);               
                         block.setExplorationFlagImage(null);
+                        block.setInteractionFlagImage(null);
                         actions.remove(actions.size()-1);
                         redraw = true;
                         this.repaint();
