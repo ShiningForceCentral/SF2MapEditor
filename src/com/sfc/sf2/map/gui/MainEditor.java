@@ -244,6 +244,13 @@ public class MainEditor extends javax.swing.JFrame {
         jTextField40 = new javax.swing.JTextField();
         jButton47 = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jTextField41 = new javax.swing.JTextField();
+        jButton48 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1508,7 +1515,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel16.setText("Blocks :");
 
-            jTextField14.setText("0-newblocks.bin");
+            jTextField14.setText("0-blocks.bin");
             jTextField14.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField14ActionPerformed(evt);
@@ -1533,7 +1540,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel22.setText("Layout :");
 
-            jTextField15.setText("1-newlayout.bin");
+            jTextField15.setText("1-layout.bin");
             jTextField15.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField15ActionPerformed(evt);
@@ -1547,7 +1554,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField33.setText("7-newchest-items.bin");
+            jTextField33.setText("7-chest-items.bin");
             jTextField33.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField33ActionPerformed(evt);
@@ -1565,7 +1572,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField34.setText("2-newareas.bin");
+            jTextField34.setText("2-areas.bin");
             jTextField34.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField34ActionPerformed(evt);
@@ -1583,7 +1590,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField35.setText("3-newflag-events.bin");
+            jTextField35.setText("3-flag-events.bin");
             jTextField35.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField35ActionPerformed(evt);
@@ -1611,7 +1618,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField36.setText("4-newstep-events.bin");
+            jTextField36.setText("4-step-events.bin");
             jTextField36.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField36ActionPerformed(evt);
@@ -1627,7 +1634,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField37.setText("6-newwarp-events.bin");
+            jTextField37.setText("6-warp-events.bin");
             jTextField37.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField37ActionPerformed(evt);
@@ -1641,14 +1648,14 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField38.setText("8-newother-items.bin");
+            jTextField38.setText("8-other-items.bin");
             jTextField38.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField38ActionPerformed(evt);
                 }
             });
 
-            jTextField39.setText("9-newanimations.bin");
+            jTextField39.setText("9-animations.bin");
             jTextField39.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField39ActionPerformed(evt);
@@ -1659,7 +1666,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel41.setText("Items :");
 
-            jTextField40.setText("5-newroof-events.bin");
+            jTextField40.setText("5-roof-events.bin");
             jTextField40.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField40ActionPerformed(evt);
@@ -1809,6 +1816,80 @@ public class MainEditor extends javax.swing.JFrame {
 
             jTabbedPane1.addTab("Export", jPanel5);
 
+            jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder("Export"));
+
+            jLabel43.setText("Animations :");
+
+            jTextField41.setText("mapexport.png");
+            jTextField41.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jTextField41ActionPerformed(evt);
+                }
+            });
+
+            jButton48.setText("File...");
+            jButton48.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton48ActionPerformed(evt);
+                }
+            });
+
+            jLabel10.setText("<html>Select new target file.</html>");
+
+            jButton3.setText("Export");
+            jButton3.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton3ActionPerformed(evt);
+                }
+            });
+
+            javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+            jPanel33.setLayout(jPanel33Layout);
+            jPanel33Layout.setHorizontalGroup(
+                jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel33Layout.createSequentialGroup()
+                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel33Layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(jLabel43)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField41, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton48))
+                        .addGroup(jPanel33Layout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3)))
+                    .addContainerGap())
+            );
+            jPanel33Layout.setVerticalGroup(
+                jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel33Layout.createSequentialGroup()
+                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel43)
+                        .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton48))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)))
+            );
+
+            javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+            jPanel32.setLayout(jPanel32Layout);
+            jPanel32Layout.setHorizontalGroup(
+                jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+            jPanel32Layout.setVerticalGroup(
+                jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel32Layout.createSequentialGroup()
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 567, Short.MAX_VALUE))
+            );
+
+            jTabbedPane1.addTab("PNG", jPanel32);
+
             javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
             jPanel9.setLayout(jPanel9Layout);
             jPanel9Layout.setHorizontalGroup(
@@ -1832,7 +1913,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jLabel26)
                         .addComponent(jButton31))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
             );
 
             jSplitPane4.setLeftComponent(jPanel9);
@@ -2325,9 +2406,9 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField21ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        int returnVal = jFileChooser1.showOpenDialog(this);
+        int returnVal = jFileChooser2.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
+            File file = jFileChooser2.getSelectedFile();
             jTextField21.setText(file.getAbsolutePath());
         }
     }//GEN-LAST:event_jButton28ActionPerformed
@@ -2345,9 +2426,9 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField22ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        int returnVal = jFileChooser1.showOpenDialog(this);
+        int returnVal = jFileChooser2.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
+            File file = jFileChooser2.getSelectedFile();
             jTextField22.setText(file.getAbsolutePath());
         }
     }//GEN-LAST:event_jButton29ActionPerformed
@@ -2649,6 +2730,43 @@ public class MainEditor extends javax.swing.JFrame {
         mapPanel.setCurrentMode(MapPanel.MODE_TRIGGER);
     }//GEN-LAST:event_jRadioButton8ActionPerformed
 
+    private void jTextField41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField41ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField41ActionPerformed
+
+    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            jTextField41.setText(file.getAbsolutePath());
+        }
+    }//GEN-LAST:event_jButton48ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String toolDir = System.getProperty("user.dir");
+        Path toolPath = Paths.get(toolDir);
+        
+        String mapPath = jTextField24.getText();
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
+        }
+        //Path basePath = Paths.get(mapPath).toAbsolutePath();
+        System.out.println(toolPath.toString());
+        Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
+        System.out.println(basePath.toString());
+        Path pPath = Paths.get(jTextField41.getText());
+        Path pngPath;
+        if(!pPath.isAbsolute()){
+           pngPath = basePath.resolve(pPath).normalize();
+        }else{
+            pngPath = pPath;
+        }
+        System.out.println(pngPath.toString());
+        
+        mapManager.exportPng(mapPanel, pngPath.toString());
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2702,6 +2820,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
@@ -2720,6 +2839,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton45;
     private javax.swing.JButton jButton46;
     private javax.swing.JButton jButton47;
+    private javax.swing.JButton jButton48;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -2734,6 +2854,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -2761,6 +2882,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2791,6 +2913,8 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2862,6 +2986,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField38;
     private javax.swing.JTextField jTextField39;
     private javax.swing.JTextField jTextField40;
+    private javax.swing.JTextField jTextField41;
     // End of variables declaration//GEN-END:variables
 
 

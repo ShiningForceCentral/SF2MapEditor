@@ -6,6 +6,7 @@
 package com.sfc.sf2.map;
 
 import com.sfc.sf2.map.block.MapBlock;
+import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
 import com.sfc.sf2.map.io.PngManager;
 import com.sfc.sf2.map.layout.MapLayout;
@@ -61,9 +62,9 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }      
     
-    public void exportPng(String filepath){
+    public void exportPng(MapPanel mapPanel, String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        PngManager.exportPng(map, filepath);
+        PngManager.exportPng(mapPanel, filepath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
 
