@@ -18,6 +18,7 @@ public class MapFlagCopy {
     private int height;
     private int destX;
     private int destY;
+    private String comment;
 
     public int getFlag() {
         return flag;
@@ -73,6 +74,14 @@ public class MapFlagCopy {
 
     public void setDestY(int destY) {
         this.destY = destY;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
   

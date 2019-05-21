@@ -5,6 +5,7 @@
  */
 package com.sfc.sf2.map;
 
+import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
@@ -39,12 +40,12 @@ public class MapManager {
         map.setLayer2Copies(layer2Copies);
         MapWarp[] warps = DisassemblyManager.importWarps(warpsPath);
         map.setWarps(warps);
-        MapItem[] chestItems = DisassemblyManager.importItems(chestItemsPath);
+        MapItem[] chestItems = DisassemblyManager.importChestItems(chestItemsPath);
         map.setChestItems(chestItems);
-        MapItem[] otherItems = DisassemblyManager.importItems(otherItemsPath);
+        MapItem[] otherItems = DisassemblyManager.importOtherItems(otherItemsPath);
         map.setOtherItems(otherItems);
         MapAnimation animation = DisassemblyManager.importAnimation(animationsPath);
-        map.setAnimation(animation);
+        map.setAnimation(animation);        
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
@@ -56,8 +57,8 @@ public class MapManager {
         DisassemblyManager.exportStepCopies(map.getStepCopies(), stepCopiesPath);
         DisassemblyManager.exportLayer2Copies(map.getLayer2Copies(), layer2CopiesPath);
         DisassemblyManager.exportWarps(map.getWarps(), warpsPath);
-        DisassemblyManager.exportItems(map.getChestItems(), chestItemsPath);
-        DisassemblyManager.exportItems(map.getOtherItems(), otherItemsPath);
+        DisassemblyManager.exportChestItems(map.getChestItems(), chestItemsPath);
+        DisassemblyManager.exportOtherItems(map.getOtherItems(), otherItemsPath);
         DisassemblyManager.exportAnimation(map.getAnimation(), animationsPath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }      

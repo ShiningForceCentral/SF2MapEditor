@@ -1778,7 +1778,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField23">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="00-tilesets.bin"/>
+                                            <Property name="text" type="java.lang.String" value="00-tilesets.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField23ActionPerformed"/>
@@ -1794,7 +1794,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField25">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="4-step-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="4-step-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField25ActionPerformed"/>
@@ -1815,7 +1815,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField26">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="3-flag-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="3-flag-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField26ActionPerformed"/>
@@ -1844,7 +1844,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField27">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="2-areas.bin"/>
+                                            <Property name="text" type="java.lang.String" value="2-areas.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField27ActionPerformed"/>
@@ -1857,7 +1857,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField28">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="7-chest-items.bin"/>
+                                            <Property name="text" type="java.lang.String" value="7-chest-items.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
@@ -1878,7 +1878,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField29">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="6-warp-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="6-warp-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
@@ -1907,7 +1907,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField30">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="5-roof-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="5-roof-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField30ActionPerformed"/>
@@ -1920,7 +1920,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField31">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="9-animations.bin"/>
+                                            <Property name="text" type="java.lang.String" value="9-animations.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField31ActionPerformed"/>
@@ -1941,7 +1941,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField32">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="8-other-items.bin"/>
+                                            <Property name="text" type="java.lang.String" value="8-other-items.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField32ActionPerformed"/>
@@ -2198,7 +2198,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField33">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="7-chest-items.bin"/>
+                                            <Property name="text" type="java.lang.String" value="7-chest-items.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField33ActionPerformed"/>
@@ -2224,7 +2224,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField34">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="2-areas.bin"/>
+                                            <Property name="text" type="java.lang.String" value="2-areas.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField34ActionPerformed"/>
@@ -2250,7 +2250,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField35">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="3-flag-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="3-flag-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField35ActionPerformed"/>
@@ -2282,7 +2282,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField36">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="4-step-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="4-step-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField36ActionPerformed"/>
@@ -2303,7 +2303,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField37">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="6-warp-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="6-warp-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField37ActionPerformed"/>
@@ -2319,7 +2319,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField38">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="8-other-items.bin"/>
+                                            <Property name="text" type="java.lang.String" value="8-other-items.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField38ActionPerformed"/>
@@ -2327,7 +2327,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField39">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="9-animations.bin"/>
+                                            <Property name="text" type="java.lang.String" value="9-animations.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField39ActionPerformed"/>
@@ -2345,7 +2345,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField40">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="5-roof-events.bin"/>
+                                            <Property name="text" type="java.lang.String" value="5-roof-events.asm"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField40ActionPerformed"/>

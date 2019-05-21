@@ -1205,7 +1205,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel25.setText("Tilesets :");
 
-            jTextField23.setText("00-tilesets.bin");
+            jTextField23.setText("00-tilesets.asm");
             jTextField23.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField23ActionPerformed(evt);
@@ -1219,7 +1219,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField25.setText("4-step-events.bin");
+            jTextField25.setText("4-step-events.asm");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -1235,7 +1235,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField26.setText("3-flag-events.bin");
+            jTextField26.setText("3-flag-events.asm");
             jTextField26.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField26ActionPerformed(evt);
@@ -1258,7 +1258,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField27.setText("2-areas.bin");
+            jTextField27.setText("2-areas.asm");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField27ActionPerformed(evt);
@@ -1267,7 +1267,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Flag events :");
 
-            jTextField28.setText("7-chest-items.bin");
+            jTextField28.setText("7-chest-items.asm");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1283,7 +1283,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField29.setText("6-warp-events.bin");
+            jTextField29.setText("6-warp-events.asm");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField29ActionPerformed(evt);
@@ -1306,7 +1306,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField30.setText("5-roof-events.bin");
+            jTextField30.setText("5-roof-events.asm");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField30ActionPerformed(evt);
@@ -1315,7 +1315,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel32.setText("Warps :");
 
-            jTextField31.setText("9-animations.bin");
+            jTextField31.setText("9-animations.asm");
             jTextField31.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField31ActionPerformed(evt);
@@ -1331,7 +1331,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField32.setText("8-other-items.bin");
+            jTextField32.setText("8-other-items.asm");
             jTextField32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField32ActionPerformed(evt);
@@ -1554,7 +1554,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField33.setText("7-chest-items.bin");
+            jTextField33.setText("7-chest-items.asm");
             jTextField33.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField33ActionPerformed(evt);
@@ -1572,7 +1572,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField34.setText("2-areas.bin");
+            jTextField34.setText("2-areas.asm");
             jTextField34.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField34ActionPerformed(evt);
@@ -1590,7 +1590,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField35.setText("3-flag-events.bin");
+            jTextField35.setText("3-flag-events.asm");
             jTextField35.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField35ActionPerformed(evt);
@@ -1618,7 +1618,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField36.setText("4-step-events.bin");
+            jTextField36.setText("4-step-events.asm");
             jTextField36.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField36ActionPerformed(evt);
@@ -1634,7 +1634,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField37.setText("6-warp-events.bin");
+            jTextField37.setText("6-warp-events.asm");
             jTextField37.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField37ActionPerformed(evt);
@@ -1648,14 +1648,14 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField38.setText("8-other-items.bin");
+            jTextField38.setText("8-other-items.asm");
             jTextField38.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField38ActionPerformed(evt);
                 }
             });
 
-            jTextField39.setText("9-animations.bin");
+            jTextField39.setText("9-animations.asm");
             jTextField39.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField39ActionPerformed(evt);
@@ -1666,7 +1666,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel41.setText("Items :");
 
-            jTextField40.setText("5-roof-events.bin");
+            jTextField40.setText("5-roof-events.asm");
             jTextField40.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField40ActionPerformed(evt);

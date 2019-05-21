@@ -5,6 +5,8 @@
  */
 package com.sfc.sf2.map;
 
+import com.sfc.sf2.graphics.Tile;
+
 /**
  *
  * @author wiz
@@ -12,6 +14,7 @@ package com.sfc.sf2.map;
 public class MapAnimation {
     
     private int tileset;
+    private Tile[] tiles;
     private int length;
     private MapAnimationFrame[] frames;
 
@@ -21,6 +24,14 @@ public class MapAnimation {
 
     public void setTileset(int tileset) {
         this.tileset = tileset;
+    }
+
+    public Tile[] getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(Tile[] tiles) {
+        this.tiles = tiles;
     }
 
     public int getLength() {
