@@ -126,6 +126,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         System.out.println("Map render "+renderCounter);
         this.map = map;
         this.layout = map.getLayout();
+        if(pngExport){
+            redraw = true;
+        }
         if(redraw){
             MapBlock[] blocks = layout.getBlocks();
             int imageHeight = 64*3*8;
@@ -141,7 +144,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     BufferedImage explorationFlagImage = block.getExplorationFlagImage();
                     BufferedImage interactionFlagImage = block.getInteractionFlagImage();
                     if(blockImage==null){
-                        blockImage = new BufferedImage(3*8, 3*8 , BufferedImage.TYPE_BYTE_INDEXED, icm);
+                        blockImage = new BufferedImage(3*8, 3*8 , BufferedImage.TYPE_BYTE_BINARY, icm);
                         Graphics blockGraphics = blockImage.getGraphics();                    
                         blockGraphics.drawImage(block.getTiles()[0].getImage(), 0*8, 0*8, null);
                         blockGraphics.drawImage(block.getTiles()[1].getImage(), 1*8, 0*8, null);
@@ -204,8 +207,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             if(drawTriggers){
                 graphics.drawImage(getTriggersImage(),0,0,null);
             }
-            redraw = false;
-            currentImage = resize(currentImage);
+            if(!pngExport){
+                currentImage = resize(currentImage);
+                redraw = false;
+            }
         }
                   
         return currentImage;

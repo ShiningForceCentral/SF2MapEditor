@@ -7,11 +7,13 @@ package com.sfc.sf2.map;
 
 import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.map.block.MapBlock;
+import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
 import com.sfc.sf2.map.io.PngManager;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
+import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
 
 /**
  *
@@ -63,9 +65,27 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }      
     
-    public void exportPng(MapPanel mapPanel, String filepath){
+    public void exportPngMap(MapPanel mapPanel, String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        PngManager.exportPng(mapPanel, filepath);
+        PngManager.exportPngMap(mapPanel, filepath);
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
+    }   
+    
+    public void exportPngBlockset(MapBlockLayout mapblockLayout, String filepath){
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
+        PngManager.exportPngBlockset(mapblockLayout, filepath);
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
+    }  
+    
+    public void exportPngMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
+        MapLayoutLayout mapLayout = new MapLayoutLayout();
+        mapLayout.setMapLayout(mapPanel.getMapLayout());
+        mapLayout.setBlockset(mapPanel.getBlockset());
+        mapLayout.setDrawGrid(false);
+        mapLayout.setDrawExplorationFlags(false);
+        mapLayout.setDrawInteractionFlags(false);
+        PngManager.exportPngMapLayout(mapLayout, filepath, hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
 
