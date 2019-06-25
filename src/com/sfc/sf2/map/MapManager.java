@@ -10,6 +10,7 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
+import com.sfc.sf2.map.io.GifManager;
 import com.sfc.sf2.map.io.PngManager;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
@@ -85,8 +86,20 @@ public class MapManager {
         mapLayout.setDrawGrid(false);
         mapLayout.setDrawExplorationFlags(false);
         mapLayout.setDrawInteractionFlags(false);
-        PngManager.exportPngMapLayout(mapLayout, filepath, hpTilesPath);
+        PngManager.exportPngMapLayout(mapPanel, filepath, hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
+    }
+    
+    public void exportGifMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting GIF ...");
+        MapLayoutLayout mapLayout = new MapLayoutLayout();
+        mapLayout.setMapLayout(mapPanel.getMapLayout());
+        mapLayout.setBlockset(mapPanel.getBlockset());
+        mapLayout.setDrawGrid(false);
+        mapLayout.setDrawExplorationFlags(false);
+        mapLayout.setDrawInteractionFlags(false);
+        GifManager.exportGifMapLayout(mapPanel, filepath, hpTilesPath);
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - GIF exported.");       
     }
 
     public Map getMap() {

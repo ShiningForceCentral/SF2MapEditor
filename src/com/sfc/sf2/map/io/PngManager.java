@@ -45,8 +45,6 @@ public class PngManager {
         } catch (Exception ex) {
             Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
     }    
     
     public static void writePngMapFile(MapPanel mapPanel, String filepath){
@@ -69,8 +67,6 @@ public class PngManager {
         } catch (Exception ex) {
             Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
     }    
     
     public static void writePngBlocksetFile(MapBlockLayout mapBlockLayout, String filepath){
@@ -85,11 +81,11 @@ public class PngManager {
     }
     
 
-    public static void exportPngMapLayout(MapLayoutLayout mapLayout, String filepath, String hpTilesPath){
+    public static void exportPngMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
         try {
             System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - Exporting PNG file ...");
-            writePngMapLayoutFile(mapLayout,filepath);    
-            writeMapHpTilesFile(mapLayout,hpTilesPath);    
+            writePngMapLayoutFile(mapPanel,filepath);    
+            writeMapHpTilesFile(mapPanel.getMap().getLayout(),hpTilesPath);    
             System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - PNG file exported.");
         } catch (Exception ex) {
             Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,9 +94,9 @@ public class PngManager {
                 
     }    
     
-    public static void writePngMapLayoutFile(MapLayoutLayout mapLayout, String filepath){
+    public static void writePngMapLayoutFile(MapPanel mapPanel, String filepath){
         try {
-            BufferedImage image = mapLayout.buildImage(mapLayout.getMapLayout(),mapLayout.getTilesPerRow(),true);
+            BufferedImage image = mapPanel.buildImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
             File outputfile = new File(filepath);
             ImageIO.write(image, "png", outputfile);
             System.out.println("PNG file exported : " + outputfile.getAbsolutePath());
@@ -109,7 +105,7 @@ public class PngManager {
         }       
     }    
     
-    public static void writeMapHpTilesFile(MapLayoutLayout mapLayout, String filepath){
+    public static void writeMapHpTilesFile(MapLayout mapLayout, String filepath){
         try {
             File outputfile = new File(filepath);
             BufferedWriter bw = new BufferedWriter(new FileWriter(outputfile));
@@ -118,9 +114,9 @@ public class PngManager {
                 for(int x=0;x<64;x++){
                     int blockIndex = (y/3)*64+x;
                     //System.out.println(y+":"+x+"->"+blockIndex+"->"+(int)((y%3)*3+0)+","+(int)((y%3)*3+1)+","+(int)((y%3)*3+2));
-                    sb.append((mapLayout.getMapLayout().getBlocks()[blockIndex].getTiles()[(y%3)*3+0].isHighPriority())?"H":"L");
-                    sb.append((mapLayout.getMapLayout().getBlocks()[blockIndex].getTiles()[(y%3)*3+1].isHighPriority())?"H":"L");
-                    sb.append((mapLayout.getMapLayout().getBlocks()[blockIndex].getTiles()[(y%3)*3+2].isHighPriority())?"H":"L");
+                    sb.append((mapLayout.getBlocks()[blockIndex].getTiles()[(y%3)*3+0].isHighPriority())?"H":"L");
+                    sb.append((mapLayout.getBlocks()[blockIndex].getTiles()[(y%3)*3+1].isHighPriority())?"H":"L");
+                    sb.append((mapLayout.getBlocks()[blockIndex].getTiles()[(y%3)*3+2].isHighPriority())?"H":"L");
                 }
                 sb.append("\n");
             }
