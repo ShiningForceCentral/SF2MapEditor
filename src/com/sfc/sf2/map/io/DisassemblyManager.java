@@ -885,7 +885,8 @@ public class DisassemblyManager {
                     String line = scan.nextLine();
                     if(line.trim().startsWith("mapItem")){
                         inHeader = false;
-                        String[] params = line.trim().substring("mapItem".length()).trim().split(",");
+                        String[] parts = line.trim().substring("mapItem".length()).trim().split(";");
+                        String[] params = parts[0].trim().split(",");
                         entry = new MapItem();
                         itemList.add(entry);
                         entry.setX(valueOf(params[0].trim()));

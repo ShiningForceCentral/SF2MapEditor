@@ -15,6 +15,13 @@ import com.sfc.sf2.map.io.PngManager;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,9 +32,9 @@ public class MapManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
-    public void importDisassembly(String palettesPath, String tilesetsPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath, String animationsPath){
+    public void importDisassembly(String incbinPath, String paletteEntriesPath, String tilesetEntriesPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath, String animationsPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        mapLayoutManager.importDisassembly(palettesPath, tilesetsPath, tilesetsFilePath, blocksPath, layoutPath);
+        mapLayoutManager.importDisassemblyFromEntryFiles(incbinPath, paletteEntriesPath, tilesetEntriesPath, tilesetsFilePath, blocksPath, layoutPath);
         MapLayout layout = mapLayoutManager.getLayout();
         MapBlock[] blockset = mapLayoutManager.getBlockset();
         map = new Map();
@@ -78,7 +85,7 @@ public class MapManager {
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }  
     
-    public void exportPngMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
+    public void exportPngMapLayout(MapPanel mapPanel, String filepath, String flagsPath, String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
         MapLayoutLayout mapLayout = new MapLayoutLayout();
         mapLayout.setMapLayout(mapPanel.getMapLayout());
@@ -86,11 +93,11 @@ public class MapManager {
         mapLayout.setDrawGrid(false);
         mapLayout.setDrawExplorationFlags(false);
         mapLayout.setDrawInteractionFlags(false);
-        PngManager.exportPngMapLayout(mapPanel, filepath, hpTilesPath);
+        PngManager.exportPngMapLayout(mapPanel, filepath, flagsPath, hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
     
-    public void exportGifMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
+    public void exportGifMapLayout(MapPanel mapPanel, String filepath, String flagsPath, String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting GIF ...");
         MapLayoutLayout mapLayout = new MapLayoutLayout();
         mapLayout.setMapLayout(mapPanel.getMapLayout());
@@ -98,7 +105,7 @@ public class MapManager {
         mapLayout.setDrawGrid(false);
         mapLayout.setDrawExplorationFlags(false);
         mapLayout.setDrawInteractionFlags(false);
-        GifManager.exportGifMapLayout(mapPanel, filepath, hpTilesPath);
+        GifManager.exportGifMapLayout(mapPanel, filepath, flagsPath, hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - GIF exported.");       
     }
 
@@ -109,7 +116,5 @@ public class MapManager {
     public void setMap(Map map) {
         this.map = map;
     }
-    
-    
     
 }

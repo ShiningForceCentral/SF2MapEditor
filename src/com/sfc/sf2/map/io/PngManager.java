@@ -81,10 +81,11 @@ public class PngManager {
     }
     
 
-    public static void exportPngMapLayout(MapPanel mapPanel, String filepath, String hpTilesPath){
+    public static void exportPngMapLayout(MapPanel mapPanel, String filepath, String flagsPath, String hpTilesPath){
         try {
             System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - Exporting PNG file ...");
-            writePngMapLayoutFile(mapPanel,filepath);    
+            writePngMapLayoutFile(mapPanel,filepath);  
+            writeMapLayoutFlagsFile(mapPanel.getMap().getLayout(),flagsPath);
             writeMapHpTilesFile(mapPanel.getMap().getLayout(),hpTilesPath);    
             System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - PNG file exported.");
         } catch (Exception ex) {
@@ -104,6 +105,32 @@ public class PngManager {
             Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
         }       
     }    
+    
+    public static void writeMapLayoutFlagsFile(MapLayout mapLayout, String filepath){
+        try {
+            File outputfile = new File(filepath);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputfile));
+            StringBuilder sb = new StringBuilder();
+            for(int y=0;y<64;y++){
+                for(int x=0;x<64;x++){
+                    int blockIndex = y*64+x;
+                    int flags = mapLayout.getBlocks()[blockIndex].getFlags() >> 8;
+                    String flagsString = Integer.toHexString(flags);
+                    while(flagsString.length()<2){
+                        flagsString="0"+flagsString;
+                    }
+                    //System.out.println(y+":"+x+"->"+blockIndex+":"+flagsString);
+                    sb.append(flagsString);
+                }
+                sb.append("\n");
+            }
+            bw.write(sb.toString());
+            bw.close();
+            System.out.println("Map layout flags file exported : " + outputfile.getAbsolutePath());
+        } catch (Exception ex) {
+            Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }     
     
     public static void writeMapHpTilesFile(MapLayout mapLayout, String filepath){
         try {
