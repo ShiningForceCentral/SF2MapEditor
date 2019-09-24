@@ -17,6 +17,7 @@ public class MapWarp {
     private int destX;
     private int destY;
     private int facing;
+    private String scrollDirection;
 
     public int getTriggerX() {
         return triggerX;
@@ -64,6 +65,14 @@ public class MapWarp {
 
     public void setFacing(int facing) {
         this.facing = facing;
+    }
+
+    public String getScrollDirection() {
+        return scrollDirection;
+    }
+
+    public void setScrollDirection(String scrollDirection) {
+        this.scrollDirection = scrollDirection;
     }
 
  

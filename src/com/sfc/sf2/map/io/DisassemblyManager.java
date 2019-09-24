@@ -658,6 +658,11 @@ public class DisassemblyManager {
                         warpList.add(entry);
                         entry.setTriggerX(valueOf(params[0].trim()));
                         entry.setTriggerY(valueOf(params[1].trim()));
+                    }else if(line.trim().startsWith("warpNoScroll")){
+                        entry.setScrollDirection(null);
+                    }else if(line.trim().startsWith("warpScroll")){
+                        String[] params = line.trim().substring("warpScroll".length()).trim().split(",");
+                        entry.setScrollDirection(params[0].trim());
                     }else if(line.trim().startsWith("warpMap")){
                         String[] params = line.trim().substring("warpMap".length()).trim().split(",");
                         entry.setDestMap(valueOf(params[0].trim()));
@@ -736,6 +741,11 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         for(int i=0;i<warps.length;i++){
             MapWarp warp = warps[i];
+            if(warp.getScrollDirection()!=null){
+                asm.append("                "+"warpScroll"+" "+warp.getScrollDirection()+"\n");
+            }else{
+                asm.append("                "+"warpNoScroll"+"\n");
+            }
             asm.append("                "+"mWarp"+" "+warp.getTriggerX()+", "+warp.getTriggerY()+"\n");
             asm.append("                "+"  warpMap"+"    "+warp.getDestMap()+"\n");
             asm.append("                "+"  warpDest"+"   "+warp.getDestX()+", "+warp.getDestY()+"\n");
