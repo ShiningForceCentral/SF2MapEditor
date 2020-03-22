@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -1144,7 +1145,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText(".\\entries\\map03\\");
+        jTextField24.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\maps\\entries\\sffc-map01\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1206,7 +1207,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palette entries :");
 
-            jTextField21.setText("..\\graphics\\maps\\mappalettes\\entries.asm");
+            jTextField21.setText("..\\..\\..\\graphics\\maps\\mappalettes\\entries.asm");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1222,7 +1223,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tileset entries :");
 
-            jTextField22.setText("..\\graphics\\maps\\maptilesets\\entries.asm");
+            jTextField22.setText("..\\..\\..\\graphics\\maps\\maptilesets\\entries.asm");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);
@@ -1382,7 +1383,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel51.setText("Incbin Base Path :");
 
-            jTextField49.setText("..\\..\\");
+            jTextField49.setText("..\\..\\..\\..\\");
                 jTextField49.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jTextField49ActionPerformed(evt);
@@ -2704,6 +2705,12 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel23.repaint();
         jSpinner2.getModel().setValue(map.getAnimation().getTileset());
         jSpinner3.getModel().setValue(map.getAnimation().getLength());
+        
+        //jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Map"));
+        //TitledBorder tb = (TitledBorder)jPanel1.getBorder();
+        //tb.setTitle("Cursor : 0,0");
+        //mapPanel.setTitledBorder((TitledBorder)jPanel1.getBorder());
+        mapPanel.setTitledPanel(jPanel1);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed

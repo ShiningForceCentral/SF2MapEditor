@@ -741,12 +741,12 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         for(int i=0;i<warps.length;i++){
             MapWarp warp = warps[i];
-            if(warp.getScrollDirection()!=null){
-                asm.append("                "+"warpScroll"+" "+warp.getScrollDirection()+"\n");
-            }else{
-                asm.append("                "+"warpNoScroll"+"\n");
-            }
             asm.append("                "+"mWarp"+" "+warp.getTriggerX()+", "+warp.getTriggerY()+"\n");
+            if(warp.getScrollDirection()!=null){
+                asm.append("                "+"  warpScroll"+" "+warp.getScrollDirection()+"\n");
+            }else{
+                asm.append("                "+"  warpNoScroll"+"\n");
+            }
             asm.append("                "+"  warpMap"+"    "+warp.getDestMap()+"\n");
             asm.append("                "+"  warpDest"+"   "+warp.getDestX()+", "+warp.getDestY()+"\n");
             asm.append("                "+"  warpFacing"+" "+warp.getFacing()+"\n");
@@ -1052,7 +1052,8 @@ public class DisassemblyManager {
             anim.setFrames(frames);
             
         } catch (IOException ex) {
-            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importAnimation() - WARNING : "+ex.getMessage());
         }
         System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importAnimation() - Disassembly imported.");  
         return anim;
@@ -1075,9 +1076,10 @@ public class DisassemblyManager {
                 System.out.println(animBytes.length + " bytes into " + animFilepath);
             }
         } catch (Exception ex) {
-            Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-            System.out.println(ex);
+            //Logger.getLogger(com.sfc.sf2.map.layout.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            //ex.printStackTrace();
+            //System.out.println(ex);
+            System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportAnimation() - WARNING : "+ex.getMessage());
         }            
         System.out.println("com.sfc.sf2.map.io.DisassemblyManager.exportAnimation() - Disassembly exported.");     
     }

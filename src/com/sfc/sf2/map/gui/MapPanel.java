@@ -30,6 +30,7 @@ import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -100,6 +101,12 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private BufferedImage barrelImage;
     private BufferedImage vaseImage;
     private BufferedImage triggersImage;
+    
+    
+    private int lastMouseX = 0;
+    private int lastMouseY = 0;
+    private TitledBorder titledBorder = null;
+    private JPanel titledPanel = null;
 
     public MapPanel() {
         addMouseListener(this);
@@ -838,6 +845,19 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     @Override
     public void mouseMoved(MouseEvent e) {
         
+        int x = e.getX() / (currentDisplaySize * 3*8);
+        int y = e.getY() / (currentDisplaySize * 3*8);
+        
+        if(x!=lastMouseX||y!=lastMouseY){
+            lastMouseX=x;
+            lastMouseY=y;
+            titledBorder = (TitledBorder)(titledPanel.getBorder());
+            titledBorder.setTitle("Cursor : "+x+","+y);
+            titledPanel.revalidate();
+            titledPanel.repaint();
+            //System.out.println("New cursor pos : "+x+","+y);
+        }
+        
     }
     
     private void updateLeftSlot(MapBlock block){
@@ -1154,6 +1174,23 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     public void setTriggersImage(BufferedImage triggersImage) {
         this.triggersImage = triggersImage;
     }
+
+    public TitledBorder getTitledBorder() {
+        return titledBorder;
+    }
+
+    public void setTitledBorder(TitledBorder titledBorder) {
+        this.titledBorder = titledBorder;
+    }
+
+    public JPanel getTitledPanel() {
+        return titledPanel;
+    }
+
+    public void setTitledPanel(JPanel titledPanel) {
+        this.titledPanel = titledPanel;
+    }
+    
     
     
 }
