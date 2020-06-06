@@ -1145,7 +1145,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\maps\\entries\\sffc-map01\\");
+        jTextField24.setText(".\\entries\\map03\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);

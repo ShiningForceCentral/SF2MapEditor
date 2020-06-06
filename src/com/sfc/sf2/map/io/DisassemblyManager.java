@@ -264,8 +264,11 @@ public class DisassemblyManager {
                 while(scan.hasNext()){
                     String line = scan.nextLine();
                     if(line.trim().startsWith("fbcFlag")){
-                        String comment = line.substring(line.indexOf(";")+1);
-                        line = line.substring(0,line.indexOf(";"));
+                        String comment = "";
+                        if(line.contains(";")){
+                            comment = line.substring(line.indexOf(";")+1);
+                            line = line.substring(0,line.indexOf(";"));
+                        }
                         inHeader = false;
                         String[] params = line.trim().substring("fbcFlag".length()).trim().split(",");
                         entry = new MapFlagCopy();
@@ -352,10 +355,11 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         for(int i=0;i<flagCopies.length;i++){
             MapFlagCopy flagCopy = flagCopies[i];
-            /*
-            asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"            ;"+flagCopy.getComment()+"\n");
-            */
-            asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"\n");
+            if(flagCopy.getComment()!=null&&!flagCopy.getComment().isBlank()){
+                asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"            ;"+flagCopy.getComment()+"\n");
+            }else{
+                asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"\n");
+            }
             asm.append("                "+"  fbcSource"+" "+flagCopy.getSourceX()+", "+flagCopy.getSourceY()+"\n");
             asm.append("                "+"  fbcSize"+"   "+flagCopy.getWidth()+", "+flagCopy.getHeight()+"\n");
             asm.append("                "+"  fbcDest"+"   "+flagCopy.getDestX()+", "+flagCopy.getDestY()+"\n");
