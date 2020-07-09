@@ -13,11 +13,11 @@ public class MapWarp {
     
     private int triggerX;
     private int triggerY;
-    private int destMap;
+    private String scrollDirection;
+    private String destMap;
     private int destX;
     private int destY;
-    private int facing;
-    private String scrollDirection;
+    private String facing;
 
     public int getTriggerX() {
         return triggerX;
@@ -35,11 +35,11 @@ public class MapWarp {
         this.triggerY = triggerY;
     }
 
-    public int getDestMap() {
+    public String getDestMap() {
         return destMap;
     }
 
-    public void setDestMap(int destMap) {
+    public void setDestMap(String destMap) {
         this.destMap = destMap;
     }
 
@@ -59,11 +59,11 @@ public class MapWarp {
         this.destY = destY;
     }
 
-    public int getFacing() {
+    public String getFacing() {
         return facing;
     }
 
-    public void setFacing(int facing) {
+    public void setFacing(String facing) {
         this.facing = facing;
     }
 

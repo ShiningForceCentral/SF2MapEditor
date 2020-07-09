@@ -669,14 +669,14 @@ public class DisassemblyManager {
                         entry.setScrollDirection(params[0].trim());
                     }else if(line.trim().startsWith("warpMap")){
                         String[] params = line.trim().substring("warpMap".length()).trim().split(",");
-                        entry.setDestMap(valueOf(params[0].trim()));
+                        entry.setDestMap(params[0].trim());
                     }else if(line.trim().startsWith("warpDest")){
                         String[] params = line.trim().substring("warpDest".length()).trim().split(",");
                         entry.setDestX(valueOf(params[0].trim()));
                         entry.setDestY(valueOf(params[1].trim()));
                     }else if(line.trim().startsWith("warpFacing")){
                         String[] params = line.trim().substring("warpFacing".length()).trim().split(",");
-                        entry.setFacing(valueOf(params[0].trim()));
+                        entry.setFacing(params[0].trim());
                     }else{
                         if(inHeader){
                             warpsHeader+=line;
@@ -698,10 +698,10 @@ public class DisassemblyManager {
                     MapWarp warp = new MapWarp();
                     warp.setTriggerX(data[cursor]);
                     warp.setTriggerY(data[cursor+1]);
-                    warp.setDestMap(data[cursor+3]);
+                    warp.setDestMap(Byte.toString(data[cursor+3]));
                     warp.setDestX(data[cursor+4]);
                     warp.setDestY(data[cursor+5]);
-                    warp.setFacing(data[cursor+6]);
+                    warp.setFacing(Byte.toString(data[cursor+6]));
                     warpList.add(warp);
                     cursor += 8;
                 }
@@ -765,10 +765,10 @@ public class DisassemblyManager {
             MapWarp warp = warps[i];
             warpBytes[i*8] = (byte)warp.getTriggerX();
             warpBytes[i*8+1] = (byte)warp.getTriggerY();
-            warpBytes[i*8+3] = (byte)warp.getDestMap();
+            warpBytes[i*8+3] = (byte)warp.getDestMap().charAt(0);
             warpBytes[i*8+4] = (byte)warp.getDestX();
             warpBytes[i*8+5] = (byte)warp.getDestY();
-            warpBytes[i*8+6] = (byte)warp.getFacing();
+            warpBytes[i*8+6] = (byte)warp.getFacing().charAt(0);
         }
         warpBytes[warpBytes.length-2] = -1;
         warpBytes[warpBytes.length-1] = -1;
@@ -797,7 +797,7 @@ public class DisassemblyManager {
                         entry.setX(valueOf(params[0].trim()));
                         entry.setY(valueOf(params[1].trim()));
                         entry.setFlag(valueOf(params[2].trim()));
-                        entry.setItem(valueOf(params[3].trim()));
+                        entry.setItem(params[3].trim());
                     }else{
                         if(inHeader){
                             chestItemsHeader+=line;
@@ -820,7 +820,7 @@ public class DisassemblyManager {
                     item.setX(data[cursor]);
                     item.setY(data[cursor+1]);
                     item.setFlag(data[cursor+2]&0xFF);
-                    item.setItem(data[cursor+3]&0xFF);
+                    item.setItem(Integer.toString(data[cursor+3]&0xFF));
                     itemList.add(item);
                     cursor += 4;
                 }
@@ -877,7 +877,7 @@ public class DisassemblyManager {
             itemBytes[i*4] = (byte)item.getX();
             itemBytes[i*4+1] = (byte)item.getY();
             itemBytes[i*4+2] = (byte)item.getFlag();
-            itemBytes[i*4+3] = (byte)item.getItem();
+            itemBytes[i*4+3] = (byte)item.getItem().charAt(0);
         }
         itemBytes[itemBytes.length-2] = -1;
         itemBytes[itemBytes.length-1] = -1;
@@ -906,7 +906,7 @@ public class DisassemblyManager {
                         entry.setX(valueOf(params[0].trim()));
                         entry.setY(valueOf(params[1].trim()));
                         entry.setFlag(valueOf(params[2].trim()));
-                        entry.setItem(valueOf(params[3].trim()));
+                        entry.setItem(params[3].trim());
                     }else{
                         if(inHeader){
                             otherItemsHeader+=line;
@@ -929,7 +929,7 @@ public class DisassemblyManager {
                     item.setX(data[cursor]);
                     item.setY(data[cursor+1]);
                     item.setFlag(data[cursor+2]&0xFF);
-                    item.setItem(data[cursor+3]&0xFF);
+                    item.setItem(Integer.toString(data[cursor+3]&0xFF));
                     itemList.add(item);
                     cursor += 4;
                 }
@@ -986,7 +986,7 @@ public class DisassemblyManager {
             itemBytes[i*4] = (byte)item.getX();
             itemBytes[i*4+1] = (byte)item.getY();
             itemBytes[i*4+2] = (byte)item.getFlag();
-            itemBytes[i*4+3] = (byte)item.getItem();
+            itemBytes[i*4+3] = (byte)item.getItem().charAt(0);
         }
         itemBytes[itemBytes.length-2] = -1;
         itemBytes[itemBytes.length-1] = -1;

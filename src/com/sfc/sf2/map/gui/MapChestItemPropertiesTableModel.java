@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MapChestItemPropertiesTableModel extends AbstractTableModel {
     
-    private final Integer[][] tableData;
+    private final String[][] tableData;
     private final String[] columns = {"X", "Y", "Flag", "Item"};
     private Map map;
     private MapPanel mapPanel;
@@ -26,34 +26,34 @@ public class MapChestItemPropertiesTableModel extends AbstractTableModel {
         super();
         this.map = map;
         this.mapPanel = mapPanel;
-        tableData = new Integer[64][];
+        tableData = new String[64][];
         int i = 0;
         MapItem[] items = map.getChestItems();
         if(items!=null){
             while(i<items.length){
-                tableData[i] = new Integer[4];
-                tableData[i][0] = items[i].getX();
-                tableData[i][1] = items[i].getY();
-                tableData[i][2] = items[i].getFlag();
+                tableData[i] = new String[4];
+                tableData[i][0] = Integer.toString(items[i].getX());
+                tableData[i][1] = Integer.toString(items[i].getY());
+                tableData[i][2] = Integer.toString(items[i].getFlag());
                 tableData[i][3] = items[i].getItem();
                 i++;
             }
         }
         while(i<tableData.length){
-            tableData[i] = new Integer[4];
+            tableData[i] = new String[4];
             i++;
         }
     }
     
     public void updateProperties() {
         List<MapItem> entries = new ArrayList<>();
-        for(Integer[] entry : tableData){
+        for(String[] entry : tableData){
             if(entry[0] != null && entry[1] != null
                     && entry[2] != null && entry[3] != null){
                 MapItem item = new MapItem();
-                item.setX(entry[0]);
-                item.setY(entry[1]);
-                item.setFlag(entry[2]);
+                item.setX(Integer.valueOf(entry[0]));
+                item.setY(Integer.valueOf(entry[1]));
+                item.setFlag(Integer.valueOf(entry[2]));
                 item.setItem(entry[3]);          
                 entries.add(item);
                 map.setActionFlag(item.getX(), item.getY(), 0x1800);
@@ -65,7 +65,11 @@ public class MapChestItemPropertiesTableModel extends AbstractTableModel {
     
     @Override
     public Class getColumnClass(int column) {
-        return Integer.class;
+        if(column==3){
+            return String.class;
+        }else{
+            return Integer.class;
+        }
     }    
     
     @Override
@@ -74,7 +78,7 @@ public class MapChestItemPropertiesTableModel extends AbstractTableModel {
     }
     @Override
     public void setValueAt(Object value, int row, int col) {
-        tableData[row][col] = (Integer)value;
+        tableData[row][col] = (String)value;
         updateProperties();
         mapPanel.updateItemDisplay();
         mapPanel.revalidate();

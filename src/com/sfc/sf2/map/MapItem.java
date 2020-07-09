@@ -14,7 +14,7 @@ public class MapItem {
     private int x;
     private int y;
     private int flag;
-    private int item;
+    private String item;
 
     public int getX() {
         return x;
@@ -40,11 +40,11 @@ public class MapItem {
         this.flag = flag;
     }
 
-    public int getItem() {
+    public String getItem() {
         return item;
     }
 
-    public void setItem(int item) {
+    public void setItem(String item) {
         this.item = item;
     }
 
