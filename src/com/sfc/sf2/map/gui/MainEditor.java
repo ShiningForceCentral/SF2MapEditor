@@ -1145,7 +1145,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("."+File.separator+"entries"+File.separator+"map03"+File.separator+"");
+        jTextField24.setText(".\\entries\\map03\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1207,7 +1207,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palette entries :");
 
-            jTextField21.setText(".."+File.separator+".."+File.separator+".."+File.separator+"graphics"+File.separator+"maps"+File.separator+"mappalettes"+File.separator+"entries.asm");
+            jTextField21.setText("..\\..\\..\\graphics\\maps\\mappalettes\\entries.asm");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1223,7 +1223,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tileset entries :");
 
-            jTextField22.setText(".."+File.separator+".."+File.separator+".."+File.separator+"graphics"+File.separator+"maps"+File.separator+"maptilesets"+File.separator+"entries.asm");
+            jTextField22.setText("..\\..\\..\\graphics\\maps\\maptilesets\\entries.asm");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);
@@ -1383,7 +1383,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel51.setText("Incbin Base Path :");
 
-            jTextField49.setText(".."+File.separator+".."+File.separator+".."+File.separator+".."+File.separator+"");
+            jTextField49.setText("..\\..\\..\\..\\");
                 jTextField49.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jTextField49ActionPerformed(evt);
@@ -2346,7 +2346,7 @@ public class MainEditor extends javax.swing.JFrame {
                 jTextArea2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 13)); // NOI18N
                 jTextArea2.setLineWrap(true);
                 jTextArea2.setRows(5);
-                jTextArea2.setText("Base directory works for both import and export features.\n\n- Blockset panel : \n        Left-Click or Right-Click to copy block graphics from blockset.nn- Map panel :\n        - Block mode :\n                - Left-Click or Right-Click to apply copied block.\n                - Middle-Click to copy map block graphics AND exploration flags.\n                  Then apply with left click.\n                - Middle-Click drag and release to copy rectangular zone.\n                  Then use left click to apply from upper-left corner.\n        - Exploration flags mode :\n                - Obstructed block flag : \n                                Left click to make block obstructed.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                - Stairs flags :\n                                Left click for upstairs going left.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t- Action flags mode : \n\t\t- Warp flag :\n                                Left click to make block trigger a warp.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t\t- Barrel/Vase/Table flag :\n                                Left click to apply flag on block.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                                \n\nRandom notes :\n- Edit disasm\\data\\maps\\entries\\mapentries.asm to update bin file include directives if needed.\n- Some maps use another map's assets, like map 24 using map 23's blockset and layout.\nUse relative paths : \"..\\map23\\0-blocks.bin\", \"..\\map23\\1-layout.bin\", etc.");
+                jTextArea2.setText("Base directory works for both import and export features.\n\n- Blockset panel : \n        Left-Click or Right-Click to copy block graphics from blockset.\n- Map panel :\n        - Block mode :\n                - Left-Click or Right-Click to apply copied block.\n                - Middle-Click to copy map block graphics AND exploration flags.\n                  Then apply with left click.\n                - Middle-Click drag and release to copy rectangular zone.\n                  Then use left click to apply from upper-left corner.\n        - Exploration flags mode :\n                - Obstructed block flag : \n                                Left click to make block obstructed.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                - Stairs flags :\n                                Left click for upstairs going left.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t- Action flags mode : \n\t\t- Warp flag :\n                                Left click to make block trigger a warp.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n\t\t- Barrel/Vase/Table flag :\n                                Left click to apply flag on block.\n                                Right click to remove flag.\n                                Middle click to clear all flags from block.\n                                \n\nRandom notes :\n- Edit disasm\\data\\maps\\entries\\mapentries.asm to update bin file include directives if needed.\n- Some maps use another map's assets, like map 24 using map 23's blockset and layout.\nUse relative paths : \"..\\map23\\0-blocks.bin\", \"..\\map23\\1-layout.bin\", etc.");
                 jTextArea2.setAutoscrolls(false);
                 jScrollPane4.setViewportView(jTextArea2);
 
@@ -2396,8 +2396,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
@@ -2505,8 +2505,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
@@ -3143,8 +3143,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
@@ -3181,8 +3181,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
@@ -3219,8 +3219,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
@@ -3282,8 +3282,8 @@ public class MainEditor extends javax.swing.JFrame {
         Path toolPath = Paths.get(toolDir);
         
         String mapPath = jTextField24.getText();
-        if(!mapPath.endsWith(File.separator)){
-            mapPath = mapPath+""+File.separator;
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
         }
         //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
