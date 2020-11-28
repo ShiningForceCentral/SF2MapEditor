@@ -211,7 +211,9 @@ public class DisassemblyManager {
             asm.append("                "+"    scndLayerAutoscroll"+" "+area.getLayer2AutoscrollX()+", "+area.getLayer2AutoscrollY()+"\n");
             asm.append("                "+"    mainLayerType"+"    "+area.getLayerType()+"\n");
             asm.append("                "+"    areaDefaultMusic"+" "+area.getDefaultMusic()+"\n");
-            asm.append("\n");
+            if(i<(areas.length-1)){
+                asm.append("                \n");
+            }
         }
         asm.append("                "+"endWord"+"\n");
         return asm.toString();
@@ -356,9 +358,9 @@ public class DisassemblyManager {
         for(int i=0;i<flagCopies.length;i++){
             MapFlagCopy flagCopy = flagCopies[i];
             if(flagCopy.getComment()!=null&&!flagCopy.getComment().isBlank()){
-                asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"            ;"+flagCopy.getComment()+"\n");
+                asm.append("                "+"fbcFlag"+" "+Integer.toString(flagCopy.getFlag())+"             ;"+flagCopy.getComment()+"\n");
             }else{
-                asm.append("                "+"fbcFlag"+" "+"$"+Integer.toHexString(flagCopy.getFlag()).toUpperCase()+"\n");
+                asm.append("                "+"fbcFlag"+" "+Integer.toString(flagCopy.getFlag())+"\n");
             }
             asm.append("                "+"  fbcSource"+" "+flagCopy.getSourceX()+", "+flagCopy.getSourceY()+"\n");
             asm.append("                "+"  fbcSize"+"   "+flagCopy.getWidth()+", "+flagCopy.getHeight()+"\n");
@@ -864,7 +866,7 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         for(int i=0;i<items.length;i++){
             MapItem item = items[i];
-            asm.append("                "+"mapItem"+" "+item.getX()+", "+item.getY()+", "+"$"+Integer.toHexString(item.getFlag())+", "+item.getItem()+"\n");
+            asm.append("                "+"mapItem"+" "+item.getX()+", "+item.getY()+", "+Integer.toString(item.getFlag())+", "+item.getItem()+"\n");
         }
         asm.append("                "+"endWord"+"\n");
         return asm.toString();
@@ -973,7 +975,7 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         for(int i=0;i<items.length;i++){
             MapItem item = items[i];
-            asm.append("                "+"mapItem"+" "+item.getX()+", "+item.getY()+", "+"$"+Integer.toHexString(item.getFlag())+", "+item.getItem()+"\n");
+            asm.append("                "+"mapItem"+" "+item.getX()+", "+item.getY()+", "+Integer.toString(item.getFlag())+", "+item.getItem()+"\n");
         }
         asm.append("                "+"endWord"+"\n");
         return asm.toString();
@@ -1093,7 +1095,7 @@ public class DisassemblyManager {
         asm.append("                "+"mapAnimation"+" "+animation.getTileset()+", "+animation.getLength()+"\n");
         for(int i=0;i<animation.getFrames().length;i++){
             MapAnimationFrame frame = animation.getFrames()[i];
-            asm.append("                "+"  mapAnimEntry"+" "+frame.getStart()+", "+frame.getLength()+", "+frame.getDest()+", "+frame.getDelay()+"\n");
+            asm.append("                "+"  mapAnimEntry"+" "+frame.getStart()+", "+frame.getLength()+", $"+Integer.toHexString(frame.getDest()).toUpperCase()+", "+frame.getDelay()+"\n");
         }
         asm.append("                "+"endWord"+"\n");
         return asm.toString();

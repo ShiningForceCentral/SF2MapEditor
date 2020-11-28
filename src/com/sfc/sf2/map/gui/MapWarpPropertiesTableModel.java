@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MapWarpPropertiesTableModel extends AbstractTableModel {
     
-    private final String[][] tableData;
+    private final Object[][] tableData;
     private final String[] columns = {"Trigger X", "Trigger Y", "Dest Map", "Dest X", "Dest Y", "Facing"};
     private Map map;
     private MapPanel mapPanel;
@@ -28,40 +28,40 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
         super();
         this.map = map;
         this.mapPanel = mapPanel;
-        tableData = new String[64][];
+        tableData = new Object[64][];
         int i = 0;
         MapWarp[] warps = map.getWarps();
         if(warps!=null){
             while(i<warps.length){
-                tableData[i] = new String[6];
-                tableData[i][0] = Integer.toString(warps[i].getTriggerX(),10);
-                tableData[i][1] = Integer.toString(warps[i].getTriggerY(),10);
+                tableData[i] = new Object[6];
+                tableData[i][0] = warps[i].getTriggerX();
+                tableData[i][1] = warps[i].getTriggerY();
                 tableData[i][2] = warps[i].getDestMap();
-                tableData[i][3] = Integer.toString(warps[i].getDestX(),10);
-                tableData[i][4] = Integer.toString(warps[i].getDestY(),10);
+                tableData[i][3] = warps[i].getDestX();
+                tableData[i][4] = warps[i].getDestY();
                 tableData[i][5] = warps[i].getFacing();
                 i++;
             }
         }
         while(i<tableData.length){
-            tableData[i] = new String[6];
+            tableData[i] = new Object[6];
             i++;
         }
     }
     
     public void updateProperties() {
         List<MapWarp> entries = new ArrayList<>();
-        for(String[] entry : tableData){
+        for(Object[] entry : tableData){
             if(entry[0] != null && entry[1] != null
                     && entry[2] != null && entry[3] != null
                     && entry[4] != null && entry[5] != null){
                 MapWarp warp = new MapWarp();
-                warp.setTriggerX(Integer.valueOf(entry[0],10));
-                warp.setTriggerY(Integer.valueOf(entry[1],10));
-                warp.setDestMap(entry[2]);
-                warp.setDestX(Integer.valueOf(entry[3],10));
-                warp.setDestY(Integer.valueOf(entry[4],10)); 
-                warp.setFacing(entry[5]);           
+                warp.setTriggerX((int)entry[0]);
+                warp.setTriggerY((int)entry[1]);
+                warp.setDestMap((String)entry[2]);
+                warp.setDestX((int)entry[3]);
+                warp.setDestY((int)entry[4]); 
+                warp.setFacing((String)entry[5]);           
                 entries.add(warp);
                 if(((byte)warp.getTriggerX())==-1){
                     MapArea mainArea = map.getAreas()[0];
@@ -111,7 +111,7 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
     }
     @Override
     public void setValueAt(Object value, int row, int col) {
-        tableData[row][col] = (String)value;
+        tableData[row][col] = value;
         updateProperties();
         mapPanel.updateWarpDisplay();
         mapPanel.revalidate();
