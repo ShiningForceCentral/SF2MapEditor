@@ -63,7 +63,7 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
                 warp.setDestY(Integer.valueOf(entry[4],10)); 
                 warp.setFacing(entry[5]);           
                 entries.add(warp);
-                if(warp.getTriggerX()==-1){
+                if(((byte)warp.getTriggerX())==-1){
                     MapArea mainArea = map.getAreas()[0];
                     int startX = mainArea.getLayer1StartX();
                     int endX = mainArea.getLayer1EndX();
@@ -75,7 +75,7 @@ public class MapWarpPropertiesTableModel extends AbstractTableModel {
                             map.setActionFlag(x, y, 0x1000);
                         }
                     }
-                }else if(warp.getTriggerY()==-1){
+                }else if(((byte)warp.getTriggerY())==-1){
                     MapArea mainArea = map.getAreas()[0];
                     int startY = mainArea.getLayer1StartY();
                     int endY = mainArea.getLayer1EndY();
