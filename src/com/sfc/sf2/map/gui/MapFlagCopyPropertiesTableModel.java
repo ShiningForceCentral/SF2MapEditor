@@ -27,7 +27,7 @@ public class MapFlagCopyPropertiesTableModel extends AbstractTableModel {
         super();
         this.map = map;
         this.mapPanel = mapPanel;
-        tableData = new Object[16][];
+        tableData = new Object[256][];
         int i = 0;
         MapFlagCopy[] flagCopies = map.getFlagCopies();
         if(flagCopies!=null){
