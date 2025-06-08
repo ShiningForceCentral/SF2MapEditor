@@ -45,6 +45,8 @@ public class MainEditor extends javax.swing.JFrame {
     
     JCheckBox tabRelativeCheckbox;
     boolean tabRelativeCheckboxState;
+    JCheckBox actionRelativeCheckbox;
+    boolean actionRelativeCheckboxState;
     
     /**
      * Creates new form NewApplication
@@ -2886,15 +2888,15 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         /* Block graphics radio button */
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_BLOCK);
+        SetActionRelativeCheckbox(null, MapPanel.MODE_BLOCK);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_OBSTRUCTED);
+        SetActionRelativeCheckbox(jCheckBox1, MapPanel.MODE_OBSTRUCTED);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_STAIRS);
+        SetActionRelativeCheckbox(jCheckBox1, MapPanel.MODE_STAIRS);
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jTextField25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField25ActionPerformed
@@ -3106,19 +3108,19 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_WARP);
+        SetActionRelativeCheckbox(jCheckBox7, MapPanel.MODE_WARP);
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_BARREL);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_BARREL);
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
     private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_VASE);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_VASE);
     }//GEN-LAST:event_jRadioButton6ActionPerformed
 
     private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_TABLE);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_TABLE);
     }//GEN-LAST:event_jRadioButton7ActionPerformed
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
@@ -3142,7 +3144,7 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox9ActionPerformed
 
     private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_TRIGGER);
+        SetActionRelativeCheckbox(jCheckBox9, MapPanel.MODE_TRIGGER);
     }//GEN-LAST:event_jRadioButton8ActionPerformed
 
     private void jTextField41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField41ActionPerformed
@@ -3387,10 +3389,18 @@ public class MainEditor extends javax.swing.JFrame {
         SetTabRelativeCheckbox(null);
         JTabbedPane sourceTabbedPane = (JTabbedPane)evt.getSource();
         int index = sourceTabbedPane.getSelectedIndex();
+        mapPanel.setIsOnActionsTab(index == 0);
         switch (index) {
-            default:     //Layout & Anims
+            case 0:     //Actions & Anims
                 mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_ALL, false);
                 SetTabRelativeCheckbox(null);
+                
+                if (index == 0) {
+                    JCheckBox actionCheckbox = actionRelativeCheckbox;
+                    int mode = mapPanel.getCurrentMode();
+                    SetActionRelativeCheckbox(null, -1);
+                    SetActionRelativeCheckbox(actionCheckbox, mode);
+                }
                 break;
             case 1:     //Areas panel
                 mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_AREAS, true);
@@ -3447,15 +3457,46 @@ public class MainEditor extends javax.swing.JFrame {
             tabRelativeCheckbox = null;
         }
         else {
-            // Lock active checkbox
             if (tabRelativeCheckbox != null)
                 SetTabRelativeCheckbox(null);
+        
+            //If tabs change then disable the action tab affecting the checkboxes
+            if (!mapPanel.isDrawMode_Tabs(MapPanel.DRAW_MODE_ACTION_FLAGS)){
+                JCheckBox actionCheckbox = actionRelativeCheckbox;
+                int mode = mapPanel.getCurrentMode();
+                SetActionRelativeCheckbox(null, -1);
+                actionRelativeCheckbox = actionCheckbox;
+                mapPanel.setCurrentMode(mode);
+            }
             
+            // Lock active checkbox
             tabRelativeCheckbox = checkbox;
             tabRelativeCheckboxState = checkbox.isSelected();
             tabRelativeCheckbox.setSelected(true);
             tabRelativeCheckbox.setEnabled(false);
         }
+    }
+    
+    private void SetActionRelativeCheckbox(JCheckBox checkbox, int mode) {
+        if (mapPanel.getCurrentMode() == mode) return;
+        mapPanel.setCurrentMode(mode);
+        if (actionRelativeCheckbox != null) {
+            // Restore checkboxes
+            if (actionRelativeCheckbox != null) {
+                actionRelativeCheckbox.setSelected(actionRelativeCheckboxState);
+                actionRelativeCheckbox.setEnabled(true);
+            }
+            actionRelativeCheckbox = null;
+        }
+        if (checkbox != null) {
+            // Lock active checkbox
+            actionRelativeCheckbox = checkbox;
+            actionRelativeCheckboxState = checkbox.isSelected();
+            actionRelativeCheckbox.setSelected(true);
+            actionRelativeCheckbox.setEnabled(false);
+        }
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
     
     /**

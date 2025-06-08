@@ -69,10 +69,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     int lastMapY = 0;
     
     BlockSlotPanel leftSlot = null;
+    private boolean isOnActionsTab = true;
     
     private int currentMode = 0;
     private int togglesDrawMode = 0;
-    private int seletectTabDrawMode = 0;
+    private int selectedTabsDrawMode = 0;
     
     private MapBlock selectedBlock0;
     MapBlock[][] copiedBlocks;
@@ -590,6 +591,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     @Override
     public void mousePressed(MouseEvent e) {
+        if (!isOnActionsTab)
+            return;
         int x = e.getX() / (currentDisplaySize * 3*8);
         int y = e.getY() / (currentDisplaySize * 3*8);
         switch (currentMode) {
@@ -788,6 +791,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (!isOnActionsTab)
+            return;
         int x = e.getX() / (currentDisplaySize * 3*8);
         int y = e.getY() / (currentDisplaySize * 3*8);
         switch (e.getButton()) {
@@ -838,11 +843,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         leftSlot.setBlockImage(img);
                         leftSlot.revalidate();
                         leftSlot.repaint(); 
-
                     }
                 }
-
                 break;
+                
             default:
                 break;
         }         
@@ -853,8 +857,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        
+    public void mouseMoved(MouseEvent e) {        
         int x = e.getX() / (currentDisplaySize * 3*8);
         int y = e.getY() / (currentDisplaySize * 3*8);
         
@@ -1028,6 +1031,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 
     public void setCurrentMode(int currentMode) {
         this.currentMode = currentMode;
+        this.redraw=true;
     }
 
     public BlockSlotPanel getLeftSlot() {
@@ -1085,7 +1089,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     
     private boolean shouldDraw(int drawFlag) {
-        return isDrawMode_Toggles(drawFlag) || isDrawMode_Tabs(drawFlag);
+        return isDrawMode_Toggles(drawFlag) || isDrawMode_Tabs(drawFlag) || isDrawMode_Actions(drawFlag);
     }
 
     public boolean isDrawMode_Toggles(int drawFlag) {
@@ -1093,7 +1097,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
 
     public void setDrawMode_Toggles(int drawFlag, boolean on) {
-        if (on)
+        if (drawFlag == DRAW_MODE_ALL)
+            togglesDrawMode = on ? drawFlag : 0;    
+        else if (on)
             togglesDrawMode = (togglesDrawMode | drawFlag);
         else
             togglesDrawMode = (togglesDrawMode & ~drawFlag);
@@ -1101,16 +1107,47 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
 
     public boolean isDrawMode_Tabs(int drawFlag) {
-        return (seletectTabDrawMode & drawFlag) > 0;
+        return (selectedTabsDrawMode & drawFlag) > 0;
     }
 
     public void setDrawMode_Tabs(int drawFlag, boolean on) {
-        seletectTabDrawMode = 0;
-        if (on)
-            seletectTabDrawMode = (seletectTabDrawMode | drawFlag);
+        if (drawFlag == DRAW_MODE_ALL)
+            selectedTabsDrawMode = on ? drawFlag : 0;        
+        else if (on)
+            selectedTabsDrawMode = (selectedTabsDrawMode | drawFlag);
         else
-            seletectTabDrawMode = (seletectTabDrawMode | ~drawFlag);
+            selectedTabsDrawMode = (selectedTabsDrawMode | ~drawFlag);
         this.redraw=true;
+    }
+
+    public boolean isDrawMode_Actions(int drawFlag) {
+        if (!isOnActionsTab)
+            return false;
+        
+        switch (currentMode)
+        {
+            case MODE_OBSTRUCTED:
+            case MODE_STAIRS:
+                return (DRAW_MODE_EXPLORATION_FLAGS & drawFlag) > 0;
+            case MODE_BARREL:
+            case MODE_VASE:
+            case MODE_TABLE:
+                return (DRAW_MODE_ITEMS & drawFlag) > 0;
+            case MODE_WARP:
+                return (DRAW_MODE_WARPS & drawFlag) > 0;
+            case MODE_TRIGGER:
+                return (DRAW_MODE_TRIGGERS & drawFlag) > 0;
+            default:
+                return false;
+        }
+    }
+    
+    public boolean getIsOnActionsTab() {        
+        return isOnActionsTab;
+    }
+    
+    public void setIsOnActionsTab(boolean isOnActionsTab) {
+        this.isOnActionsTab = isOnActionsTab;
     }
 
     public void setTriggersImage(BufferedImage triggersImage) {
