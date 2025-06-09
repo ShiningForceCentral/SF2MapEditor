@@ -3386,14 +3386,13 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
         if (mapPanel == null) return;
-        SetTabRelativeCheckbox(null);
+        SetTabRelativeCheckbox(null, MapPanel.DRAW_MODE_NONE);
         JTabbedPane sourceTabbedPane = (JTabbedPane)evt.getSource();
         int index = sourceTabbedPane.getSelectedIndex();
         mapPanel.setIsOnActionsTab(index == 0);
         switch (index) {
             case 0:     //Actions & Anims
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_ALL, false);
-                SetTabRelativeCheckbox(null);
+                SetTabRelativeCheckbox(null, 0);
                 
                 if (index == 0) {
                     JCheckBox actionCheckbox = actionRelativeCheckbox;
@@ -3403,19 +3402,16 @@ public class MainEditor extends javax.swing.JFrame {
                 }
                 break;
             case 1:     //Areas panel
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_AREAS, true);
-                SetTabRelativeCheckbox(jCheckBox3);
+                SetTabRelativeCheckbox(jCheckBox3, MapPanel.DRAW_MODE_AREAS);
                 break;
             case 2:     //Block Copies panels
                 jTabbedPane3StateChanged(new ChangeEvent(jTabbedPane3));
                 break;
             case 3:     //Warps panel
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_WARPS, true);
-                SetTabRelativeCheckbox(jCheckBox7);
+                SetTabRelativeCheckbox(jCheckBox7, MapPanel.DRAW_MODE_WARPS);
                 break;
             case 4:     //Items panel
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_ITEMS, true);
-                SetTabRelativeCheckbox(jCheckBox8);
+                SetTabRelativeCheckbox(jCheckBox8, MapPanel.DRAW_MODE_ITEMS);
                 break;
         }
         
@@ -3424,30 +3420,28 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane2StateChanged
 
     private void jTabbedPane3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane3StateChanged
-        if (mapPanel == null) return;        
+        if (mapPanel == null) return;
+        SetTabRelativeCheckbox(null, MapPanel.DRAW_MODE_NONE);
         JTabbedPane sourceTabbedPane = (JTabbedPane)evt.getSource();
         int index = sourceTabbedPane.getSelectedIndex();
         switch (index) {
             default:     //Layout and Anims & Block Copies panels
                 return;
             case 0:     //Flag copies
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_FLAG_COPIES, true);
-                SetTabRelativeCheckbox(jCheckBox4);
+                SetTabRelativeCheckbox(jCheckBox4, MapPanel.DRAW_MODE_FLAG_COPIES);
                 break;
             case 1:     //Step copies
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_STEP_COPIES, true);
-                SetTabRelativeCheckbox(jCheckBox5);
+                SetTabRelativeCheckbox(jCheckBox5, MapPanel.DRAW_MODE_STEP_COPIES);
                 break;
             case 2:     //Roof copies
-                mapPanel.setDrawMode_Tabs(MapPanel.DRAW_MODE_LAYER2_COPIES, true);
-                SetTabRelativeCheckbox(jCheckBox6);
+                SetTabRelativeCheckbox(jCheckBox6, MapPanel.DRAW_MODE_LAYER2_COPIES);
                 break;
         }
         jPanel2.revalidate();
         jPanel2.repaint();
     }//GEN-LAST:event_jTabbedPane3StateChanged
 
-    private void SetTabRelativeCheckbox(JCheckBox checkbox) {
+    private void SetTabRelativeCheckbox(JCheckBox checkbox, int mode) {
         if (checkbox == null) {
             // Restore checkboxes
             if (tabRelativeCheckbox != null) {
@@ -3458,18 +3452,19 @@ public class MainEditor extends javax.swing.JFrame {
         }
         else {
             if (tabRelativeCheckbox != null)
-                SetTabRelativeCheckbox(null);
+                SetTabRelativeCheckbox(null, 0);
         
             //If tabs change then disable the action tab affecting the checkboxes
             if (!mapPanel.isDrawMode_Tabs(MapPanel.DRAW_MODE_ACTION_FLAGS)){
                 JCheckBox actionCheckbox = actionRelativeCheckbox;
-                int mode = mapPanel.getCurrentMode();
+                int actionMode = mapPanel.getCurrentMode();
                 SetActionRelativeCheckbox(null, -1);
                 actionRelativeCheckbox = actionCheckbox;
-                mapPanel.setCurrentMode(mode);
+                mapPanel.setCurrentMode(actionMode);
             }
             
             // Lock active checkbox
+            mapPanel.setDrawMode_Tabs(mode);
             tabRelativeCheckbox = checkbox;
             tabRelativeCheckboxState = checkbox.isSelected();
             tabRelativeCheckbox.setSelected(true);

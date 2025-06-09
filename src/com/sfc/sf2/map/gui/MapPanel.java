@@ -15,7 +15,6 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,6 +52,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     public static final int MODE_TABLE = 6;
     public static final int MODE_TRIGGER = 7;
         
+    public static final int DRAW_MODE_NONE = 0;
     public static final int DRAW_MODE_EXPLORATION_FLAGS = 1;
     public static final int DRAW_MODE_INTERACTION_FLAGS = 1<<1;
     public static final int DRAW_MODE_GRID = 1<<2;
@@ -95,6 +95,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     
     private BufferedImage mapGridImage;
     private BufferedImage mapAreasImage;
+    private BufferedImage mapExplorationFlagsImage;
     private BufferedImage mapFlagCopiesImage;
     private BufferedImage mapStepCopiesImage;
     private BufferedImage mapLlayer2CopiesImage;
@@ -107,6 +108,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private BufferedImage chestImage;
     private BufferedImage barrelImage;
     private BufferedImage vaseImage;
+    private BufferedImage warpImage;
     private BufferedImage triggerImage;
     private BufferedImage obstructedImage;
     
@@ -150,66 +152,48 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         }
         if(redraw){
             MapBlock[] blocks = layout.getBlocks();
+            int imageWidth = tilesPerRow*8;
             int imageHeight = 64*3*8;
             Color[] palette = blocks[0].getTiles()[0].getPalette();
             //palette[0] = new Color(255, 255, 255, 0);
             IndexColorModel icm = buildIndexColorModel(palette);
-            currentImage = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_BYTE_INDEXED,icm);
-            Graphics graphics = currentImage.getGraphics();            
+            currentImage = new BufferedImage(imageWidth, imageHeight , BufferedImage.TYPE_INT_ARGB);
+            Graphics graphics = currentImage.getGraphics();     
+            //Draw blocks
             for(int y=0;y<64;y++){
                 for(int x=0;x<64;x++){
                     MapBlock block = blocks[y*64+x];
                     BufferedImage blockImage = getBlockImage(block, icm);
-                    BufferedImage explorationFlagImage = block.getExplorationFlagImage();
-                    BufferedImage interactionFlagImage = block.getInteractionFlagImage();
                     graphics.drawImage(blockImage, x*3*8, y*3*8, null);
-                    if(shouldDraw(DRAW_MODE_EXPLORATION_FLAGS)){
-                        int explorationFlags = block.getFlags()&0xC000;
-                        if(explorationFlagImage==null){
-                            explorationFlagImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-                            Graphics2D g2 = (Graphics2D) explorationFlagImage.getGraphics();
-                            switch (explorationFlags) {
-                                case 0xC000:
-                                    g2.drawImage(getObstructedImage(), 0, 0, null);
-                                    break;
-                                case 0x8000:
-                                    g2.drawImage(getRightUpstairsImage(), 0, 0, null);
-                                    break;
-                                case 0x4000:
-                                    g2.drawImage(getLeftUpstairsImage(), 0, 0, null);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            block.setExplorationFlagImage(explorationFlagImage);
-                        }
-                        graphics.drawImage(explorationFlagImage, x*3*8, y*3*8, null); 
-                    }
                 }
-            } 
+            }
+            
+            if(shouldDraw(DRAW_MODE_EXPLORATION_FLAGS)) {
+                graphics.drawImage(getExplorationFlags(imageWidth, imageHeight), 0, 0, null);
+            }
             if(shouldDraw(DRAW_MODE_GRID)) {
-                graphics.drawImage(getMapGridImage(), 0, 0, null);
+                graphics.drawImage(getMapGridImage(imageWidth, imageHeight), 0, 0, null);
             }
             if(shouldDraw(DRAW_MODE_AREAS)) {
-                graphics.drawImage(getMapAreasImage(),0,0,null);
+                graphics.drawImage(getMapAreasImage(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_FLAG_COPIES)) {
-                graphics.drawImage(getMapFlagCopies(),0,0,null);
+                graphics.drawImage(getMapFlagCopies(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_STEP_COPIES)) {
-                graphics.drawImage(getMapStepCopiesImage(),0,0,null);
+                graphics.drawImage(getMapStepCopiesImage(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_LAYER2_COPIES)) {
-                graphics.drawImage(getMapLayer2CopiesImage(),0,0,null);
+                graphics.drawImage(getMapLayer2CopiesImage(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_WARPS)) {
-                graphics.drawImage(getMapWarpsImage(),0,0,null);
+                graphics.drawImage(getMapWarpsImage(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_ITEMS)) {
-                graphics.drawImage(getMapItemsImage(),0,0,null);
+                graphics.drawImage(getMapItemsImage(imageWidth, imageHeight),0,0,null);
             }
             if(shouldDraw(DRAW_MODE_TRIGGERS)) {
-                graphics.drawImage(getMapTriggersImage(),0,0,null);
+                graphics.drawImage(getMapTriggersImage(imageWidth, imageHeight),0,0,null);
             }
             if(!pngExport){
                 currentImage = resize(currentImage);
@@ -223,9 +207,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     
     private BufferedImage buildPreviewImage() {
         BufferedImage preview = null;
+        boolean overlayRect = false;
         
         switch (currentMode) {
             case MODE_BLOCK:
+                overlayRect = true;
                 if (MapBlockLayout.selectedBlockIndex0 == -1) {
                     previewImage = null;
                     previewIndex = -1;
@@ -242,50 +228,93 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                 }
                 break;
             case MODE_OBSTRUCTED :
+                overlayRect = true;
                 preview = getObstructedImage();
                 break;
             case MODE_STAIRS :
+                overlayRect = true;
                 preview = getLeftUpstairsImage();
                 break;
             case MODE_WARP :
-                //What does this even do?
-                preview = getMapWarpsImage();
+                preview = getWarpImage();
                 break;
             case MODE_BARREL :
+                overlayRect = true;
                 preview = getBarrelImage();
                 break;
             case MODE_VASE :
+                overlayRect = true;
                 preview = getVaseImage();
                 break;
             case MODE_TABLE :
+                overlayRect = true;
                 preview = getTableImage();
                 break;
             case MODE_TRIGGER :
                 preview = getTriggerImage();
                 break;
-                
             default:
                 preview = null;
                 break;
         }
         
-        if (preview != null) {
+        if (preview != null || overlayRect) {
             previewImage = new BufferedImage(24, 24, BufferedImage.TYPE_INT_ARGB);
             Graphics2D graphics = (Graphics2D)previewImage.getGraphics();
-            graphics.setColor(Color.WHITE);
-            graphics.drawImage(preview, 0, 0, null);
-            graphics.setColor(Color.YELLOW);
-            graphics.setStroke(new BasicStroke(2));
-            graphics.drawRect(0,0, 24, 24);
+            if (preview != null) {
+                graphics.setColor(Color.WHITE);
+                graphics.drawImage(preview, 0, 0, null);
+            }
+            if (overlayRect) {
+                graphics.setColor(Color.YELLOW);
+                graphics.setStroke(new BasicStroke(2));
+                graphics.drawRect(0,0, 24, 24);
+            }
             graphics.dispose();
         }
         
         return previewImage;
     }
     
-    private BufferedImage getMapFlagCopies(){
+    private BufferedImage getExplorationFlags(int imageWidth, int imageHeight){
+        if(mapExplorationFlagsImage==null){
+            MapBlock[] blocks = layout.getBlocks();
+            mapExplorationFlagsImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);      
+            Graphics2D g2 = (Graphics2D) mapExplorationFlagsImage.getGraphics();    
+            for(int y=0;y<64;y++){
+                for(int x=0;x<64;x++){
+                    MapBlock block = blocks[y*64+x];
+                    BufferedImage explorationFlagImage = block.getExplorationFlagImage();
+                    BufferedImage interactionFlagImage = block.getInteractionFlagImage();
+                    if(shouldDraw(DRAW_MODE_EXPLORATION_FLAGS)){
+                        int explorationFlags = block.getFlags()&0xC000;
+                        if(explorationFlagImage==null){
+                            switch (explorationFlags) {
+                                case 0xC000:
+                                    explorationFlagImage = getObstructedImage();
+                                    break;
+                                case 0x8000:
+                                    explorationFlagImage = getRightUpstairsImage();
+                                    break;
+                                case 0x4000:
+                                    explorationFlagImage = getLeftUpstairsImage();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            block.setExplorationFlagImage(explorationFlagImage);
+                        }
+                        g2.drawImage(explorationFlagImage, x*3*8, y*3*8, null); 
+                    }
+                }
+            }
+        }
+        return mapExplorationFlagsImage;
+    }
+    
+    private BufferedImage getMapFlagCopies(int imageWidth, int imageHeight){
         if(mapFlagCopiesImage==null){
-            mapFlagCopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapFlagCopiesImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapFlagCopiesImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(MapFlagCopy flagCopy : map.getFlagCopies()){ 
@@ -301,9 +330,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapFlagCopiesImage;
     }
     
-    private BufferedImage getMapStepCopiesImage(){
+    private BufferedImage getMapStepCopiesImage(int imageWidth, int imageHeight){
         if(mapStepCopiesImage==null){
-            mapStepCopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapStepCopiesImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapStepCopiesImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(MapStepCopy stepCopy : map.getStepCopies()){ 
@@ -321,9 +350,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapStepCopiesImage;
     }
     
-    private BufferedImage getMapLayer2CopiesImage(){
+    private BufferedImage getMapLayer2CopiesImage(int imageWidth, int imageHeight){
         if(mapLlayer2CopiesImage==null){
-            mapLlayer2CopiesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapLlayer2CopiesImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapLlayer2CopiesImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(MapLayer2Copy layer2Copy : map.getLayer2Copies()){ 
@@ -345,14 +374,14 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapLlayer2CopiesImage;
     }
     
-    private BufferedImage getMapWarpsImage(){
+    private BufferedImage getMapWarpsImage(int imageWidth, int imageHeight){
         if(mapWarpsImage==null){
-            mapWarpsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapWarpsImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapWarpsImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(MapWarp warp : map.getWarps()){ 
                 g2.setColor(Color.CYAN);
-                if(warp.getTriggerX()==-1){
+                if(warp.getTriggerX()==255){
                     MapArea mainArea = map.getAreas()[0];
                     int startX = mainArea.getLayer1StartX();
                     int endX = mainArea.getLayer1EndX();
@@ -364,7 +393,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                             g2.drawRect(x*24,y*24, 24, 24);
                         }
                     }
-                }else if(warp.getTriggerY()==-1){
+                }else if(warp.getTriggerY()==255){
                     MapArea mainArea = map.getAreas()[0];
                     int startY = mainArea.getLayer1StartY();
                     int endY = mainArea.getLayer1EndY();
@@ -377,18 +406,17 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         }
                     }
                 }else{
-                    g2.drawRect(warp.getTriggerX()*24,warp.getTriggerY()*24, 24, 24);
+                    g2.drawImage(getWarpImage(), warp.getTriggerX()*24, warp.getTriggerY()*24, null);
                 }
             }
             g2.dispose();
         }
         return mapWarpsImage;
-    }
-    
+    }    
 
-    private BufferedImage getMapItemsImage(){
+    private BufferedImage getMapItemsImage(int imageWidth, int imageHeight){
         if(mapItemsImage==null){
-            mapItemsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapItemsImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapItemsImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(int y=0;y<64;y++){
@@ -421,13 +449,16 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapItemsImage;
     } 
         
-    private BufferedImage getMapTriggersImage(){
+    private BufferedImage getMapTriggersImage(int imageWidth, int imageHeight){
         if(mapTtriggersImage==null){
-            mapTtriggersImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            MapBlock[] blocks = map.getLayout().getBlocks();
+            mapTtriggersImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapTtriggersImage.getGraphics();
             for(int y=0;y<64;y++){
                 for(int x=0;x<64;x++){
-                    g2.drawImage(getMapTriggersImage(),x*24,y*24, null);
+                    int itemFlag = blocks[y*64+x].getFlags()&0x3C00;
+                    if(itemFlag==0x1400)
+                        g2.drawImage(getTriggerImage(),x*24,y*24, null);
                 }
             }
             g2.dispose();
@@ -435,9 +466,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapTtriggersImage;
     }
     
-    private BufferedImage getMapAreasImage(){
+    private BufferedImage getMapAreasImage(int imageWidth, int imageHeight){
         if(mapAreasImage==null){
-            mapAreasImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapAreasImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapAreasImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             for(MapArea area : map.getAreas()){ 
@@ -458,9 +489,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return mapAreasImage;
     }
     
-    private BufferedImage getMapGridImage(){
+    private BufferedImage getMapGridImage(int imageWidth, int imageHeight){
         if(mapGridImage==null){
-            mapGridImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            mapGridImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) mapGridImage.getGraphics(); 
             g2.setColor(Color.BLACK);
             for(int i=0;i<64;i++){
@@ -588,12 +619,24 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             g2.dispose();
         }
         return vaseImage;
-    } 
+    }
+    
+    private BufferedImage getWarpImage(){
+        if(warpImage==null){
+            warpImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) warpImage.getGraphics();
+            g2.setColor(Color.BLUE);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRect(0, 0, 24, 24);
+            g2.dispose();
+        }
+        return warpImage;
+    }
         
     private BufferedImage getTriggerImage(){
         if(triggerImage==null){
             triggerImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) mapTtriggersImage.getGraphics();
+            Graphics2D g2 = (Graphics2D) triggerImage.getGraphics();
             g2.setStroke(new BasicStroke(3));
             g2.setColor(Color.GREEN);
             g2.drawRect(0,0, 24, 24);
@@ -627,7 +670,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     
     private BufferedImage resize(BufferedImage image){
-        BufferedImage newImage = new BufferedImage(image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, BufferedImage.TYPE_BYTE_INDEXED, (IndexColorModel)image.getColorModel());
+        BufferedImage newImage = new BufferedImage(image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, BufferedImage.TYPE_INT_ARGB);
         Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, null);
         g.dispose();
@@ -676,6 +719,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     public void mouseExited(MouseEvent e) {
         lastMapX = -1;
         lastMapY = -1;
+        this.revalidate();
+        this.repaint();
     }
     @Override
     public void mousePressed(MouseEvent e) {
@@ -692,7 +737,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                             if(selectedBlock0!=null && selectedBlock0.getIndex()==MapBlockLayout.selectedBlockIndex0){
                                 setFlagValue(x, y, selectedBlock0.getFlags());
                             }
-                        }else{
+                        }else if (copiedBlocks != null) {
                             int height = copiedBlocks.length;
                             int width = copiedBlocks[0].length;
                             int[] action = new int[4+2*height*width];
@@ -1210,13 +1255,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         return (selectedTabsDrawMode & drawFlag) > 0;
     }
 
-    public void setDrawMode_Tabs(int drawFlag, boolean on) {
-        if (drawFlag == DRAW_MODE_ALL)
-            selectedTabsDrawMode = on ? drawFlag : 0;        
-        else if (on)
-            selectedTabsDrawMode = (selectedTabsDrawMode | drawFlag);
-        else
-            selectedTabsDrawMode = (selectedTabsDrawMode | ~drawFlag);
+    public void setDrawMode_Tabs(int drawFlag) {
+        selectedTabsDrawMode = drawFlag;
         this.redraw=true;
     }
 
