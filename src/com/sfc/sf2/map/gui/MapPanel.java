@@ -397,7 +397,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                 g2.drawRect(area.getLayer1StartX()*24 + 3, area.getLayer1StartY()*24+3, width*24-6, heigth*24-6);
                 g2.setColor(Color.LIGHT_GRAY);
                 if(area.getForegroundLayer2StartX()!=0 || area.getForegroundLayer2StartY() != 0){
-                    g2.drawRect(area.getForegroundLayer2StartX()*24 + 3, area.getForegroundLayer2StartY()*24+3, width*24-6, heigth*24-6);
+                    g2.drawRect((area.getLayer1StartX() + area.getForegroundLayer2StartX())*24 + 3, (area.getLayer1StartY() + area.getForegroundLayer2StartY())*24+3, width*24-6, heigth*24-6);
                 }
                 if(area.getBackgroundLayer2StartX()!=0 || area.getBackgroundLayer2StartY() != 0){
                     g2.drawRect(area.getBackgroundLayer2StartX()*24 + 3, area.getBackgroundLayer2StartY()*24+3, width*24-6, heigth*24-6);
