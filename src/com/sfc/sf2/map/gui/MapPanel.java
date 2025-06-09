@@ -132,7 +132,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);   
         g.drawImage(buildImage(), 0, 0, this);
-        g.drawImage(buildPreviewImage(), lastMapX*24, lastMapY*24, this);
+        g.drawImage(buildPreviewImage(), lastMapX*24*currentDisplaySize, lastMapY*24*currentDisplaySize, this);
     }
     
     public BufferedImage buildImage(){
@@ -276,6 +276,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                 graphics.drawRect(0,0, 24, 24);
             }
             graphics.dispose();
+            previewImage = resize(previewImage);
         }
         
         return previewImage;
