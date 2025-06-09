@@ -32,14 +32,14 @@ import java.util.logging.Logger;
  */
 public class DisassemblyManager {
     
-    private static String areasHeader;
-    private static String flagCopiesHeader;
-    private static String stepCopiesHeader;
-    private static String layer2CopiesHeader;
-    private static String warpsHeader;
-    private static String chestItemsHeader;
-    private static String otherItemsHeader;
-    private static String animationsHeader;
+    private static String areasHeader = "\n\n";
+    private static String flagCopiesHeader = "\n\n";
+    private static String stepCopiesHeader = "\n\n";
+    private static String layer2CopiesHeader = "\n\n";
+    private static String warpsHeader = "\n\n";
+    private static String chestItemsHeader = "\n\n";
+    private static String otherItemsHeader = "\n\n";
+    private static String animationsHeader = "\n\n";
 
     public static MapArea[] importAreas(String areasPath){
         System.out.println("com.sfc.sf2.map.io.DisassemblyManager.importAreas() - Importing disassembly ...");
