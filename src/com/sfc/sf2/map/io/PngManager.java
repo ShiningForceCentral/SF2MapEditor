@@ -49,7 +49,7 @@ public class PngManager {
     
     public static void writePngMapFile(MapPanel mapPanel, String filepath){
         try {
-            BufferedImage image = mapPanel.buildImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
+            BufferedImage image = mapPanel.buildMapImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
             File outputfile = new File(filepath);
             ImageIO.write(image, "png", outputfile);
             System.out.println("PNG file exported : " + outputfile.getAbsolutePath());
@@ -97,7 +97,7 @@ public class PngManager {
     
     public static void writePngMapLayoutFile(MapPanel mapPanel, String filepath){
         try {
-            BufferedImage image = mapPanel.buildImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
+            BufferedImage image = mapPanel.buildMapImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
             File outputfile = new File(filepath);
             ImageIO.write(image, "png", outputfile);
             System.out.println("PNG file exported : " + outputfile.getAbsolutePath());

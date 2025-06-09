@@ -56,7 +56,7 @@ public class GifManager {
     
     public static void writeGifMapLayoutFile(MapPanel mapPanel, String filepath){
         try {
-            BufferedImage image = mapPanel.buildImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
+            BufferedImage image = mapPanel.buildMapImage(mapPanel.getMap(),mapPanel.getTilesPerRow(),true);
             File outputfile = new File(filepath);
             ImageIO.write(image, "gif", outputfile);
             System.out.println("GIF file exported : " + outputfile.getAbsolutePath());
