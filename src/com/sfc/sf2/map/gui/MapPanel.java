@@ -1052,6 +1052,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             block.setFlags(newFlags);
             block.setExplorationFlagImage(null);
             actions.add(action);
+            mapExplorationFlagsImage = null;
             redraw = true;
         }
     }
