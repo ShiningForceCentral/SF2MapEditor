@@ -11,8 +11,6 @@ import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.MapManager;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintStream;
 import java.net.URISyntaxException;
@@ -21,9 +19,11 @@ import java.nio.file.Paths;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
 
 /**
  *
@@ -42,6 +42,11 @@ public class MainEditor extends javax.swing.JFrame {
     MapChestItemPropertiesTableModel chestItemTableModel;
     MapOtherItemPropertiesTableModel otherItemTableModel;
     MapAnimationFramePropertiesTableModel animFrameTableModel;
+    
+    JCheckBox tabRelativeCheckbox;
+    boolean tabRelativeCheckboxState;
+    JCheckBox actionRelativeCheckbox;
+    boolean actionRelativeCheckboxState;
     
     /**
      * Creates new form NewApplication
@@ -318,11 +323,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGap(0, 799, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGap(0, 714, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel2);
@@ -355,6 +360,12 @@ public class MainEditor extends javax.swing.JFrame {
 
         jSplitPane4.setDividerLocation(250);
         jSplitPane4.setOneTouchExpandable(true);
+
+        jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane2StateChanged(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Blockset"));
 
@@ -630,7 +641,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -690,6 +701,12 @@ public class MainEditor extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Areas", jPanel21);
+
+        jTabbedPane3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane3StateChanged(evt);
+            }
+        });
 
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -2651,15 +2668,15 @@ public class MainEditor extends javax.swing.JFrame {
         mapPanel.setMap(map);
         mapPanel.setMapLayout(map.getLayout());
         mapPanel.setBlockset(map.getBlocks());
-        mapPanel.setDrawExplorationFlags(jCheckBox1.isSelected());
-        mapPanel.setDrawGrid(jCheckBox2.isSelected());
-        mapPanel.setDrawAreas(jCheckBox3.isSelected());
-        mapPanel.setDrawFlagCopies(jCheckBox4.isSelected());
-        mapPanel.setDrawStepCopies(jCheckBox5.isSelected());
-        mapPanel.setDrawLayer2Copies(jCheckBox6.isSelected());
-        mapPanel.setDrawWarps(jCheckBox7.isSelected());
-        mapPanel.setDrawItems(jCheckBox8.isSelected());
-        mapPanel.setDrawTriggers(jCheckBox9.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_EXPLORATION_FLAGS, jCheckBox1.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_GRID, jCheckBox2.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_AREAS, jCheckBox3.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_FLAG_COPIES, jCheckBox4.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_STEP_COPIES, jCheckBox5.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_LAYER2_COPIES, jCheckBox6.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_WARPS, jCheckBox7.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_ITEMS, jCheckBox8.isSelected());
+        mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_TRIGGERS, jCheckBox9.isSelected());
         mapPanel.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
         jPanel2.add(mapPanel);
         jPanel2.setSize(mapPanel.getWidth(), mapPanel.getHeight());
@@ -2795,7 +2812,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawExplorationFlags(jCheckBox1.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_EXPLORATION_FLAGS, jCheckBox1.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -2863,7 +2880,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawGrid(jCheckBox2.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_GRID, jCheckBox2.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -2871,15 +2888,15 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         /* Block graphics radio button */
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_BLOCK);
+        SetActionRelativeCheckbox(null, MapPanel.MODE_BLOCK);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_OBSTRUCTED);
+        SetActionRelativeCheckbox(jCheckBox1, MapPanel.MODE_OBSTRUCTED);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        mapPanel.setCurrentMode(MapLayoutLayout.MODE_STAIRS);
+        SetActionRelativeCheckbox(jCheckBox1, MapPanel.MODE_STAIRS);
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jTextField25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField25ActionPerformed
@@ -3044,7 +3061,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawAreas(jCheckBox3.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_AREAS, jCheckBox3.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -3052,7 +3069,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawFlagCopies(jCheckBox4.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_FLAG_COPIES, jCheckBox4.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -3060,7 +3077,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawStepCopies(jCheckBox5.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_STEP_COPIES, jCheckBox5.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -3068,7 +3085,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
         if(mapPanel!=null){
-            mapPanel.setDrawLayer2Copies(jCheckBox6.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_LAYER2_COPIES, jCheckBox6.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -3076,7 +3093,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
          if(mapPanel!=null){
-            mapPanel.setDrawWarps(jCheckBox7.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_WARPS, jCheckBox7.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -3084,26 +3101,26 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
          if(mapPanel!=null){
-            mapPanel.setDrawItems(jCheckBox8.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_ITEMS, jCheckBox8.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_WARP);
+        SetActionRelativeCheckbox(jCheckBox7, MapPanel.MODE_WARP);
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_BARREL);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_BARREL);
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
     private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_VASE);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_VASE);
     }//GEN-LAST:event_jRadioButton6ActionPerformed
 
     private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_TABLE);
+        SetActionRelativeCheckbox(jCheckBox8, MapPanel.MODE_TABLE);
     }//GEN-LAST:event_jRadioButton7ActionPerformed
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
@@ -3120,14 +3137,14 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
          if(mapPanel!=null){
-            mapPanel.setDrawTriggers(jCheckBox9.isSelected());
+            mapPanel.setDrawMode_Toggles(MapPanel.DRAW_MODE_TRIGGERS, jCheckBox9.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
     }//GEN-LAST:event_jCheckBox9ActionPerformed
 
     private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
-        mapPanel.setCurrentMode(MapPanel.MODE_TRIGGER);
+        SetActionRelativeCheckbox(jCheckBox9, MapPanel.MODE_TRIGGER);
     }//GEN-LAST:event_jRadioButton8ActionPerformed
 
     private void jTextField41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField41ActionPerformed
@@ -3367,6 +3384,116 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton56ActionPerformed
 
+    private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
+        if (mapPanel == null) return;
+        SetTabRelativeCheckbox(null, MapPanel.DRAW_MODE_NONE);
+        JTabbedPane sourceTabbedPane = (JTabbedPane)evt.getSource();
+        int index = sourceTabbedPane.getSelectedIndex();
+        mapPanel.setIsOnActionsTab(index == 0);
+        switch (index) {
+            case 0:     //Actions & Anims
+                SetTabRelativeCheckbox(null, 0);
+                
+                if (index == 0) {
+                    JCheckBox actionCheckbox = actionRelativeCheckbox;
+                    int mode = mapPanel.getCurrentMode();
+                    SetActionRelativeCheckbox(null, -1);
+                    SetActionRelativeCheckbox(actionCheckbox, mode);
+                }
+                break;
+            case 1:     //Areas panel
+                SetTabRelativeCheckbox(jCheckBox3, MapPanel.DRAW_MODE_AREAS);
+                break;
+            case 2:     //Block Copies panels
+                jTabbedPane3StateChanged(new ChangeEvent(jTabbedPane3));
+                break;
+            case 3:     //Warps panel
+                SetTabRelativeCheckbox(jCheckBox7, MapPanel.DRAW_MODE_WARPS);
+                break;
+            case 4:     //Items panel
+                SetTabRelativeCheckbox(jCheckBox8, MapPanel.DRAW_MODE_ITEMS);
+                break;
+        }
+        
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }//GEN-LAST:event_jTabbedPane2StateChanged
+
+    private void jTabbedPane3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane3StateChanged
+        if (mapPanel == null) return;
+        SetTabRelativeCheckbox(null, MapPanel.DRAW_MODE_NONE);
+        JTabbedPane sourceTabbedPane = (JTabbedPane)evt.getSource();
+        int index = sourceTabbedPane.getSelectedIndex();
+        switch (index) {
+            default:     //Layout and Anims & Block Copies panels
+                return;
+            case 0:     //Flag copies
+                SetTabRelativeCheckbox(jCheckBox4, MapPanel.DRAW_MODE_FLAG_COPIES);
+                break;
+            case 1:     //Step copies
+                SetTabRelativeCheckbox(jCheckBox5, MapPanel.DRAW_MODE_STEP_COPIES);
+                break;
+            case 2:     //Roof copies
+                SetTabRelativeCheckbox(jCheckBox6, MapPanel.DRAW_MODE_LAYER2_COPIES);
+                break;
+        }
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }//GEN-LAST:event_jTabbedPane3StateChanged
+
+    private void SetTabRelativeCheckbox(JCheckBox checkbox, int mode) {
+        if (checkbox == null) {
+            // Restore checkboxes
+            if (tabRelativeCheckbox != null) {
+                tabRelativeCheckbox.setSelected(tabRelativeCheckboxState);
+                tabRelativeCheckbox.setEnabled(true);
+            }
+            tabRelativeCheckbox = null;
+        }
+        else {
+            if (tabRelativeCheckbox != null)
+                SetTabRelativeCheckbox(null, 0);
+        
+            //If tabs change then disable the action tab affecting the checkboxes
+            if (!mapPanel.isDrawMode_Tabs(MapPanel.DRAW_MODE_ACTION_FLAGS)){
+                JCheckBox actionCheckbox = actionRelativeCheckbox;
+                int actionMode = mapPanel.getCurrentMode();
+                SetActionRelativeCheckbox(null, -1);
+                actionRelativeCheckbox = actionCheckbox;
+                mapPanel.setCurrentMode(actionMode);
+            }
+            
+            // Lock active checkbox
+            mapPanel.setDrawMode_Tabs(mode);
+            tabRelativeCheckbox = checkbox;
+            tabRelativeCheckboxState = checkbox.isSelected();
+            tabRelativeCheckbox.setSelected(true);
+            tabRelativeCheckbox.setEnabled(false);
+        }
+    }
+    
+    private void SetActionRelativeCheckbox(JCheckBox checkbox, int mode) {
+        if (mapPanel.getCurrentMode() == mode) return;
+        mapPanel.setCurrentMode(mode);
+        if (actionRelativeCheckbox != null) {
+            // Restore checkboxes
+            if (actionRelativeCheckbox != null) {
+                actionRelativeCheckbox.setSelected(actionRelativeCheckboxState);
+                actionRelativeCheckbox.setEnabled(true);
+            }
+            actionRelativeCheckbox = null;
+        }
+        if (checkbox != null) {
+            // Lock active checkbox
+            actionRelativeCheckbox = checkbox;
+            actionRelativeCheckboxState = checkbox.isSelected();
+            actionRelativeCheckbox.setSelected(true);
+            actionRelativeCheckbox.setEnabled(false);
+        }
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
     /**
      * @param args the command line arguments
      */
