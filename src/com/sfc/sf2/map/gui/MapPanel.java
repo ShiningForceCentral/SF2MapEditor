@@ -15,6 +15,7 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -216,14 +217,18 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     previewImage = null;
                     previewIndex = -1;
                 }
-                else if (previewImage == null || previewIndex != MapBlockLayout.selectedBlockIndex0) {
+                else {
                     previewIndex = MapBlockLayout.selectedBlockIndex0;
                     selectedBlock0 = blockset[previewIndex];
                     //"layout" is not MapBlockLayout. How to get that?
                     if (selectedBlock0 != null) {
-                        Color[] palette = selectedBlock0.getTiles()[0].getPalette();
-                        IndexColorModel icm = buildIndexColorModel(palette);
-                        preview = getBlockImage(selectedBlock0, icm);
+                        if (selectedBlock0.getImage() != null) {
+                            Color[] palette = selectedBlock0.getTiles()[0].getPalette();
+                            IndexColorModel icm = buildIndexColorModel(palette);
+                            preview = getBlockImage(selectedBlock0, icm);
+                        } else {
+                            preview = selectedBlock0.getImage();
+                        }
                     }
                 }
                 break;
@@ -381,32 +386,32 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             g2.setStroke(new BasicStroke(3));
             for(MapWarp warp : map.getWarps()){ 
                 g2.setColor(Color.CYAN);
-                if(warp.getTriggerX()==255){
+                if(warp.getTriggerX()==0xFF || warp.getTriggerY()==0xFF){
                     MapArea mainArea = map.getAreas()[0];
-                    int startX = mainArea.getLayer1StartX();
-                    int endX = mainArea.getLayer1EndX();
-                    MapBlock[] layout = map.getLayout().getBlocks();
-                    int y = warp.getTriggerY();
-                    for(int x=startX;x<=endX;x++){
-                        int flags = layout[y*64+x].getFlags();
-                        if((flags&0xC000)!=0xC000 && (flags&0x1000)==0x1000){
-                            g2.drawRect(x*24,y*24, 24, 24);
-                        }
+                    int x, w, y, h;
+                    if (warp.getTriggerX()==0xFF) {
+                        x = mainArea.getLayer1StartX();
+                        w = mainArea.getLayer1EndX()-x+1;
+                    } else {
+                        x = warp.getTriggerX();
+                        w = 1;
                     }
-                }else if(warp.getTriggerY()==255){
-                    MapArea mainArea = map.getAreas()[0];
-                    int startY = mainArea.getLayer1StartY();
-                    int endY = mainArea.getLayer1EndY();
-                    MapBlock[] layout = map.getLayout().getBlocks();
-                    int x = warp.getTriggerX();
-                    for(int y=startY;y<=endY;y++){
-                        int flags = layout[y*64+x].getFlags();
-                        if((flags&0xC000)!=0xC000 && (flags&0x1000)==0x1000){
-                            g2.drawRect(x*24,y*24, 24, 24);
-                        }
+                    if (warp.getTriggerY()==0xFF) {
+                        y = mainArea.getLayer1StartY();
+                        h = mainArea.getLayer1EndY()-y+1;
+                    } else {
+                        y = warp.getTriggerY();
+                        h = 1;
                     }
-                }else{
+                    g2.drawRect(x*24,y*24, w*24, h*24);
+                }else {
                     g2.drawImage(getWarpImage(), warp.getTriggerX()*24, warp.getTriggerY()*24, null);
+                }
+                
+                if (warp.getDestMap().equals("MAP_CURRENT")) {
+                    g2.setStroke(new BasicStroke(1));
+                    g2.setColor(Color.BLUE);
+                    g2.drawLine(warp.getTriggerX()*24+12, warp.getTriggerY()*24+12, warp.getDestX()*24+12, warp.getDestY()*24+12);
                 }
             }
             g2.dispose();
