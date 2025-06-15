@@ -9,6 +9,7 @@ import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.MapManager;
+import com.sfc.sf2.map.layout.DisassemblyException;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
 import java.awt.GridLayout;
 import java.io.File;
@@ -2646,16 +2647,20 @@ public class MainEditor extends javax.swing.JFrame {
         }        
         System.out.println(animPath.toString());
         
-        mapManager.importDisassembly(incbinPath.toString(), paletteEntriesPath.toString(),tilesetEntriesPath.toString(),tilesetsPath.toString(),blocksetPath.toString(),layoutPath.toString(),
-                areasPath.toString(), flagCopiesPath.toString(), stepCopiesPath.toString(), layer2CopiesPath.toString(), warpsPath.toString(),
-                chestItemsPath.toString(),otherItemsPath.toString(), animPath.toString());
+        try {
+            mapManager.importDisassembly(incbinPath.toString(), paletteEntriesPath.toString(),tilesetEntriesPath.toString(),tilesetsPath.toString(),blocksetPath.toString(),layoutPath.toString(),
+                    areasPath.toString(), flagCopiesPath.toString(), stepCopiesPath.toString(), layer2CopiesPath.toString(), warpsPath.toString(),
+                    chestItemsPath.toString(),otherItemsPath.toString(), animPath.toString());
+        } catch (DisassemblyException ex) {
+            Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         map = mapManager.getMap();
         
         jPanel6.removeAll();       
         jPanel6.setLayout(new GridLayout(1,1));
         mapblockLayout = new MapBlockLayout();
-        mapblockLayout.setTilesPerRow(((int)jSpinner1.getModel().getValue())*3);
+        mapblockLayout.setBlocksPerRow(((int)jSpinner1.getModel().getValue()));
         mapblockLayout.setCurrentDisplaySize(jComboBox2.getSelectedIndex()+1);
         mapblockLayout.setBlocks(map.getBlocks());
         jPanel6.add(mapblockLayout);
@@ -2832,7 +2837,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         if(mapblockLayout != null){
-            mapblockLayout.setTilesPerRow((int)jSpinner1.getModel().getValue()*3);
+            mapblockLayout.setBlocksPerRow((int)jSpinner1.getModel().getValue());
             jPanel6.revalidate();
             jPanel6.repaint();
         }

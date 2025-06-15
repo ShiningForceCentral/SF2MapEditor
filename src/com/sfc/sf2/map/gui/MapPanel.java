@@ -15,7 +15,6 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -971,16 +970,16 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         }
 
                         MapBlockLayout.selectedBlockIndex0 = -1;
-
+                        
                         BufferedImage img = new BufferedImage(3*8,3*8,BufferedImage.TYPE_INT_ARGB);
                         Graphics2D g2 = (Graphics2D) img.getGraphics();
                         g2.setColor(Color.BLACK);
-                        for(int i=0;3+i*3<3*8;i++){
-                            g2.drawLine(3+i*3, 0, 3+i*3, 3*8-1);
-                            g2.drawLine(0, 3+i*3, 3*8-1, 3+i*3);
-                        }
+                            g2.drawString("copy", -1, 15);
                         g2.dispose();
-                        leftSlot.setBlockImage(img);
+                        
+                        MapBlock b = new MapBlock();
+                        b.setImage(img);
+                        leftSlot.setBlock(b);
                         leftSlot.revalidate();
                         leftSlot.repaint(); 
                     }
@@ -1019,12 +1018,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     
     private void updateLeftSlot(MapBlock block){
-        BufferedImage img = new BufferedImage(3*8,3*8,BufferedImage.TYPE_INT_ARGB);
-        Graphics g = img.getGraphics();
-        g.drawImage(block.getImage(), 0, 0, null);
-        g.drawImage(block.getExplorationFlagImage(), 0, 0, null);
-        g.dispose();
-        leftSlot.setBlockImage(img);
+        leftSlot.setBlock(block);
         leftSlot.revalidate();
         leftSlot.repaint(); 
     }

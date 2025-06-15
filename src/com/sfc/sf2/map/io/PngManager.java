@@ -71,7 +71,7 @@ public class PngManager {
     
     public static void writePngBlocksetFile(MapBlockLayout mapBlockLayout, String filepath){
         try {
-            BufferedImage image = mapBlockLayout.buildImage(mapBlockLayout.getBlocks(),mapBlockLayout.getTilesPerRow(),true);
+            BufferedImage image = mapBlockLayout.buildImage(mapBlockLayout.getBlocks(),mapBlockLayout.getBlocksPerRow(),true);
             File outputfile = new File(filepath);
             ImageIO.write(image, "png", outputfile);
             System.out.println("PNG file exported : " + outputfile.getAbsolutePath());

@@ -5,23 +5,16 @@
  */
 package com.sfc.sf2.map;
 
-import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
 import com.sfc.sf2.map.io.GifManager;
 import com.sfc.sf2.map.io.PngManager;
+import com.sfc.sf2.map.layout.DisassemblyException;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +25,8 @@ public class MapManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
-    public void importDisassembly(String incbinPath, String paletteEntriesPath, String tilesetEntriesPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath, String animationsPath){
+    public void importDisassembly(String incbinPath, String paletteEntriesPath, String tilesetEntriesPath, String tilesetsFilePath, String blocksPath, String layoutPath, String areasPath, String flagCopiesPath, String stepCopiesPath, String layer2CopiesPath, String warpsPath, String chestItemsPath, String otherItemsPath, String animationsPath)
+            throws DisassemblyException {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
         mapLayoutManager.importDisassemblyFromEntryFiles(incbinPath, paletteEntriesPath, tilesetEntriesPath, tilesetsFilePath, blocksPath, layoutPath);
         MapLayout layout = mapLayoutManager.getLayout();
