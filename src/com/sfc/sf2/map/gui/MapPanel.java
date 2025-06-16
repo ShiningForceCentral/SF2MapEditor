@@ -78,6 +78,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     
     private MapBlock selectedBlock0;
     MapBlock[][] copiedBlocks;
+    private int copiedBlocksStartX = -1;
+    private int copiedBlocksStartY = -1;
+    private int copiedBlocksDrawX = -1;
+    private int copiedBlocksDrawY = -1;
     
     private List<int[]> actions = new ArrayList<int[]>();
     
@@ -111,8 +115,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private BufferedImage warpImage;
     private BufferedImage triggerImage;
     private BufferedImage obstructedImage;
-    
-    
+        
     private int lastMouseX = 0;
     private int lastMouseY = 0;
     private TitledBorder titledBorder = null;
@@ -131,7 +134,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);   
         g.drawImage(buildImage(), 0, 0, this);
-        g.drawImage(buildPreviewImage(), lastMapX*24*currentDisplaySize, lastMapY*24*currentDisplaySize, this);
+        if (copiedBlocksStartX >= 0) {
+            g.drawImage(buildPreviewImage(), copiedBlocksDrawX*24*currentDisplaySize, copiedBlocksDrawY*24*currentDisplaySize, this);
+        } else {
+            g.drawImage(buildPreviewImage(), lastMapX*24*currentDisplaySize, lastMapY*24*currentDisplaySize, this);
+        }
     }
     
     public BufferedImage buildImage(){
@@ -212,11 +219,36 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         switch (currentMode) {
             case MODE_BLOCK:
                 overlayRect = true;
-                if (MapBlockLayout.selectedBlockIndex0 == -1) {
+                if (copiedBlocksStartX >= 0) {
+                    //Dragging for mass copy
+                    int width;
+                    int height;
+                    if (lastMapX < copiedBlocksStartX) {
+                        width = copiedBlocksStartX - lastMapX + 1;
+                        copiedBlocksDrawX = lastMapX;
+                    } else {
+                        width = lastMapX - copiedBlocksStartX + 1;
+                        copiedBlocksDrawX = copiedBlocksStartX;
+                    }
+                    if (lastMapY < copiedBlocksStartY) {
+                        height = copiedBlocksStartY - lastMapY + 1;
+                        copiedBlocksDrawY = lastMapY;
+                    } else {
+                        height = lastMapY - copiedBlocksStartY + 1;
+                        copiedBlocksDrawY = copiedBlocksStartY;
+                    }
+                    preview = new BufferedImage(width*24, height*24, BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D graphics = (Graphics2D)preview.getGraphics();
+                    graphics.setColor(Color.YELLOW);
+                    graphics.setStroke(new BasicStroke(2));
+                    graphics.drawRect(0, 0, width*24, height*24);
+                    overlayRect = false;
+                } else if (MapBlockLayout.selectedBlockIndex0 == -1) {
+                    //No block
                     previewImage = null;
                     previewIndex = -1;
-                }
-                else {
+                } else {
+                    //Block selected
                     previewIndex = MapBlockLayout.selectedBlockIndex0;
                     selectedBlock0 = blockset[previewIndex];
                     //"layout" is not MapBlockLayout. How to get that?
@@ -263,7 +295,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         }
         
         if (preview != null || overlayRect) {
-            previewImage = new BufferedImage(24, 24, BufferedImage.TYPE_INT_ARGB);
+            if (preview == null) {
+                previewImage = new BufferedImage(24, 24, BufferedImage.TYPE_INT_ARGB);
+            } else {
+                previewImage = new BufferedImage(preview.getWidth(), preview.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            }
             Graphics2D graphics = (Graphics2D)previewImage.getGraphics();
             if (preview != null) {
                 graphics.setColor(Color.WHITE);
@@ -272,7 +308,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             if (overlayRect) {
                 graphics.setColor(Color.YELLOW);
                 graphics.setStroke(new BasicStroke(2));
-                graphics.drawRect(0,0, 24, 24);
+                graphics.drawRect(0,0, previewImage.getWidth(), previewImage.getHeight());
             }
             graphics.dispose();
             previewImage = resize(previewImage);
@@ -290,7 +326,6 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                 for(int x=0;x<64;x++){
                     MapBlock block = blocks[y*64+x];
                     BufferedImage explorationFlagImage = block.getExplorationFlagImage();
-                    BufferedImage interactionFlagImage = block.getInteractionFlagImage();
                     if(shouldDraw(DRAW_MODE_EXPLORATION_FLAGS)){
                         int explorationFlags = block.getFlags()&0xC000;
                         if(explorationFlagImage==null){
@@ -775,8 +810,9 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         }
                         break;
                     case MouseEvent.BUTTON2:
-                        lastMapX = x;
-                        lastMapY = y;
+                        copiedBlocksStartX = lastMapX = x;
+                        copiedBlocksStartY = lastMapY = y;
+                        redraw = true;
                         break;
                     case MouseEvent.BUTTON3:
                         setBlockValue(x, y, MapBlockLayout.selectedBlockIndex1);
@@ -983,6 +1019,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         leftSlot.revalidate();
                         leftSlot.repaint(); 
                     }
+                    
+                    copiedBlocksStartX = copiedBlocksStartY = -1;
                 }
                 break;
                 
@@ -993,10 +1031,22 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     
     @Override
     public void mouseDragged(MouseEvent e) {
+        int x = e.getX() / (currentDisplaySize * 3*8);
+        int y = e.getY() / (currentDisplaySize * 3*8);
+        
+        if(x!=lastMouseX||y!=lastMouseY){
+            if (copiedBlocksStartX >= 0) {
+                previewImage = null;
+                lastMapX = x;
+                lastMapY = y;
+                this.revalidate();
+                this.repaint();
+            }
+        }
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {        
+    public void mouseMoved(MouseEvent e) {
         int x = e.getX() / (currentDisplaySize * 3*8);
         int y = e.getY() / (currentDisplaySize * 3*8);
         
@@ -1008,13 +1058,12 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             titledPanel.revalidate();
             titledPanel.repaint();
             //System.out.println("New cursor pos : "+x+","+y);
-            
+                     
             lastMapX = x;
             lastMapY = y;
             this.revalidate();
             this.repaint();
         }
-        
     }
     
     private void updateLeftSlot(MapBlock block){
