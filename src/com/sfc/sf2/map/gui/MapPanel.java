@@ -243,6 +243,18 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     graphics.setStroke(new BasicStroke(2));
                     graphics.drawRect(0, 0, width*24, height*24);
                     overlayRect = false;
+                } else if (copiedBlocks != null) {
+                    overlayRect = true;
+                    Color[] palette = copiedBlocks[0][0].getTiles()[0].getPalette();
+                    IndexColorModel icm = buildIndexColorModel(palette);
+                    preview = new BufferedImage(copiedBlocks[0].length*24, copiedBlocks.length*24, BufferedImage.TYPE_BYTE_INDEXED, icm);
+                    Graphics2D graphics = (Graphics2D)preview.getGraphics();
+                    graphics.setColor(Color.WHITE);
+                    for (int i = 0; i < copiedBlocks.length; i++) {
+                        for (int j = 0; j < copiedBlocks[i].length; j++) {
+                            graphics.drawImage(getBlockImage(copiedBlocks[i][j], icm), j*24, i*24, null);
+                        }
+                    }
                 } else if (MapBlockLayout.selectedBlockIndex0 == -1) {
                     //No block
                     previewImage = null;
@@ -812,6 +824,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     case MouseEvent.BUTTON2:
                         copiedBlocksStartX = lastMapX = x;
                         copiedBlocksStartY = lastMapY = y;
+                        copiedBlocks = null;
                         redraw = true;
                         break;
                     case MouseEvent.BUTTON3:
@@ -972,7 +985,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
         switch (e.getButton()) {
             case MouseEvent.BUTTON2:
                 if(currentMode==MODE_BLOCK){                
-                    if(x==lastMapX && y==lastMapY){
+                    if(x==copiedBlocksStartX && y==copiedBlocksStartY){
                         selectedBlock0 = layout.getBlocks()[y*64+x];
                         MapBlockLayout.selectedBlockIndex0 = selectedBlock0.getIndex();
                         updateLeftSlot(selectedBlock0);
@@ -982,19 +995,19 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         int xEnd;
                         int yStart;
                         int yEnd;
-                        if(x>lastMapX){
-                            xStart = lastMapX;
+                        if(x>copiedBlocksStartX){
+                            xStart = copiedBlocksStartX;
                             xEnd = x;
                         }else{
                             xStart = x;
-                            xEnd = lastMapX;
+                            xEnd = copiedBlocksStartX;
                         }
-                        if(y>lastMapY){
-                            yStart = lastMapY;
+                        if(y>copiedBlocksStartY){
+                            yStart = copiedBlocksStartY;
                             yEnd = y;
                         }else{
                             yStart = y;
-                            yEnd = lastMapY;
+                            yEnd = copiedBlocksStartY;
                         }
                         int width = xEnd - xStart + 1;
                         int height = yEnd - yStart + 1;
