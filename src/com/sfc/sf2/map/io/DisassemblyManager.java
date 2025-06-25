@@ -95,6 +95,9 @@ public class DisassemblyManager {
                     }else if(line.trim().startsWith("areaDefaultMusic")){
                         String[] params = line.trim().substring("areaDefaultMusic".length()).trim().split(",");
                         entry.setDefaultMusic(Integer.valueOf(params[0].trim()));
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             areasHeader+=line;
@@ -289,6 +292,9 @@ public class DisassemblyManager {
                         String[] params = line.trim().substring("fbcDest".length()).trim().split(",");
                         entry.setDestX(valueOf(params[0].trim()));
                         entry.setDestY(valueOf(params[1].trim()));
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             flagCopiesHeader+=line;
@@ -420,6 +426,9 @@ public class DisassemblyManager {
                         String[] params = line.trim().substring("sbcDest".length()).trim().split(",");
                         entry.setDestX(valueOf(params[0].trim()));
                         entry.setDestY(valueOf(params[1].trim()));
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             stepCopiesHeader+=line;
@@ -548,6 +557,9 @@ public class DisassemblyManager {
                         String[] params = line.trim().substring("slbcDest".length()).trim().split(",");
                         entry.setDestX(valueOf(params[0].trim()));
                         entry.setDestY(valueOf(params[1].trim()));
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             layer2CopiesHeader+=line;
@@ -679,6 +691,9 @@ public class DisassemblyManager {
                     }else if(line.trim().startsWith("warpFacing")){
                         String[] params = line.trim().substring("warpFacing".length()).trim().split(",");
                         entry.setFacing(params[0].trim());
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             warpsHeader+=line;
@@ -800,6 +815,9 @@ public class DisassemblyManager {
                         entry.setY(valueOf(params[1].trim()));
                         entry.setFlag(valueOf(params[2].trim()));
                         entry.setItem(params[3].trim());
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             chestItemsHeader+=line;
@@ -909,6 +927,9 @@ public class DisassemblyManager {
                         entry.setY(valueOf(params[1].trim()));
                         entry.setFlag(valueOf(params[2].trim()));
                         entry.setItem(params[3].trim());
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             otherItemsHeader+=line;
@@ -953,7 +974,7 @@ public class DisassemblyManager {
             if(itemsPath.endsWith(".asm")){
                 StringBuilder asm = new StringBuilder();
                 asm.append(otherItemsHeader);
-                asm.append(produceChestItemsAsm(items));
+                asm.append(produceOtherItemsAsm(items));
                 Path path = Paths.get(itemsPath);
                 Files.write(path,asm.toString().getBytes());
                 System.out.println(asm);
@@ -1022,6 +1043,9 @@ public class DisassemblyManager {
                         entry.setLength(valueOf(params[1].trim()));
                         entry.setDest(valueOf(params[2].trim()));
                         entry.setDelay(valueOf(params[3].trim()));
+                    }else if (line.trim().startsWith("endWord")){
+                        inHeader = false;
+                        break;
                     }else{
                         if(inHeader){
                             animationsHeader+=line;
