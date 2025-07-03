@@ -55,10 +55,12 @@ public class MainEditor extends javax.swing.JFrame {
     public MainEditor() {
         try {
             initComponents();
+            /*
             jTextField24.setText("."+File.separator+"entries"+File.separator+"map03"+File.separator+"");
             jTextField21.setText(".."+File.separator+".."+File.separator+".."+File.separator+"graphics"+File.separator+"maps"+File.separator+"mappalettes"+File.separator+"entries.asm");
             jTextField22.setText(".."+File.separator+".."+File.separator+".."+File.separator+"graphics"+File.separator+"maps"+File.separator+"maptilesets"+File.separator+"entries.asm");
             jTextField49.setText(".."+File.separator+".."+File.separator+".."+File.separator+".."+File.separator+"");
+            */
             initConsole(jTextArea1);
             System.setProperty("java.util.logging.SimpleFormatter.format",
                     "%2$s - %5$s%6$s%n");
@@ -1167,7 +1169,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText(".\\entries\\map03\\");
+        jTextField24.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\maps\\entries\\map63\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1229,7 +1231,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palette entries :");
 
-            jTextField21.setText("..\\..\\..\\graphics\\maps\\mappalettes\\entries.asm");
+            jTextField21.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\graphics\\maps\\mappalettes\\entries.asm");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1245,7 +1247,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tileset entries :");
 
-            jTextField22.setText("..\\..\\..\\graphics\\maps\\maptilesets\\entries.asm");
+            jTextField22.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\graphics\\maps\\maptilesets\\entries.asm");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);
@@ -1405,7 +1407,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel51.setText("Incbin Base Path :");
 
-            jTextField49.setText("..\\..\\..\\..\\");
+            jTextField49.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\");
                 jTextField49.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jTextField49ActionPerformed(evt);
