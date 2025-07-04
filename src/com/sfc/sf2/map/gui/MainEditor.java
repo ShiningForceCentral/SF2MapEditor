@@ -314,7 +314,7 @@ public class MainEditor extends javax.swing.JFrame {
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOneTouchExpandable(true);
 
-        jSplitPane2.setDividerLocation(540);
+        jSplitPane2.setDividerLocation(650);
         jSplitPane2.setOneTouchExpandable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Map"));
@@ -339,7 +339,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +361,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jSplitPane2.setRightComponent(jPanel10);
 
-        jSplitPane4.setDividerLocation(250);
+        jSplitPane4.setDividerLocation(300);
         jSplitPane4.setOneTouchExpandable(true);
 
         jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -423,7 +423,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton3))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,7 +663,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -696,11 +696,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Areas", jPanel21);
@@ -736,11 +736,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Flag Copies", jPanel24);
@@ -770,11 +770,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Step Copies", jPanel25);
@@ -804,11 +804,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Roof Copies", jPanel26);
@@ -851,11 +851,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Warps", jPanel27);
@@ -892,11 +892,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel29.setLayout(jPanel29Layout);
         jPanel29Layout.setHorizontalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("Chest Items", jPanel29);
@@ -926,11 +926,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel30.setLayout(jPanel30Layout);
         jPanel30Layout.setHorizontalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("Other Items", jPanel30);
@@ -993,7 +993,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
@@ -1015,7 +1015,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Anims", jPanel23);
@@ -1169,7 +1169,8 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\maps\\entries\\map63\\");
+        jTextField24.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        jTextField24.setText(".\\entries\\map63\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1199,6 +1200,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel20.setText("Blockset :");
 
+            jTextField19.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField19.setText("0-blocks.bin");
             jTextField19.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1215,6 +1217,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel21.setText("Layout :");
 
+            jTextField20.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField20.setText("1-layout.bin");
             jTextField20.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1231,7 +1234,8 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel23.setText("Palette entries :");
 
-            jTextField21.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\graphics\\maps\\mappalettes\\entries.asm");
+            jTextField21.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            jTextField21.setText("..\\..\\..\\graphics\\maps\\mappalettes\\entries.asm");
             jTextField21.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField21ActionPerformed(evt);
@@ -1247,7 +1251,8 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel24.setText("Tileset entries :");
 
-            jTextField22.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\graphics\\maps\\maptilesets\\entries.asm");
+            jTextField22.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            jTextField22.setText("..\\..\\..\\graphics\\maps\\maptilesets\\entries.asm");
             jTextField22.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField22ActionPerformed(evt);
@@ -1263,6 +1268,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel25.setText("Tilesets :");
 
+            jTextField23.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField23.setText("00-tilesets.asm");
             jTextField23.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1277,6 +1283,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField25.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField25.setText("4-step-events.asm");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1293,6 +1300,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField26.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField26.setText("3-flag-events.asm");
             jTextField26.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1316,6 +1324,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField27.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField27.setText("2-areas.asm");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1325,6 +1334,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Flag events :");
 
+            jTextField28.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField28.setText("7-chest-items.asm");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1341,6 +1351,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField29.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField29.setText("6-warp-events.asm");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1364,6 +1375,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField30.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField30.setText("5-roof-events.asm");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1373,6 +1385,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel32.setText("Warps :");
 
+            jTextField31.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField31.setText("9-animations.asm");
             jTextField31.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1389,6 +1402,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jTextField32.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField32.setText("8-other-items.asm");
             jTextField32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1407,7 +1421,8 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel51.setText("Incbin Base Path :");
 
-            jTextField49.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\");
+            jTextField49.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            jTextField49.setText("..\\..\\..\\..\\");
                 jTextField49.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jTextField49ActionPerformed(evt);
@@ -1938,7 +1953,7 @@ public class MainEditor extends javax.swing.JFrame {
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel43)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField41, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                .addComponent(jTextField41, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton48))
                             .addGroup(jPanel33Layout.createSequentialGroup()
@@ -1999,7 +2014,7 @@ public class MainEditor extends javax.swing.JFrame {
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel44)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField42, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                .addComponent(jTextField42, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton49))
                             .addGroup(jPanel34Layout.createSequentialGroup()
@@ -2098,19 +2113,19 @@ public class MainEditor extends javax.swing.JFrame {
                                     .addGroup(jPanel35Layout.createSequentialGroup()
                                         .addComponent(jLabel49)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField47, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                        .addComponent(jTextField47, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton54))
                                     .addGroup(jPanel35Layout.createSequentialGroup()
                                         .addComponent(jLabel46)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField44, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                        .addComponent(jTextField44, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton51))
                                     .addGroup(jPanel35Layout.createSequentialGroup()
                                         .addComponent(jLabel45)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField43, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                        .addComponent(jTextField43, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton50)))))
                         .addContainerGap())
@@ -2215,19 +2230,19 @@ public class MainEditor extends javax.swing.JFrame {
                                     .addGroup(jPanel36Layout.createSequentialGroup()
                                         .addComponent(jLabel50)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField48, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                        .addComponent(jTextField48, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton55))
                                     .addGroup(jPanel36Layout.createSequentialGroup()
                                         .addComponent(jLabel48)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField46, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                        .addComponent(jTextField46, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton53))
                                     .addGroup(jPanel36Layout.createSequentialGroup()
                                         .addComponent(jLabel47)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField45, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                        .addComponent(jTextField45, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton52)))))
                         .addContainerGap())
@@ -2312,7 +2327,7 @@ public class MainEditor extends javax.swing.JFrame {
                 jPanel8.setLayout(jPanel8Layout);
                 jPanel8Layout.setHorizontalGroup(
                     jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                 );
                 jPanel8Layout.setVerticalGroup(
                     jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2411,7 +2426,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 );
 
-                setSize(new java.awt.Dimension(1016, 838));
+                setSize(new java.awt.Dimension(1208, 838));
                 setLocationRelativeTo(null);
             }// </editor-fold>//GEN-END:initComponents
 
@@ -2532,118 +2547,130 @@ public class MainEditor extends javax.swing.JFrame {
         if(!mapPath.endsWith(File.separator)){
             mapPath = mapPath+""+File.separator;
         }
-        //Path basePath = Paths.get(mapPath).toAbsolutePath();
         System.out.println(toolPath.toString());
-        Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
-        System.out.println(basePath.toString());
+        Path mapBasePath = toolPath.resolve(Paths.get(mapPath)).normalize();
+        System.out.println(mapBasePath.toString());        
         Path iPath = Paths.get(jTextField49.getText());
         Path incbinPath;
         if(!iPath.isAbsolute()){
-           incbinPath = basePath.resolve(iPath).normalize();
+           incbinPath = mapBasePath.resolve(iPath).normalize();
         }else{
             incbinPath = iPath;
         }
         System.out.println(incbinPath.toString());
+        //Palettes path
         Path pePath = Paths.get(jTextField21.getText());
         Path paletteEntriesPath;
         if(!pePath.isAbsolute()){
-           paletteEntriesPath = basePath.resolve(pePath).normalize();
+           paletteEntriesPath = mapBasePath.resolve(pePath).normalize();
         }else{
             paletteEntriesPath = pePath;
         }
         System.out.println(paletteEntriesPath.toString());
+        //Tilesets path
         Path tePath = Paths.get(jTextField22.getText());
         Path tilesetEntriesPath;
         if(!tePath.isAbsolute()){
-           tilesetEntriesPath = basePath.resolve(tePath).normalize();
+           tilesetEntriesPath = mapBasePath.resolve(tePath).normalize();
         }else{
             tilesetEntriesPath = tePath;
         }
         System.out.println(tilesetEntriesPath.toString());
+        //Map tilesets path
         Path tPath = Paths.get(jTextField23.getText());
         Path tilesetsPath;
         if(!tPath.isAbsolute()){
-           tilesetsPath = basePath.resolve(tPath).normalize();
+           tilesetsPath = mapBasePath.resolve(tPath).normalize();
         }else{
             tilesetsPath = tPath;
         }
         System.out.println(tilesetsPath.toString());
+        //Map blocks path
         Path bPath = Paths.get(jTextField19.getText());
         Path blocksetPath;
         if(!bPath.isAbsolute()){
-           blocksetPath = basePath.resolve(bPath).normalize();
+           blocksetPath = mapBasePath.resolve(bPath).normalize();
         }else{
             blocksetPath = bPath;
         }
         System.out.println(blocksetPath.toString());
+        //Map layout path
         Path lPath = Paths.get(jTextField20.getText());
         Path layoutPath;
         if(!lPath.isAbsolute()){
-           layoutPath = basePath.resolve(lPath).normalize();
+           layoutPath = mapBasePath.resolve(lPath).normalize();
         }else{
             layoutPath = lPath;
         }        
         System.out.println(layoutPath.toString());
+        //Map areas path
         Path arPath = Paths.get(jTextField27.getText());
         Path areasPath;
         if(!arPath.isAbsolute()){
-           areasPath = basePath.resolve(arPath).normalize();
+           areasPath = mapBasePath.resolve(arPath).normalize();
         }else{
             areasPath = arPath;
         }        
         System.out.println(areasPath.toString());
+        //Map flag copies path
         Path fcPath = Paths.get(jTextField26.getText());
         Path flagCopiesPath;
         if(!fcPath.isAbsolute()){
-           flagCopiesPath = basePath.resolve(fcPath).normalize();
+           flagCopiesPath = mapBasePath.resolve(fcPath).normalize();
         }else{
             flagCopiesPath = fcPath;
         }        
         System.out.println(flagCopiesPath.toString());
+        //Map step copies path
         Path scPath = Paths.get(jTextField25.getText());
         Path stepCopiesPath;
         if(!scPath.isAbsolute()){
-           stepCopiesPath = basePath.resolve(scPath).normalize();
+           stepCopiesPath = mapBasePath.resolve(scPath).normalize();
         }else{
             stepCopiesPath = scPath;
         }        
         System.out.println(stepCopiesPath.toString());
+        //Map roof copies path
         Path rcPath = Paths.get(jTextField30.getText());
         Path layer2CopiesPath;
         if(!rcPath.isAbsolute()){
-           layer2CopiesPath = basePath.resolve(rcPath).normalize();
+           layer2CopiesPath = mapBasePath.resolve(rcPath).normalize();
         }else{
             layer2CopiesPath = rcPath;
         }        
         System.out.println(layer2CopiesPath.toString());
+        //Map warps path
         Path wPath = Paths.get(jTextField29.getText());
         Path warpsPath;
         if(!wPath.isAbsolute()){
-           warpsPath = basePath.resolve(wPath).normalize();
+           warpsPath = mapBasePath.resolve(wPath).normalize();
         }else{
             warpsPath = wPath;
         }        
         System.out.println(warpsPath.toString());
+        //Map chest items path
         Path ciPath = Paths.get(jTextField28.getText());
         Path chestItemsPath;
         if(!ciPath.isAbsolute()){
-           chestItemsPath = basePath.resolve(ciPath).normalize();
+           chestItemsPath = mapBasePath.resolve(ciPath).normalize();
         }else{
             chestItemsPath = ciPath;
         }        
         System.out.println(chestItemsPath.toString());
+        //Map other items path
         Path oiPath = Paths.get(jTextField32.getText());
         Path otherItemsPath;
         if(!oiPath.isAbsolute()){
-           otherItemsPath = basePath.resolve(oiPath).normalize();
+           otherItemsPath = mapBasePath.resolve(oiPath).normalize();
         }else{
             otherItemsPath = oiPath;
         }        
         System.out.println(otherItemsPath.toString());
+        //Map anims path
         Path aPath = Paths.get(jTextField31.getText());
         Path animPath;
         if(!aPath.isAbsolute()){
-           animPath = basePath.resolve(aPath).normalize();
+           animPath = mapBasePath.resolve(aPath).normalize();
         }else{
             animPath = aPath;
         }        
