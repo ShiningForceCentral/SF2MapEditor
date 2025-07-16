@@ -5,6 +5,7 @@
  */
 package com.sfc.sf2.map.gui;
 
+import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.MapArea;
 import com.sfc.sf2.map.MapFlagCopy;
@@ -25,6 +26,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -161,17 +163,14 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             MapBlock[] blocks = layout.getBlocks();
             int imageWidth = tilesPerRow*8;
             int imageHeight = 64*3*8;
-            Color[] palette = blocks[0].getTiles()[0].getPalette();
-            //palette[0] = new Color(255, 255, 255, 0);
-            IndexColorModel icm = buildIndexColorModel(palette);
             currentImage = new BufferedImage(imageWidth, imageHeight , BufferedImage.TYPE_INT_ARGB);
             Graphics graphics = currentImage.getGraphics();     
             //Draw blocks
             for(int y=0;y<64;y++){
                 for(int x=0;x<64;x++){
                     MapBlock block = blocks[y*64+x];
-                    BufferedImage blockImage = getBlockImage(block, icm);
-                    graphics.drawImage(blockImage, x*3*8, y*3*8, null);
+                    block.updatePixels();
+                    graphics.drawImage(block.getIndexedColorImage(), x*3*8,  y*3*8, null);
                 }
             }
             
@@ -202,6 +201,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             if(shouldDraw(DRAW_MODE_TRIGGERS)) {
                 graphics.drawImage(getMapTriggersImage(imageWidth, imageHeight),0,0,null);
             }
+            
             if(!pngExport){
                 currentImage = resize(currentImage);
                 redraw = false;
@@ -247,7 +247,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     overlayRect = true;
                     Color[] palette = copiedBlocks[0][0].getTiles()[0].getPalette();
                     IndexColorModel icm = buildIndexColorModel(palette);
-                    preview = new BufferedImage(copiedBlocks[0].length*24, copiedBlocks.length*24, BufferedImage.TYPE_BYTE_INDEXED, icm);
+                    preview = new BufferedImage(copiedBlocks[0].length*24, copiedBlocks.length*24, BufferedImage.TYPE_INT_ARGB);
                     Graphics2D graphics = (Graphics2D)preview.getGraphics();
                     graphics.setColor(Color.WHITE);
                     for (int i = 0; i < copiedBlocks.length; i++) {
@@ -557,17 +557,17 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     private BufferedImage getBlockImage(MapBlock block, IndexColorModel icm) {
         BufferedImage blockImage = block.getImage();
         if(blockImage==null){
-            blockImage = new BufferedImage(3*8, 3*8 , BufferedImage.TYPE_BYTE_INDEXED, icm);
+            blockImage = new BufferedImage(3*8, 3*8 , BufferedImage.TYPE_INT_ARGB);
             Graphics blockGraphics = blockImage.getGraphics();                    
-            blockGraphics.drawImage(block.getTiles()[0].getImage(), 0*8, 0*8, null);
-            blockGraphics.drawImage(block.getTiles()[1].getImage(), 1*8, 0*8, null);
-            blockGraphics.drawImage(block.getTiles()[2].getImage(), 2*8, 0*8, null);
-            blockGraphics.drawImage(block.getTiles()[3].getImage(), 0*8, 1*8, null);
-            blockGraphics.drawImage(block.getTiles()[4].getImage(), 1*8, 1*8, null);
-            blockGraphics.drawImage(block.getTiles()[5].getImage(), 2*8, 1*8, null);
-            blockGraphics.drawImage(block.getTiles()[6].getImage(), 0*8, 2*8, null);
-            blockGraphics.drawImage(block.getTiles()[7].getImage(), 1*8, 2*8, null);
-            blockGraphics.drawImage(block.getTiles()[8].getImage(), 2*8, 2*8, null);
+            blockGraphics.drawImage(block.getTiles()[0].getIndexedColorImage(), 0*8, 0*8, null);
+            blockGraphics.drawImage(block.getTiles()[1].getIndexedColorImage(), 1*8, 0*8, null);
+            blockGraphics.drawImage(block.getTiles()[2].getIndexedColorImage(), 2*8, 0*8, null);
+            blockGraphics.drawImage(block.getTiles()[3].getIndexedColorImage(), 0*8, 1*8, null);
+            blockGraphics.drawImage(block.getTiles()[4].getIndexedColorImage(), 1*8, 1*8, null);
+            blockGraphics.drawImage(block.getTiles()[5].getIndexedColorImage(), 2*8, 1*8, null);
+            blockGraphics.drawImage(block.getTiles()[6].getIndexedColorImage(), 0*8, 2*8, null);
+            blockGraphics.drawImage(block.getTiles()[7].getIndexedColorImage(), 1*8, 2*8, null);
+            blockGraphics.drawImage(block.getTiles()[8].getIndexedColorImage(), 2*8, 2*8, null);
             block.setImage(blockImage);
             blockGraphics.dispose();
         }
