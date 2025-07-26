@@ -6,11 +6,11 @@
 package com.sfc.sf2.map;
 
 import com.sfc.sf2.map.block.MapBlock;
+import com.sfc.sf2.map.block.MapBlockManager;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
-import com.sfc.sf2.map.io.GifManager;
-import com.sfc.sf2.map.io.PngManager;
+import com.sfc.sf2.map.io.RawImageManager;
 import com.sfc.sf2.map.layout.DisassemblyException;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
@@ -21,7 +21,8 @@ import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
  * @author wiz
  */
 public class MapManager {
-       
+    
+    private MapBlockManager mapBlockManager = new MapBlockManager();
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
@@ -67,39 +68,35 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }      
     
-    public void exportPngMap(MapPanel mapPanel, String filepath){
+    public void exportPngMap(Map map, String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        PngManager.exportPngMap(mapPanel, filepath);
+        RawImageManager.exportMapAsRawImage(map.getLayout(), filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
-    }   
+    }
     
-    public void exportPngBlockset(MapBlockLayout mapblockLayout, String filepath){
+    public void exportPngBlockset(MapBlockLayout mapblockLayout, String filepath, String hpFilepath, int blocksPerRow) {
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        PngManager.exportPngBlockset(mapblockLayout, filepath);
+        mapBlockManager.setBlocks(map.getBlocks());
+        mapBlockManager.exportPng(filepath, hpFilepath, blocksPerRow);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }  
     
+    public void exportGifBlockset(MapBlockLayout mapblockLayout, String filepath, String hpFilepath, int blocksPerRow) {
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting GIF ...");
+        mapBlockManager.setBlocks(map.getBlocks());
+        mapBlockManager.exportGif(filepath, hpFilepath, blocksPerRow);
+        System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - GIF exported.");       
+    }
+    
     public void exportPngMapLayout(MapPanel mapPanel, String filepath, String flagsPath, String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        MapLayoutLayout mapLayout = new MapLayoutLayout();
-        mapLayout.setMapLayout(mapPanel.getMapLayout());
-        mapLayout.setBlockset(mapPanel.getBlockset());
-        mapLayout.setDrawGrid(false);
-        mapLayout.setDrawExplorationFlags(false);
-        mapLayout.setDrawInteractionFlags(false);
-        PngManager.exportPngMapLayout(mapPanel, filepath, flagsPath, hpTilesPath);
+        RawImageManager.exportImageMapLayout(mapPanel, filepath, flagsPath, hpTilesPath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
     
     public void exportGifMapLayout(MapPanel mapPanel, String filepath, String flagsPath, String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting GIF ...");
-        MapLayoutLayout mapLayout = new MapLayoutLayout();
-        mapLayout.setMapLayout(mapPanel.getMapLayout());
-        mapLayout.setBlockset(mapPanel.getBlockset());
-        mapLayout.setDrawGrid(false);
-        mapLayout.setDrawExplorationFlags(false);
-        mapLayout.setDrawInteractionFlags(false);
-        GifManager.exportGifMapLayout(mapPanel, filepath, flagsPath, hpTilesPath);
+        RawImageManager.exportImageMapLayout(mapPanel, filepath, flagsPath, hpTilesPath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_GIF);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - GIF exported.");       
     }
 

@@ -15,7 +15,6 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
-import com.sfc.sf2.palette.Palette;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,7 +25,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -144,20 +142,17 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     
     public BufferedImage buildImage(){
         if(redraw){
-            currentImage = buildMapImage(this.map,this.tilesPerRow, false);
+            currentImage = buildMapImage(this.map,this.tilesPerRow);
             setSize(currentImage.getWidth(), currentImage.getHeight());
         }
         return currentImage;
     }
     
-    public BufferedImage buildMapImage(Map map, int tilesPerRow, boolean pngExport){
+    public BufferedImage buildMapImage(Map map, int tilesPerRow){
         renderCounter++;
         System.out.println("Map render "+renderCounter);
         this.map = map;
         this.layout = map.getLayout();
-        if(pngExport){
-            redraw = true;
-        }
         if(redraw){
             MapBlock[] blocks = layout.getBlocks();
             int imageWidth = tilesPerRow*8;
@@ -201,10 +196,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                 graphics.drawImage(getMapTriggersImage(imageWidth, imageHeight),0,0,null);
             }
             
-            if(!pngExport){
-                currentImage = resize(currentImage);
-                redraw = false;
-            }
+            currentImage = resize(currentImage);
+            redraw = false;
             graphics.dispose();
         }
                   
