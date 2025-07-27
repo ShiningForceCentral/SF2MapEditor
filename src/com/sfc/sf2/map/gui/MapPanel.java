@@ -966,13 +966,13 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                         
                         BufferedImage img = new BufferedImage(3*8,3*8,BufferedImage.TYPE_INT_ARGB);
                         Graphics2D g2 = (Graphics2D) img.getGraphics();
+                        g2.setColor(Color.YELLOW);
+                        g2.drawRect(0, 0, img.getWidth()-1, img.getHeight()-1);
                         g2.setColor(Color.BLACK);
-                            g2.drawString("copy", -1, 15);
+                        g2.drawString("copy", -1, 15);
                         g2.dispose();
                         
-                        MapBlock b = new MapBlock();
-                        b.setImage(img);
-                        leftSlot.setBlock(b);
+                        leftSlot.setOverrideImage(img);
                         leftSlot.revalidate();
                         leftSlot.repaint(); 
                     }
@@ -1030,6 +1030,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
     }
     
     public void setBlockValue(int x, int y, int value){
+        if (value == -1) return;
         MapBlock[] blocks = layout.getBlocks();
         MapBlock block = blocks[y*64+x];
         if(block.getIndex()!=value){
@@ -1038,7 +1039,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
             action[1] = y*64+x;
             action[2] = block.getIndex();
             block.setIndex(value);
-            block.setImage(null);
+            block.clearIndexedColorImage();
             block.setTiles(blockset[block.getIndex()].getTiles());
             actions.add(action);
             redraw = true;
@@ -1096,7 +1097,6 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
                     {
                         MapBlock block = layout.getBlocks()[action[1]];
                         block.setIndex(action[2]);
-                        block.setImage(null);
                         block.setTiles(blockset[block.getIndex()].getTiles());
                         actions.remove(actions.size()-1);
                         redraw = true;
