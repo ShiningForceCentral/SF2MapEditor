@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MapAreaPropertiesTableModel extends AbstractTableModel {
     
-    private final Integer[][] tableData;
+    private final Object[][] tableData;
     private final String[] columns = {"L1 X", "L1 Y", "L1 X'", "L1 Y'", "L2 F X", "L2 F Y", "L2 B X", "L2 B Y", "L1 P X", "L1 P Y"
             , "L2 P X", "L2 P Y", "L1 S X", "L1 S Y", "L2 S X", "L2 S Y", "L1 Type", "Music"};
     private Map map;
@@ -27,12 +27,11 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
         super();
         this.map = map;
         this.mapPanel = mapPanel;
-        tableData = new Integer[16][];
+        tableData = new Object[16][columns.length];
         int i = 0;
         MapArea[] areas = map.getAreas();
         if(areas!=null){
             while(i<areas.length){
-                tableData[i] = new Integer[18];
                 tableData[i][0] = areas[i].getLayer1StartX();
                 tableData[i][1] = areas[i].getLayer1StartY();
                 tableData[i][2] = areas[i].getLayer1EndX();
@@ -55,14 +54,14 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
             }
         }
         while(i<tableData.length){
-            tableData[i] = new Integer[18];
+            tableData[i] = new Object[columns.length];
             i++;
         }
     }
     
     public void updateProperties() {
         List<MapArea> entries = new ArrayList<>();
-        for(Integer[] entry : tableData){
+        for(Object[] entry : tableData){
             if(entry[0] != null && entry[1] != null
                     && entry[2] != null && entry[3] != null
                     && entry[4] != null && entry[5] != null
@@ -72,26 +71,26 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
                     && entry[12] != null && entry[13] != null
                     && entry[14] != null && entry[15] != null
                     && entry[16] != null && entry[17] != null
-                    && entry[2]>entry[0] && entry[3]>entry[1]){
+                    && (int)entry[2]>(int)entry[0] && (int)entry[3]>(int)entry[1]){
                 MapArea area = new MapArea();
-                area.setLayer1StartX(entry[0]);
-                area.setLayer1StartY(entry[1]);
-                area.setLayer1EndX(entry[2]);
-                area.setLayer1EndY(entry[3]);
-                area.setForegroundLayer2StartX(entry[4]);
-                area.setForegroundLayer2StartY(entry[5]);
-                area.setBackgroundLayer2StartX(entry[6]);
-                area.setBackgroundLayer2StartY(entry[7]);
-                area.setLayer1ParallaxX(entry[8]);
-                area.setLayer1ParallaxY(entry[9]);
-                area.setLayer2ParallaxX(entry[10]);
-                area.setLayer2ParallaxY(entry[11]);
-                area.setLayer1AutoscrollX(entry[12]);
-                area.setLayer1AutoscrollY(entry[13]);
-                area.setLayer2AutoscrollX(entry[14]);
-                area.setLayer2AutoscrollY(entry[15]);
-                area.setLayerType(entry[16]);
-                area.setDefaultMusic(entry[17]);             
+                area.setLayer1StartX((int)entry[0]);
+                area.setLayer1StartY((int)entry[1]);
+                area.setLayer1EndX((int)entry[2]);
+                area.setLayer1EndY((int)entry[3]);
+                area.setForegroundLayer2StartX((int)entry[4]);
+                area.setForegroundLayer2StartY((int)entry[5]);
+                area.setBackgroundLayer2StartX((int)entry[6]);
+                area.setBackgroundLayer2StartY((int)entry[7]);
+                area.setLayer1ParallaxX((int)entry[8]);
+                area.setLayer1ParallaxY((int)entry[9]);
+                area.setLayer2ParallaxX((int)entry[10]);
+                area.setLayer2ParallaxY((int)entry[11]);
+                area.setLayer1AutoscrollX((int)entry[12]);
+                area.setLayer1AutoscrollY((int)entry[13]);
+                area.setLayer2AutoscrollX((int)entry[14]);
+                area.setLayer2AutoscrollY((int)entry[15]);
+                area.setLayerType((int)entry[16]);
+                area.setDefaultMusic((String)entry[17]);
                 entries.add(area);
             }
         }
@@ -101,7 +100,11 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
     
     @Override
     public Class getColumnClass(int column) {
-        return Integer.class;
+        if (column == 17) {
+            return String.class;
+        } else {
+            return Integer.class;
+        }
     }    
     
     @Override
@@ -110,12 +113,12 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
     }
     @Override
     public void setValueAt(Object value, int row, int col) {
-        tableData[row][col] = (Integer)value;
+        tableData[row][col] = value;
         updateProperties();
         mapPanel.updateAreaDisplay();
         mapPanel.revalidate();
         mapPanel.repaint();
-    }    
+    }
  
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -144,5 +147,4 @@ public class MapAreaPropertiesTableModel extends AbstractTableModel {
     public void setMapPanel(MapPanel mapPanel) {
         this.mapPanel = mapPanel;
     }
-    
 }

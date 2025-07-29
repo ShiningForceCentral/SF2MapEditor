@@ -757,7 +757,7 @@
                                                     <Column editable="true" title="L2 S X" type="java.lang.Integer"/>
                                                     <Column editable="true" title="L2 S Y" type="java.lang.Integer"/>
                                                     <Column editable="true" title="L2 Type" type="java.lang.Integer"/>
-                                                    <Column editable="true" title="Music" type="java.lang.Integer"/>
+                                                    <Column editable="true" title="Music" type="java.lang.String"/>
                                                   </Table>
                                                 </Property>
                                                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -2405,9 +2405,9 @@
                                             <DimensionLayout dim="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" attributes="0">
+                                                      <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" alignment="0" attributes="0">
-                                                              <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jTextField42" pref="164" max="32767" attributes="0"/>
@@ -2415,13 +2415,11 @@
                                                               <Component id="jButton49" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <Group type="102" alignment="0" attributes="0">
-                                                              <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="32767" attributes="0"/>
                                                               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <Group type="102" alignment="1" attributes="0">
-                                                              <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jTextField50" pref="145" max="32767" attributes="0"/>
@@ -2827,9 +2825,6 @@
                                               </Border>
                                             </Property>
                                           </Properties>
-                                          <AccessibilityProperties>
-                                            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="GIF Blockset Export"/>
-                                          </AccessibilityProperties>
 
                                           <Layout>
                                             <DimensionLayout dim="0">

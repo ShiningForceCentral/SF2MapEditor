@@ -54,48 +54,50 @@ public class DisassemblyManager {
                 areasHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("mainLayerStart")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("mainLayerStart")){
                         inHeader = false;
-                        String[] params = line.trim().substring("mainLayerStart".length()).trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "mainLayerStart");
                         entry = new MapArea();
                         areaList.add(entry);
-                        entry.setLayer1StartX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer1StartY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("mainLayerEnd")){
-                        String[] params = line.trim().substring("mainLayerEnd".length()).trim().split(",");
-                        entry.setLayer1EndX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer1EndY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("scndLayerFgndStart")){
-                        String[] params = line.trim().substring("scndLayerFgndStart".length()).trim().split(",");
-                        entry.setForegroundLayer2StartX(Integer.valueOf(params[0].trim()));
-                        entry.setForegroundLayer2StartY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("scndLayerBgndStart")){
-                        String[] params = line.trim().substring("scndLayerBgndStart".length()).trim().split(",");
-                        entry.setBackgroundLayer2StartX(Integer.valueOf(params[0].trim()));
-                        entry.setBackgroundLayer2StartY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("mainLayerParallax")){
-                        String[] params = line.trim().substring("mainLayerParallax".length()).trim().split(",");
-                        entry.setLayer1ParallaxX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer1ParallaxY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("scndLayerParallax")){
-                        String[] params = line.trim().substring("scndLayerParallax".length()).trim().split(",");
-                        entry.setLayer2ParallaxX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer2ParallaxY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("mainLayerAutoscroll")){
-                        String[] params = line.trim().substring("mainLayerAutoscroll".length()).trim().split(",");
-                        entry.setLayer1AutoscrollX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer1AutoscrollY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("scndLayerAutoscroll")){
-                        String[] params = line.trim().substring("scndLayerAutoscroll".length()).trim().split(",");
-                        entry.setLayer2AutoscrollX(Integer.valueOf(params[0].trim()));
-                        entry.setLayer2AutoscrollY(Integer.valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("mainLayerType")){
-                        String[] params = line.trim().substring("mainLayerType".length()).trim().split(",");
-                        entry.setLayerType(Integer.valueOf(params[0].trim()));
-                    }else if(line.trim().startsWith("areaDefaultMusic")){
-                        String[] params = line.trim().substring("areaDefaultMusic".length()).trim().split(",");
-                        entry.setDefaultMusic(Integer.valueOf(params[0].trim()));
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setLayer1StartX(valueOf(params[0]));
+                        entry.setLayer1StartY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("mainLayerEnd")){
+                        String[] params = parseAsmFileLine(trimmed, "mainLayerEnd");
+                        entry.setLayer1EndX(valueOf(params[0]));
+                        entry.setLayer1EndY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("scndLayerFgndStart")){
+                        String[] params = parseAsmFileLine(trimmed, "scndLayerFgndStart");
+                        entry.setForegroundLayer2StartX(valueOf(params[0]));
+                        entry.setForegroundLayer2StartY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("scndLayerBgndStart")){
+                        String[] params = parseAsmFileLine(trimmed, "scndLayerBgndStart");
+                        entry.setBackgroundLayer2StartX(valueOf(params[0]));
+                        entry.setBackgroundLayer2StartY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("mainLayerParallax")){
+                        String[] params = parseAsmFileLine(trimmed, "mainLayerParallax");
+                        entry.setLayer1ParallaxX(valueOf(params[0]));
+                        entry.setLayer1ParallaxY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("scndLayerParallax")){
+                        String[] params = parseAsmFileLine(trimmed, "scndLayerParallax");
+                        entry.setLayer2ParallaxX(valueOf(params[0]));
+                        entry.setLayer2ParallaxY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("mainLayerAutoscroll")){
+                        String[] params = parseAsmFileLine(trimmed, "mainLayerAutoscroll");
+                        entry.setLayer1AutoscrollX(valueOf(params[0]));
+                        entry.setLayer1AutoscrollY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("scndLayerAutoscroll")){
+                        String[] params = parseAsmFileLine(trimmed, "scndLayerAutoscroll");
+                        entry.setLayer2AutoscrollX(valueOf(params[0]));
+                        entry.setLayer2AutoscrollY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("mainLayerType")){
+                        String[] params = parseAsmFileLine(trimmed, "mainLayerType");
+                        entry.setLayerType(valueOf(params[0]));
+                    }else if(trimmed.startsWith("areaDefaultMusic")){
+                        String[] params = parseAsmFileLine(trimmed, "areaDefaultMusic");
+                        String musicNumber = params[0].replace("[^0-9]", "");
+                            entry.setDefaultMusic(params[0]);    //Music might be stored as an index or a named string
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -150,7 +152,7 @@ public class DisassemblyManager {
                     //System.out.println(area.getLayer2AutoscrollY());
                     area.setLayerType(data[cursor+28]);
                     //System.out.println(area.getLayerType());
-                    area.setDefaultMusic(data[cursor+29]);
+                    area.setDefaultMusic(Byte.toString(data[cursor+29]));
                     //System.out.println(area.getDefaultMusic());
 
                     areaList.add(area);
@@ -247,7 +249,7 @@ public class DisassemblyManager {
             areaBytes[i*30+26] = (byte)area.getLayer2AutoscrollX();
             areaBytes[i*30+27] = (byte)area.getLayer2AutoscrollY();
             areaBytes[i*30+28] = (byte)area.getLayerType();
-            areaBytes[i*30+29] = (byte)area.getDefaultMusic();
+            areaBytes[i*30+29] = Byte.parseByte(area.getDefaultMusic().replace("[^0-9]", ""));
         }
         areaBytes[areaBytes.length-2] = -1;
         areaBytes[areaBytes.length-1] = -1;
@@ -268,31 +270,32 @@ public class DisassemblyManager {
                 flagCopiesHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("fbcFlag")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("fbcFlag")){
                         String comment = "";
-                        if(line.contains(";")){
-                            comment = line.substring(line.indexOf(";")+1);
-                            line = line.substring(0,line.indexOf(";"));
+                        if(trimmed.contains(";")){
+                            comment = trimmed.substring(trimmed.indexOf(";")+1);
+                            trimmed = trimmed.substring(0,trimmed.indexOf(";"));
                         }
                         inHeader = false;
-                        String[] params = line.trim().substring("fbcFlag".length()).trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "fbcFlag");
                         entry = new MapFlagCopy();
                         flagCopyList.add(entry);
                         entry.setComment(comment);
-                        entry.setFlag(valueOf(params[0].trim()));
-                    }else if(line.trim().startsWith("fbcSource")){
-                        String[] params = line.trim().substring("fbcSource".length()).trim().split(",");
-                        entry.setSourceX(valueOf(params[0].trim()));
-                        entry.setSourceY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("fbcSize")){
-                        String[] params = line.trim().substring("fbcSize".length()).trim().split(",");
-                        entry.setWidth(valueOf(params[0].trim()));
-                        entry.setHeight(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("fbcDest")){
-                        String[] params = line.trim().substring("fbcDest".length()).trim().split(",");
-                        entry.setDestX(valueOf(params[0].trim()));
-                        entry.setDestY(valueOf(params[1].trim()));
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setFlag(valueOf(params[0]));
+                    }else if(trimmed.startsWith("fbcSource")){
+                        String[] params = parseAsmFileLine(trimmed, "fbcSource");
+                        entry.setSourceX(valueOf(params[0]));
+                        entry.setSourceY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("fbcSize")){
+                        String[] params = parseAsmFileLine(trimmed, "fbcSize");
+                        entry.setWidth(valueOf(params[0]));
+                        entry.setHeight(valueOf(params[1]));
+                    }else if(trimmed.startsWith("fbcDest")){
+                        String[] params = parseAsmFileLine(trimmed, "fbcDest");
+                        entry.setDestX(valueOf(params[0]));
+                        entry.setDestY(valueOf(params[1]));
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -407,26 +410,27 @@ public class DisassemblyManager {
                 stepCopiesHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("sbc ")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("sbc ")){
                         inHeader = false;
-                        String[] params = line.trim().substring("sbc ".length()).trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "sbc");
                         entry = new MapStepCopy();
                         stepCopyList.add(entry);
-                        entry.setTriggerX(valueOf(params[0].trim()));
-                        entry.setTriggerY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("sbcSource")){
-                        String[] params = line.trim().substring("sbcSource".length()).trim().split(",");
-                        entry.setSourceX(valueOf(params[0].trim()));
-                        entry.setSourceY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("sbcSize")){
-                        String[] params = line.trim().substring("sbcSize".length()).trim().split(",");
-                        entry.setWidth(valueOf(params[0].trim()));
-                        entry.setHeight(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("sbcDest")){
-                        String[] params = line.trim().substring("sbcDest".length()).trim().split(",");
-                        entry.setDestX(valueOf(params[0].trim()));
-                        entry.setDestY(valueOf(params[1].trim()));
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setTriggerX(valueOf(params[0]));
+                        entry.setTriggerY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("sbcSource")){
+                        String[] params = parseAsmFileLine(trimmed, "sbcSource");
+                        entry.setSourceX(valueOf(params[0]));
+                        entry.setSourceY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("sbcSize")){
+                        String[] params = parseAsmFileLine(trimmed, "sbcSize");
+                        entry.setWidth(valueOf(params[0]));
+                        entry.setHeight(valueOf(params[1]));
+                    }else if(trimmed.startsWith("sbcDest")){
+                        String[] params = parseAsmFileLine(trimmed, "sbcDest");
+                        entry.setDestX(valueOf(params[0]));
+                        entry.setDestY(valueOf(params[1]));
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -538,26 +542,27 @@ public class DisassemblyManager {
                 layer2CopiesHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("slbc ")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("slbc ")){
                         inHeader = false;
-                        String[] params = line.trim().substring("slbc ".length()).trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "slbc");
                         entry = new MapLayer2Copy();
                         layer2CopyList.add(entry);
-                        entry.setTriggerX(valueOf(params[0].trim()));
-                        entry.setTriggerY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("slbcSource")){
-                        String[] params = line.trim().substring("slbcSource".length()).trim().split(",");
-                        entry.setSourceX(valueOf(params[0].trim()));
-                        entry.setSourceY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("slbcSize")){
-                        String[] params = line.trim().substring("slbcSize".length()).trim().split(",");
-                        entry.setWidth(valueOf(params[0].trim()));
-                        entry.setHeight(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("slbcDest")){
-                        String[] params = line.trim().substring("slbcDest".length()).trim().split(",");
-                        entry.setDestX(valueOf(params[0].trim()));
-                        entry.setDestY(valueOf(params[1].trim()));
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setTriggerX(valueOf(params[0]));
+                        entry.setTriggerY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("slbcSource")){
+                        String[] params = parseAsmFileLine(trimmed, "slbcSource");
+                        entry.setSourceX(valueOf(params[0]));
+                        entry.setSourceY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("slbcSize")){
+                        String[] params = parseAsmFileLine(trimmed, "slbcSize");
+                        entry.setWidth(valueOf(params[0]));
+                        entry.setHeight(valueOf(params[1]));
+                    }else if(trimmed.startsWith("slbcDest")){
+                        String[] params = parseAsmFileLine(trimmed, "slbcDest");
+                        entry.setDestX(valueOf(params[0]));
+                        entry.setDestY(valueOf(params[1]));
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -669,29 +674,30 @@ public class DisassemblyManager {
                 warpsHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("mWarp")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("mWarp")){
                         inHeader = false;
-                        String[] params = line.trim().substring("mWarp".length()).trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "mWarp");
                         entry = new MapWarp();
                         warpList.add(entry);
-                        entry.setTriggerX(valueOf(params[0].trim()));
-                        entry.setTriggerY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("warpNoScroll")){
+                        entry.setTriggerX(valueOf(params[0]));
+                        entry.setTriggerY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("warpNoScroll")){
                         entry.setScrollDirection(null);
-                    }else if(line.trim().startsWith("warpScroll")){
-                        String[] params = line.trim().substring("warpScroll".length()).trim().split(",");
-                        entry.setScrollDirection(params[0].trim());
-                    }else if(line.trim().startsWith("warpMap")){
-                        String[] params = line.trim().substring("warpMap".length()).trim().split(",");
-                        entry.setDestMap(params[0].trim());
-                    }else if(line.trim().startsWith("warpDest")){
-                        String[] params = line.trim().substring("warpDest".length()).trim().split(",");
-                        entry.setDestX(valueOf(params[0].trim()));
-                        entry.setDestY(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("warpFacing")){
-                        String[] params = line.trim().substring("warpFacing".length()).trim().split(",");
-                        entry.setFacing(params[0].trim());
-                    }else if (line.trim().startsWith("endWord")){
+                    }else if(trimmed.startsWith("warpScroll")){
+                        String[] params = parseAsmFileLine(trimmed, "warpScroll");
+                        entry.setScrollDirection(params[0]);
+                    }else if(trimmed.startsWith("warpMap")){
+                        String[] params = parseAsmFileLine(trimmed, "warpMap");
+                        entry.setDestMap(params[0]);
+                    }else if(trimmed.startsWith("warpDest")){
+                        String[] params = parseAsmFileLine(trimmed, "warpDest");
+                        entry.setDestX(valueOf(params[0]));
+                        entry.setDestY(valueOf(params[1]));
+                    }else if(trimmed.startsWith("warpFacing")){
+                        String[] params = parseAsmFileLine(trimmed, "warpFacing");
+                        entry.setFacing(params[0]);
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -805,17 +811,17 @@ public class DisassemblyManager {
                 chestItemsHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("mapItem")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("mapItem")){
                         inHeader = false;
-                        String[] parts = line.trim().substring("mapItem".length()).trim().split(";");
-                        String[] params = parts[0].trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "mapItem");
                         entry = new MapItem();
                         itemList.add(entry);
-                        entry.setX(valueOf(params[0].trim()));
-                        entry.setY(valueOf(params[1].trim()));
-                        entry.setFlag(valueOf(params[2].trim()));
-                        entry.setItem(params[3].trim());
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setX(valueOf(params[0]));
+                        entry.setY(valueOf(params[1]));
+                        entry.setFlag(valueOf(params[2]));
+                        entry.setItem(params[3]);
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -917,17 +923,17 @@ public class DisassemblyManager {
                 otherItemsHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("mapItem")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("mapItem")){
                         inHeader = false;
-                        String[] parts = line.trim().substring("mapItem".length()).trim().split(";");
-                        String[] params = parts[0].trim().split(",");
+                        String[] params = parseAsmFileLine(trimmed, "mapItem");
                         entry = new MapItem();
                         itemList.add(entry);
-                        entry.setX(valueOf(params[0].trim()));
-                        entry.setY(valueOf(params[1].trim()));
-                        entry.setFlag(valueOf(params[2].trim()));
-                        entry.setItem(params[3].trim());
-                    }else if (line.trim().startsWith("endWord")){
+                        entry.setX(valueOf(params[0]));
+                        entry.setY(valueOf(params[1]));
+                        entry.setFlag(valueOf(params[2]));
+                        entry.setItem(params[3]);
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -1030,20 +1036,21 @@ public class DisassemblyManager {
                 animationsHeader = "";
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("mapAnimation")){
+                    String trimmed = line.trim();
+                    if(trimmed.startsWith("mapAnimation")){
                         inHeader = false;
-                        String[] params = line.trim().substring("mapAnimation".length()).trim().split(",");
-                        anim.setTileset(valueOf(params[0].trim()));
-                        anim.setLength(valueOf(params[1].trim()));
-                    }else if(line.trim().startsWith("mapAnimEntry")){
+                        String[] params = parseAsmFileLine(trimmed, "mapAnimation");
+                        anim.setTileset(valueOf(params[0]));
+                        anim.setLength(valueOf(params[1]));
+                    }else if(trimmed.startsWith("mapAnimEntry")){
                         entry = new MapAnimationFrame();
                         frameList.add(entry);
-                        String[] params = line.trim().substring("mapAnimEntry".length()).trim().split(",");
-                        entry.setStart(valueOf(params[0].trim()));
-                        entry.setLength(valueOf(params[1].trim()));
-                        entry.setDest(valueOf(params[2].trim()));
-                        entry.setDelay(valueOf(params[3].trim()));
-                    }else if (line.trim().startsWith("endWord")){
+                        String[] params = parseAsmFileLine(trimmed, "mapAnimEntry");
+                        entry.setStart(valueOf(params[0]));
+                        entry.setLength(valueOf(params[1]));
+                        entry.setDest(valueOf(params[2]));
+                        entry.setDelay(valueOf(params[3]));
+                    }else if (trimmed.startsWith("endWord")){
                         inHeader = false;
                         break;
                     }else{
@@ -1119,7 +1126,7 @@ public class DisassemblyManager {
         asm.append("                "+"mapAnimation"+" "+animation.getTileset()+", "+animation.getLength()+"\n");
         for(int i=0;i<animation.getFrames().length;i++){
             MapAnimationFrame frame = animation.getFrames()[i];
-            asm.append("                "+"  mapAnimEntry"+" "+frame.getStart()+", "+frame.getLength()+", $"+Integer.toHexString(frame.getDest()).toUpperCase()+", "+frame.getDelay()+"\n");
+            asm.append("                "+"  mapAnimEntry"+" "+frame.getStart()+", "+frame.getLength()+", $"+frame.getDest()+", "+frame.getDelay()+"\n");
         }
         asm.append("                "+"endWord"+"\n");
         return asm.toString();
@@ -1145,7 +1152,18 @@ public class DisassemblyManager {
         animBytes[animBytes.length-2] = -1;
         animBytes[animBytes.length-1] = -1;
         return animBytes;
-    }   
+    }
+    
+    private static String[] parseAsmFileLine(String line, String startingText) {
+        line = line.replace(" ", "");
+        int commentIndex = line.indexOf(";");
+        if (commentIndex == -1) {
+            line = line.substring(startingText.length());
+        } else {
+            line = line.substring(startingText.length(), commentIndex);
+        }
+        return line.split(",");
+    }
     
     private static int valueOf(String s){
         s = s.trim();

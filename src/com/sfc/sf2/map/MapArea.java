@@ -28,7 +28,7 @@ public class MapArea {
     private int layer2AutoscrollX;
     private int layer2AutoscrollY;
     private int layerType;
-    private int defaultMusic;
+    private String defaultMusic;
 
     public int getLayer1StartX() {
         return layer1StartX;
@@ -166,11 +166,11 @@ public class MapArea {
         this.layerType = layerType;
     }
 
-    public int getDefaultMusic() {
+    public String getDefaultMusic() {
         return defaultMusic;
     }
 
-    public void setDefaultMusic(int defaultMusic) {
+    public void setDefaultMusic(String defaultMusic) {
         this.defaultMusic = defaultMusic;
     }
  
